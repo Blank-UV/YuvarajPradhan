@@ -1,0 +1,349 @@
+.site.theme-light {
+  --accent: #60771b;
+  --accent-rgb: 96, 119, 27;
+  --art-accent: #d9ec57;
+  color: #242a24;
+  background: #f5f6ef;
+}
+.site.theme-light.theme-ice {
+  --accent: #176f81;
+  --accent-rgb: 23, 111, 129;
+  --art-accent: #91e9e9;
+}
+.site.theme-light.theme-ember {
+  --accent: #aa513c;
+  --accent-rgb: 170, 81, 60;
+  --art-accent: #ff9b73;
+}
+.site.theme-light .sidebar,
+.site.theme-light .sidebar:hover,
+.site.theme-light .sidebar:focus-within,
+.site.theme-light .sidebar.sidebar-open {
+  background: #f5f6ee;
+  border-color: #bfc9b9;
+  box-shadow: 14px 0 35px #48533b1c;
+}
+.site.theme-light .brand,
+.site.theme-light .sidebar-bottom-link,
+.site.theme-light .theme-toggle {
+  border-color: #bfc9b9;
+}
+.site.theme-light .nav-link {
+  color: #536052;
+}
+.site.theme-light .nav-link:hover {
+  color: #202a1d;
+  background: #e4e9dc;
+}
+.site.theme-light .nav-link.nav-active {
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.12);
+}
+.site.theme-light .mobile-menu-button {
+  background: #f5f6ee;
+  border-color: #7d8b7b;
+}
+.site.theme-light .mobile-menu-button span {
+  background: #263229;
+}
+.site.theme-light .hero {
+  background: #e8ede3;
+}
+.site.theme-light .hero:before {
+  background: linear-gradient(115deg, #f1f3eb 0%, #e8ede3 60%, #e0ead8 100%);
+}
+.site.theme-light .hero-grid {
+  opacity: 0.65;
+}
+.site.theme-light .hero-topline,
+.site.theme-light .hero-bottom {
+  border-color: #aab9a8;
+}
+.site.theme-light .hero-topline,
+.site.theme-light .art-coordinate,
+.site.theme-light .art-label small,
+.site.theme-light .scroll-cue {
+  color: #4a5948;
+}
+.site.theme-light .hero-copy-bottom p {
+  color: #465146;
+}
+.site.theme-light .primary-button {
+  color: #fff;
+}
+.site.theme-light .art-label-muted {
+  color: #283628;
+}
+.site.theme-light .shape-symbol,
+.site.theme-light .shape-plus,
+.site.theme-light .shape-slash {
+  color: var(--art-accent);
+}
+.site.theme-light .progress-track {
+  background: #9baa95;
+}
+.site.theme-light .palette-label {
+  color: #526250;
+}
+.site.theme-light .slide-arrows button {
+  border-color: #72816e;
+  color: #283627;
+}
+.site.theme-light .slide-arrows button:hover {
+  color: #fff;
+}
+.site.theme-light .section-heading,
+.site.theme-light .about-strip {
+  border-color: #b7c1b2;
+}
+.site.theme-light .section-heading-body > p,
+.site.theme-light .about-details p,
+.site.theme-light .about-strip,
+.site.theme-light .work-note,
+.site.theme-light .experience-item p,
+.site.theme-light .experience-footnote {
+  color: #4e5a4d;
+}
+.site.theme-light .about {
+  background: #f1f3ec;
+}
+.site.theme-light .work {
+  background: #e8ede5;
+}
+.site.theme-light .focus-card,
+.site.theme-light .card-enterprise,
+.site.theme-light .card-creative {
+  background: radial-gradient(circle at 50% 30%, #f9fbf5, #eef2e9 74%);
+  border-color: #bac7b8;
+}
+.site.theme-light .focus-card:hover {
+  border-color: var(--accent);
+}
+.site.theme-light .focus-top,
+.site.theme-light .focus-info p,
+.site.theme-light .tag-row span {
+  color: #495748;
+}
+.site.theme-light .tag-row span {
+  border-color: #aebdae;
+}
+.site.theme-light .experience {
+  background: #f3f5ef;
+}
+.site.theme-light .experience-list,
+.site.theme-light .experience-item {
+  border-color: #bbc8b7;
+}
+.site.theme-light .exp-orbit {
+  border-color: #82977a;
+}
+.site.theme-light .contact {
+  background: #e2eea2;
+  color: #1c2718;
+}
+.site.theme-light.theme-ice .contact {
+  background: #c9e8ed;
+}
+.site.theme-light.theme-ember .contact {
+  background: #f5d6c9;
+}
+.site.theme-light .contact-button {
+  color: #f6f8ef;
+  background: #26321f;
+}
+.site.theme-light .footer {
+  border-color: #33452f85;
+}
+
+.gaming-site.theme-light {
+  --accent: #6149aa;
+  --accent-rgb: 97, 73, 170;
+  background: #f2f0f8;
+}
+.gaming-site.theme-light main {
+  background: #f2f0f8;
+}
+.gaming-site.theme-light .sidebar,
+.gaming-site.theme-light .sidebar:hover,
+.gaming-site.theme-light .sidebar:focus-within,
+.gaming-site.theme-light .sidebar.sidebar-open {
+  background: #f4f1fa;
+  border-color: #c6c0d5;
+}
+.gaming-site.theme-light .brand,
+.gaming-site.theme-light .sidebar-bottom-link,
+.gaming-site.theme-light .theme-toggle {
+  border-color: #c6c0d5;
+}
+.gaming-site.theme-light .sidebar-bottom-link {
+  color: var(--accent);
+}
+.gaming-site.theme-light .nav-link {
+  color: #59566c;
+}
+.gaming-site.theme-light .nav-link:hover {
+  color: #241e36;
+  background: #e9e3f3;
+}
+.gaming-site.theme-light .gaming-hero {
+  background: radial-gradient(ellipse at 70% 37%, #dcd7ed, #f2f0f8 70%);
+}
+.gaming-site.theme-light .gaming-atmosphere:after {
+  background: linear-gradient(90deg, #f2f0f8 5%, transparent 58%);
+}
+.gaming-site.theme-light .gaming-atmosphere-mark {
+  color: #5a449311;
+}
+.gaming-site.theme-light .gaming-topline,
+.gaming-site.theme-light .gaming-hero-foot {
+  border-color: #aaa4bd;
+  color: #4c4760;
+}
+.gaming-site.theme-light .gaming-hero-copy p,
+.gaming-site.theme-light .wuthering-copy p,
+.gaming-site.theme-light .follow-intro p,
+.gaming-site.theme-light .upcoming-heading p,
+.gaming-site.theme-light .gaming-channel-content p {
+  color: #4e5062;
+}
+.gaming-site.theme-light .gaming-hero-copy p strong {
+  color: #14131f;
+}
+.gaming-site.theme-light .gaming-primary {
+  color: #fff;
+}
+.gaming-site.theme-light .gaming-subtle-link {
+  color: #4c3a83;
+  border-color: #7765a4;
+}
+.gaming-site.theme-light .gaming-featured {
+  background: #fff;
+  border-color: #b4acc7;
+  box-shadow: 24px 24px 0 #6149aa12;
+}
+.gaming-site.theme-light .gaming-featured-top {
+  color: #4d426a;
+}
+.gaming-site.theme-light .gaming-play {
+  color: #fff;
+}
+.gaming-site.theme-light .gaming-featured-warning {
+  background: #f9e3eb;
+  color: #81354e;
+}
+.gaming-site.theme-light .gaming-featured-switcher button {
+  border-color: #8d81aa;
+  color: #49386f;
+}
+.gaming-site.theme-light .gaming-featured-switcher button[aria-pressed='true'] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: #e8e2f6;
+}
+.gaming-site.theme-light .gaming-featured-switcher button:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.gaming-site.theme-light .gaming-featured-empty {
+  color: #524d63;
+}
+.gaming-site.theme-light .gaming-wuthering {
+  background: #eaf0f3;
+}
+.gaming-site.theme-light .gaming-section-top,
+.gaming-site.theme-light .gaming-video-list-head {
+  border-color: #b9c3cb;
+}
+.gaming-site.theme-light .gaming-section-top > span:last-child,
+.gaming-site.theme-light .gaming-video-list-head {
+  color: #4c5c66;
+}
+.gaming-site.theme-light .gaming-video-list-head span:first-child,
+.gaming-site.theme-light .wuthering-copy h2 em {
+  color: #237b91;
+}
+.gaming-site.theme-light .gaming-outline-button {
+  border-color: #24788d;
+  color: #205e70;
+}
+.gaming-site.theme-light .gaming-outline-button:hover {
+  background: #24788d;
+  color: #fff;
+}
+.gaming-site.theme-light .wuthering-art-caption {
+  color: #345b69;
+}
+.gaming-site.theme-light .gaming-video-card,
+.gaming-site.theme-light .gaming-videos-empty {
+  background: #fff;
+  border-color: #b4c1c9;
+}
+.gaming-site.theme-light .gaming-video-meta,
+.gaming-site.theme-light .gaming-videos-empty {
+  color: #355a6a;
+}
+.gaming-site.theme-light .gaming-video-controls button {
+  color: #255b6d;
+  border-color: #7b9ba8;
+}
+.gaming-site.theme-light .gaming-video-controls button:hover {
+  background: #237b91;
+  color: #fff;
+}
+.gaming-site.theme-light .gaming-follow {
+  background: radial-gradient(ellipse at 50% 60%, #e5dcf2, #f2f0f8 78%);
+}
+.gaming-site.theme-light .follow-card {
+  background: #fff;
+  color: #242334;
+  box-shadow: 0 12px 30px #4c3b6612;
+}
+.gaming-site.theme-light .follow-card:hover,
+.gaming-site.theme-light .follow-card:focus-visible {
+  box-shadow:
+    0 22px 40px #4c3b6626,
+    0 0 30px rgba(var(--follow-rgb), 0.18);
+}
+.gaming-site.theme-light .follow-card-icon img {
+  filter: none;
+}
+.gaming-site.theme-light .follow-card-top,
+.gaming-site.theme-light .follow-card-bottom > span,
+.gaming-site.theme-light .follow-foot {
+  color: #504b64;
+}
+.gaming-site.theme-light .follow-foot {
+  border-color: #b6adc8;
+}
+.gaming-site.theme-light .follow-instagram {
+  --follow-color: #b82e52;
+  --follow-rgb: 184, 46, 82;
+}
+.gaming-site.theme-light .follow-discord {
+  --follow-color: #3c4bb4;
+  --follow-rgb: 60, 75, 180;
+}
+.gaming-site.theme-light .follow-x {
+  --follow-color: #454759;
+  --follow-rgb: 69, 71, 89;
+}
+.gaming-site.theme-light .follow-youtube {
+  --follow-color: #ba183a;
+  --follow-rgb: 186, 24, 58;
+}
+.gaming-site.theme-light .gaming-upcoming {
+  background: #ece9f3;
+}
+.gaming-site.theme-light .upcoming-card {
+  color: #fff;
+}
+.gaming-site.theme-light .upcoming-note {
+  color: #54536b;
+}
+.gaming-site.theme-light .gaming-channel {
+  background: radial-gradient(circle at 87% 45%, #dbd3ef, #eeebf7 65%);
+}
+.gaming-site.theme-light .gaming-footer {
+  border-color: #aaa1bf;
+  color: #49445e;
+}
