@@ -1,6 +1,7 @@
 import { resolve } from 'node:path'
 import { defineConfig, loadEnv } from 'vite'
 import { createVideosHandler } from './api/videos.js'
+import { hoverOnlyPlugin } from './server/hover-only.js'
 import { siteProperties } from './src/site-properties.js'
 
 function escapeHtml(value) {
@@ -26,6 +27,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: '/',
     plugins: [
+      hoverOnlyPlugin(),
       {
         name: 'page-routes',
         configureServer(server) {

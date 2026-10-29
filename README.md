@@ -49,4 +49,6 @@ The gaming page opens with a loading screen (`src/Loader.jsx`, styles at the end
 
 The closing "THE NEXT ADVENTURE IS ONE CLICK AWAY" section has an interactive hologram Earth (`src/HoloGlobe.jsx`, drawn on a canvas; land dots come from `world-atlas` via `topojson-client`). Drag to spin it; hovering slows it. Clicking or tapping it runs the launch in `src/launchEffect.js`: each glowing point flies along its own curve to a pad point, a rocket lifts off with fire, sparks, and a smoke trail, the page scrolls up behind it with speed streaks, and YouTube opens in a new tab. Users who prefer reduced motion skip the animation and go straight to YouTube. Some browsers (notably Safari) may block the new tab, in which case the page navigates in the same tab. The effect has only been checked with headless screenshots, not watched in real time.
 
+On touch screens, `:hover` styles are disabled at build time: `server/hover-only.js` (a small Vite plugin, tested in `server/hover-only.test.js`) wraps every `:hover` rule in `@media (hover: hover)`, so a tap no longer leaves buttons, cards, or the sidebar looking "clicked". Write normal `:hover` rules in the CSS; focus styles are unaffected.
+
 Run `npm run format` to format the source, or `npm run format:check` to check formatting without changing files.

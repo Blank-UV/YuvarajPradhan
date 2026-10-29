@@ -92,12 +92,18 @@ main {
   transition: width 0.35s ease;
   overflow: hidden;
 }
-.sidebar:hover,
 .sidebar:has(:focus-visible),
 .sidebar.sidebar-open {
   width: 218px;
   background: #151715;
   box-shadow: 18px 0 60px #0005;
+}
+@media (hover: hover) {
+  .sidebar:hover {
+    width: 218px;
+    background: #151715;
+    box-shadow: 18px 0 60px #0005;
+  }
 }
 .brand {
   height: 112px;

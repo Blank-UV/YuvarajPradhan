@@ -129,9 +129,15 @@
     transform 0.2s,
     box-shadow 0.2s;
 }
-.gaming-socials a:is(:hover, :focus-visible) {
+.gaming-socials a:focus-visible {
   transform: translateY(-3px) scale(1.06);
   box-shadow: 0 7px 20px var(--social-color);
+}
+@media (hover: hover) {
+  .gaming-socials a:hover {
+    transform: translateY(-3px) scale(1.06);
+    box-shadow: 0 7px 20px var(--social-color);
+  }
 }
 .gaming-socials .social-instagram {
   --social-color: #e4405f;
@@ -1141,15 +1147,27 @@
   opacity: 1;
   transition: opacity 0.3s ease;
 }
-.follow-card:is(:hover, :focus-visible) {
+.follow-card:focus-visible {
   transform: translateY(-7px);
   border-color: var(--follow-color);
   box-shadow:
     0 22px 50px #06071180,
     0 0 35px rgba(var(--follow-rgb), 0.18);
 }
-.follow-card:is(:hover, :focus-visible):before {
+.follow-card:focus-visible:before {
   opacity: 1;
+}
+@media (hover: hover) {
+  .follow-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--follow-color);
+    box-shadow:
+      0 22px 50px #06071180,
+      0 0 35px rgba(var(--follow-rgb), 0.18);
+  }
+  .follow-card:hover:before {
+    opacity: 1;
+  }
 }
 .follow-instagram {
   --follow-color: #e4405f;
@@ -1202,11 +1220,19 @@
   display: block;
   filter: invert(1);
 }
-.follow-card:is(:hover, :focus-visible) .follow-card-icon {
+.follow-card:focus-visible .follow-card-icon {
   transform: rotate(-9deg) scale(1.1);
   box-shadow:
     0 0 0 24px rgba(var(--follow-rgb), 0.13),
     0 0 40px rgba(var(--follow-rgb), 0.3);
+}
+@media (hover: hover) {
+  .follow-card:hover .follow-card-icon {
+    transform: rotate(-9deg) scale(1.1);
+    box-shadow:
+      0 0 0 24px rgba(var(--follow-rgb), 0.13),
+      0 0 40px rgba(var(--follow-rgb), 0.3);
+  }
 }
 .follow-card-bottom h3 {
   font:
