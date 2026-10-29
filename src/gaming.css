@@ -1450,7 +1450,7 @@
   }
 }
 .gaming-channel h2 {
-  font-size: clamp(60px, 8vw, 135px);
+  font-size: clamp(58px, calc(8vw - 2px), 133px);
   margin-bottom: 32px;
 }
 .gaming-channel-content p {
@@ -1736,7 +1736,7 @@
     min-height: 360px;
   }
   .gaming-channel h2 {
-    font-size: clamp(52px, 10vw, 80px);
+    font-size: clamp(50px, calc(10vw - 2px), 78px);
   }
   .gaming-channel-content {
     padding: 80px 0 160px;
@@ -1974,18 +1974,28 @@ html.loader-active body {
   }
 
   .loader-deco-block {
-    left: 8%;
+    left: 50%;
+    right: auto;
+    width: 86vw;
     top: auto;
     bottom: 12%;
-    transform: none;
-    text-align: left;
+    transform: translateX(-50%);
+    text-align: center;
     animation: none;
+    white-space: normal;
   }
 
   .loader-divider {
-    margin-left: 0;
+    margin-left: auto;
+    margin-right: auto;
     transform: none;
-    width: 80vw;
+    width: 100%;
+  }
+
+  .loader-slogan {
+    font-size: 3.3vw;
+    letter-spacing: 0.14em;
+    line-height: 1.6;
   }
   .loader-text {
     top: 7rem;
