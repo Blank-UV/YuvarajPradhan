@@ -157,9 +157,11 @@ main {
     color 0.2s,
     background 0.2s;
 }
-.nav-link:hover {
-  color: #f2efe6;
-  background: #ffffff0b;
+@media (hover: hover) {
+  .nav-link:hover {
+    color: #f2efe6;
+    background: #ffffff0b;
+  }
 }
 .nav-link.nav-active {
   color: var(--accent);
@@ -217,8 +219,10 @@ main {
   cursor: pointer;
   white-space: nowrap;
 }
-.theme-toggle:hover {
-  background: rgba(var(--accent-rgb), 0.12);
+@media (hover: hover) {
+  .theme-toggle:hover {
+    background: rgba(var(--accent-rgb), 0.12);
+  }
 }
 .theme-toggle-icon {
   width: 88px;
@@ -241,8 +245,10 @@ main {
 .sidebar-open .theme-toggle-label {
   opacity: 1;
 }
-.sidebar-bottom-link:hover {
-  background: rgba(var(--accent-rgb), 0.12);
+@media (hover: hover) {
+  .sidebar-bottom-link:hover {
+    background: rgba(var(--accent-rgb), 0.12);
+  }
 }
 .sidebar-bottom-icon {
   min-width: 88px;

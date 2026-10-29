@@ -31,9 +31,11 @@
 .site.theme-light .nav-link {
   color: #536052;
 }
-.site.theme-light .nav-link:hover {
-  color: #202a1d;
-  background: #e4e9dc;
+@media (hover: hover) {
+  .site.theme-light .nav-link:hover {
+    color: #202a1d;
+    background: #e4e9dc;
+  }
 }
 .site.theme-light .nav-link.nav-active {
   color: var(--accent);
@@ -181,9 +183,11 @@
 .gaming-site.theme-light .nav-link {
   color: #59566c;
 }
-.gaming-site.theme-light .nav-link:hover {
-  color: #241e36;
-  background: #e9e3f3;
+@media (hover: hover) {
+  .gaming-site.theme-light .nav-link:hover {
+    color: #241e36;
+    background: #e9e3f3;
+  }
 }
 .gaming-site.theme-light .gaming-hero {
   background: radial-gradient(ellipse at 70% 37%, #dcd7ed, #f2f0f8 70%);
