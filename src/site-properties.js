@@ -32,6 +32,7 @@ export const siteProperties = {
   },
   links: {
     email: '',
+    businessEmail: 'mrkittykatisgaming@gmail.com',
     youtube: 'https://www.youtube.com/@UVIsGaming',
     instagram: 'https://www.instagram.com/yt_iamuv/',
     discord: 'https://discord.gg/wbu4Y4Npu2',

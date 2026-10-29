@@ -1232,6 +1232,29 @@
 .gaming-channel-content p {
   margin-bottom: 37px;
 }
+.gaming-channel-content .gaming-business {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 34px 0 0;
+  max-width: none;
+  font:
+    12px/1.5 'DM Mono',
+    monospace;
+  letter-spacing: 0.1em;
+  color: #b1b7c3;
+}
+.gaming-business a {
+  width: fit-content;
+  color: var(--accent);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  overflow-wrap: anywhere;
+  border-bottom: 1px solid currentColor;
+}
+.gaming-business a:hover {
+  color: #fff;
+}
 .gaming-footer {
   min-height: 82px;
   border-top: 1px solid #8889a85b;

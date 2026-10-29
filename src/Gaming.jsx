@@ -658,6 +658,12 @@ export default function Gaming() {
             >
               VISIT MY YOUTUBE CHANNEL <span aria-hidden="true">↗</span>
             </a>
+            {site.links.businessEmail && (
+              <p className="gaming-business">
+                <span>FOR COLLABORATIONS AND SPONSORS CONTACT</span>
+                <a href={`mailto:${site.links.businessEmail}`}>{site.links.businessEmail}</a>
+              </p>
+            )}
           </div>
           <HoloGlobe
             label="Rotating holographic Earth. Click to open my YouTube channel."
