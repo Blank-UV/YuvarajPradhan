@@ -491,6 +491,158 @@
   background: var(--accent);
   flex-shrink: 0;
 }
+.game-carousel {
+  margin-top: 26px;
+}
+.game-carousel-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.game-tabs {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.game-tabs::-webkit-scrollbar {
+  display: none;
+}
+.game-tabs button,
+.game-arrows button {
+  border: 1px solid #70758380;
+  background: transparent;
+  color: #b1b7c3;
+  cursor: pointer;
+  font:
+    12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background 0.2s;
+}
+.game-tabs button {
+  flex-shrink: 0;
+  padding: 11px 16px;
+  white-space: nowrap;
+}
+.game-tabs button span {
+  color: var(--accent);
+  margin-right: 6px;
+}
+.game-tabs button:hover,
+.game-arrows button:hover {
+  color: #fff;
+  border-color: var(--accent);
+}
+.game-tabs button.active {
+  color: #111820;
+  border-color: var(--accent);
+  background: var(--accent);
+}
+.game-tabs button.active span {
+  color: inherit;
+}
+.game-arrows {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.game-arrows button {
+  width: 42px;
+  height: 42px;
+  font-size: 18px;
+}
+.game-track {
+  --game-bleed: clamp(36px, 5.2vw, 100px);
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--game-bleed);
+  scrollbar-width: none;
+  padding: 40px var(--game-bleed);
+  margin: -40px calc(-1 * var(--game-bleed));
+}
+.game-track::-webkit-scrollbar {
+  display: none;
+}
+.game-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+.game-slide.is-active {
+  opacity: 1;
+}
+.game-stage {
+  position: relative;
+}
+.game-rings {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 47%;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  place-items: center;
+  pointer-events: none;
+}
+.game-rings:before {
+  content: '';
+  width: min(42vw, 560px);
+  aspect-ratio: 1;
+  border: 1px solid #a5e5f24d;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 55px #a5e5f208,
+    0 0 0 110px #a5e5f205;
+}
+.game-slide .wuthering-art:before {
+  display: none;
+}
+.game-placeholder-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: min(34vw, 440px);
+  aspect-ratio: 1.15;
+  border: 1px dashed #b8e4ed91;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px), #17212b;
+  background-size:
+    28px 28px,
+    28px 28px,
+    auto;
+  color: #b1b7c3;
+  font:
+    12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.18em;
+  transform: rotate(-4deg);
+}
+.game-placeholder-frame b {
+  color: var(--accent);
+  font:
+    600 72px/1 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.04em;
+}
 .wuthering-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -528,6 +680,22 @@
 .gaming-outline-button:hover {
   background: #9ed5e1;
   color: #111820;
+}
+.game-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.game-buttons .gaming-outline-button {
+  gap: 20px;
+  cursor: pointer;
+}
+.gaming-outline-button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: transparent;
+  color: #cbe8ec;
+  transform: none;
 }
 .wuthering-art {
   position: relative;
@@ -1213,6 +1381,20 @@
   white-space: nowrap;
   pointer-events: none;
 }
+.gaming-globe-hint-mobile {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: 106px;
+  transform: translateX(-50%);
+  font:
+    11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.22em;
+  color: rgba(var(--accent-rgb), 0.7);
+  white-space: nowrap;
+  pointer-events: none;
+}
 @media (max-width: 900px) {
   .holo-globe {
     right: auto;
@@ -1222,7 +1404,13 @@
     width: min(118vw, 560px);
   }
   .holo-globe-hint {
-    bottom: 6%;
+    display: none;
+  }
+  .gaming-globe-hint-mobile {
+    display: block;
+  }
+  .gaming-channel-content {
+    padding-bottom: 160px;
   }
 }
 .gaming-channel h2 {
@@ -1304,6 +1492,24 @@
     grid-template-columns: 1fr;
     padding-top: 75px;
   }
+  .game-slide {
+    display: flex;
+  }
+  .game-slide .wuthering-intro {
+    flex: 1;
+    grid-template-rows: 1fr auto;
+  }
+  .game-slide .wuthering-copy {
+    align-self: start;
+  }
+  .game-slide .wuthering-art {
+    align-self: end;
+  }
+  .game-rings {
+    width: 100%;
+    top: auto;
+    height: 430px;
+  }
   .wuthering-art {
     min-height: 430px;
   }
@@ -1330,6 +1536,9 @@
   .gaming-channel {
     padding-left: 24px;
     padding-right: 24px;
+  }
+  .game-track {
+    --game-bleed: 24px;
   }
   .gaming-topline {
     padding-right: 60px;
@@ -1446,6 +1655,23 @@
   .wuthering-image-frame {
     width: min(78vw, 360px);
   }
+  .game-placeholder-frame {
+    width: min(78vw, 360px);
+  }
+  .game-rings {
+    height: 360px;
+  }
+  .game-rings:before {
+    width: 300px;
+  }
+  .game-tabs button {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+  .game-arrows button {
+    width: 38px;
+    height: 38px;
+  }
   .gaming-video-list {
     display: none;
   }
@@ -1477,7 +1703,7 @@
     font-size: clamp(52px, 10vw, 80px);
   }
   .gaming-channel-content {
-    padding: 80px 0;
+    padding: 80px 0 160px;
   }
   .gaming-footer {
     flex-wrap: wrap;

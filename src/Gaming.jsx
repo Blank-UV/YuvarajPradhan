@@ -300,6 +300,171 @@ function WutheringArtwork() {
   )
 }
 
+function GameSlide({ game }) {
+  return (
+    <div className="wuthering-intro">
+      <div className="wuthering-copy">
+        <span className="gaming-eyebrow">{game.eyebrow}</span>
+        <h2>
+          {game.titleTop}
+          <br />
+          <em>{game.titleEm}</em>
+        </h2>
+        <p>{game.description}</p>
+        <div className="game-buttons">
+          {game.buttons.map((button) =>
+            button.url ? (
+              <a
+                key={button.label}
+                className="gaming-outline-button"
+                href={button.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {button.label} <span aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <button
+                key={button.label}
+                type="button"
+                className="gaming-outline-button"
+                disabled
+                title="Coming soon"
+              >
+                {button.label} <span aria-hidden="true">↗</span>
+              </button>
+            ),
+          )}
+        </div>
+      </div>
+      {game.placeholder ? (
+        <div className="wuthering-art game-placeholder-art">
+          <div className="game-placeholder-frame" aria-hidden="true">
+            <span>GAME</span>
+            <b>02</b>
+            <span>TO BE ANNOUNCED</span>
+          </div>
+        </div>
+      ) : (
+        <WutheringArtwork />
+      )}
+    </div>
+  )
+}
+
+function slideWidth(track) {
+  return track.children[0].offsetWidth
+}
+
+function GameCarousel() {
+  const games = site.gaming.games
+  const trackRef = useRef(null)
+  const tabsRef = useRef(null)
+  const scrollTarget = useRef(null)
+  const [active, setActive] = useState(0)
+
+  useEffect(() => {
+    const tabs = tabsRef.current
+    const tab = tabs.children[active]
+    if (tab) tabs.scrollTo({ left: tab.offsetLeft - 8, behavior: 'smooth' })
+  }, [active])
+
+  function goTo(index) {
+    const track = trackRef.current
+    const target = (index + games.length) % games.length
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // While the button-triggered scroll animates, ignore scroll-derived updates so the active slide doesn't flip back and forth.
+    scrollTarget.current =
+      Math.abs(track.scrollLeft - target * slideWidth(track)) < 2
+        ? null
+        : target * slideWidth(track)
+    if (scrollTarget.current !== null) {
+      window.setTimeout(() => (scrollTarget.current = null), 1200)
+    }
+    track.scrollTo({ left: target * slideWidth(track), behavior: reduceMotion ? 'auto' : 'smooth' })
+    setActive(target)
+  }
+
+  useEffect(() => {
+    const track = trackRef.current
+    let frame
+    let release
+    function onScroll() {
+      if (scrollTarget.current !== null) {
+        window.clearTimeout(release)
+        if (Math.abs(track.scrollLeft - scrollTarget.current) < 2) {
+          scrollTarget.current = null
+        } else {
+          release = window.setTimeout(() => (scrollTarget.current = null), 200)
+        }
+        return
+      }
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(() => {
+        setActive(Math.round(track.scrollLeft / slideWidth(track)))
+      })
+    }
+    function onResize() {
+      track.scrollTo({ left: active * slideWidth(track), behavior: 'auto' })
+    }
+    track.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.clearTimeout(release)
+      track.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [active])
+
+  return (
+    <div className="game-carousel" role="region" aria-roledescription="carousel" aria-label="Games">
+      <div className="game-carousel-bar">
+        <div className="game-tabs" ref={tabsRef}>
+          {games.map((game, index) => (
+            <button
+              key={game.id}
+              type="button"
+              className={index === active ? 'active' : ''}
+              aria-current={index === active ? 'true' : undefined}
+              onClick={() => goTo(index)}
+            >
+              <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span> {game.name}
+            </button>
+          ))}
+        </div>
+        {games.length > 1 && (
+          <div className="game-arrows">
+            <button type="button" onClick={() => goTo(active - 1)} aria-label="Previous game">
+              ←
+            </button>
+            <button type="button" onClick={() => goTo(active + 1)} aria-label="Next game">
+              →
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="game-stage">
+        <div className="game-rings" aria-hidden="true" />
+        <div className="game-track" ref={trackRef}>
+          {games.map((game, index) => (
+            <div
+              key={game.id}
+              className={`game-slide ${index === active ? 'is-active' : ''}`}
+              role="group"
+              aria-roledescription="slide"
+              aria-label={`${index + 1} of ${games.length}: ${game.name}`}
+              inert={index !== active}
+            >
+              <GameSlide game={game} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 export default function Gaming() {
   const [loading, setLoading] = useState(true)
   const [colorMode, toggleColorMode] = useColorMode()
@@ -419,7 +584,7 @@ export default function Gaming() {
                 {site.gaming.intro}
               </p>
               <div className="gaming-hero-actions">
-                <a className="gaming-primary" href="#wuthering">
+                <a className="gaming-primary" href="#playing">
                   EXPLORE THE CHANNEL <span aria-hidden="true">↓</span>
                 </a>
                 <a
@@ -504,37 +669,18 @@ export default function Gaming() {
           </div>
           <div className="gaming-hero-foot">
             <span>GAMING / GAMEPLAY / CURIOSITY</span>
-            <a href="#wuthering">
+            <a href="#playing">
               SCROLL TO EXPLORE <span aria-hidden="true">↓</span>
             </a>
           </div>
         </section>
 
-        <section className="gaming-wuthering section" id="wuthering">
+        <section className="gaming-wuthering section" id="playing">
           <div className="gaming-section-top">
             <span className="gaming-square" /> CURRENTLY PLAYING{' '}
             <span>THE WORLD I'M IN RIGHT NOW</span>
           </div>
-          <div className="wuthering-intro">
-            <div className="wuthering-copy">
-              <span className="gaming-eyebrow">CURRENT FOCUS</span>
-              <h2>
-                WUTHERING
-                <br />
-                <em>WAVES.</em>
-              </h2>
-              <p>{site.gaming.wuthering}</p>
-              <a
-                className="gaming-outline-button"
-                href={`${site.links.youtube}/videos`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                SEE ALL VIDEOS <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-            <WutheringArtwork />
-          </div>
+          <GameCarousel />
           <div className="gaming-video-list-head">
             <span>RECENT TRANSMISSIONS</span>
             <span>FROM THE CHANNEL</span>
@@ -673,6 +819,9 @@ export default function Gaming() {
               else window.location.assign(site.links.youtube)
             }}
           />
+          <span className="gaming-globe-hint-mobile" aria-hidden="true">
+            TAP THE GLOBE TO LAUNCH
+          </span>
           <footer className="gaming-footer">
             <span>
               © {new Date().getFullYear()} {site.identity.name.toUpperCase()} /{' '}

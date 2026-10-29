@@ -273,8 +273,53 @@
   background: #24788d;
   color: #fff;
 }
+.gaming-site.theme-light .gaming-outline-button:disabled {
+  background: transparent;
+  color: #205e70;
+}
 .gaming-site.theme-light .wuthering-art-caption {
   color: #345b69;
+}
+.gaming-site.theme-light .game-tabs button,
+.gaming-site.theme-light .game-arrows button {
+  color: #345b69;
+  border-color: #9fb0ba;
+}
+.gaming-site.theme-light .game-tabs button:hover,
+.gaming-site.theme-light .game-arrows button:hover {
+  color: #14131f;
+  border-color: #24788d;
+}
+.gaming-site.theme-light .game-tabs button.active {
+  color: #fff;
+  background: #24788d;
+  border-color: #24788d;
+}
+.gaming-site.theme-light .game-tabs button span {
+  color: #237b91;
+}
+.gaming-site.theme-light .game-tabs button.active span {
+  color: #fff;
+}
+.gaming-site.theme-light .game-placeholder-frame {
+  background:
+    linear-gradient(rgba(36, 120, 141, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(36, 120, 141, 0.12) 1px, transparent 1px), #f6fafc;
+  background-size:
+    28px 28px,
+    28px 28px,
+    auto;
+  border-color: #24788d;
+  color: #345b69;
+}
+.gaming-site.theme-light .game-rings:before {
+  border-color: #24788d66;
+  box-shadow:
+    0 0 0 55px #24788d0d,
+    0 0 0 110px #24788d08;
+}
+.gaming-site.theme-light .game-placeholder-frame b {
+  color: #237b91;
 }
 .gaming-site.theme-light .gaming-video-card,
 .gaming-site.theme-light .gaming-videos-empty {

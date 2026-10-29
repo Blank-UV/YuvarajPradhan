@@ -124,8 +124,38 @@ export const siteProperties = {
     introHighlight: 'a content creator who loves gaming.',
     intro:
       "I share gameplay, chase the good moments, and make videos about the games I can't put down.",
-    wuthering:
-      'Right now, Wuthering Waves is where I spend most of my time. Expect gameplay, team experiments, tough clears, and the moments that make a great run worth sharing.',
+    games: [
+      {
+        id: 'wuthering',
+        name: 'Wuthering Waves',
+        eyebrow: 'CURRENT FOCUS',
+        titleTop: 'WUTHERING',
+        titleEm: 'WAVES.',
+        description:
+          'Right now, Wuthering Waves is where I spend most of my time. Expect gameplay, team experiments, tough clears, and the moments that make a great run worth sharing.',
+        buttons: [
+          {
+            label: 'GUIDES',
+            url: 'https://www.youtube.com/playlist?list=PL2I7Q3ZA7gL6dGe5Vp1e2zR_dzJzSdVgc',
+          },
+          {
+            label: 'CHARACTER GUIDES',
+            url: 'https://www.youtube.com/playlist?list=PL2I7Q3ZA7gL4wroK5maXH7aOVKZ3DKaK9',
+          },
+        ],
+      },
+      {
+        id: 'next-game',
+        name: 'Game Slot 02',
+        placeholder: true,
+        eyebrow: 'SECOND SLOT / PLACEHOLDER',
+        titleTop: 'NEXT',
+        titleEm: 'GAME.',
+        description:
+          "Another game I'm playing will be featured here. Replace this placeholder in src/site-properties.js when it's ready.",
+        buttons: [{ label: 'GUIDES' }, { label: 'CHARACTER GUIDES' }],
+      },
+    ],
     follow:
       "The good bits don't stop when the video ends. Find the stream, join the chat, and stay close to whatever comes next.",
     upcoming:

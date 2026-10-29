@@ -11,7 +11,7 @@ export const portfolioNavigation = [
 
 export const gamingNavigation = [
   { id: 'home', label: 'The channel', icon: '⌂' },
-  { id: 'wuthering', label: 'Wuthering Waves', icon: '◎' },
+  { id: 'playing', label: 'Currently playing', icon: '◎' },
   { id: 'socials', label: 'Follow now', icon: '✳' },
   { id: 'upcoming', label: 'Coming soon', icon: '▦' },
   { id: 'channel', label: 'Watch & connect', icon: '↗' },
