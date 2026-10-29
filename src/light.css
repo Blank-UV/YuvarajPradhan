@@ -17,7 +17,7 @@
 }
 .site.theme-light .sidebar,
 .site.theme-light .sidebar:hover,
-.site.theme-light .sidebar:focus-within,
+.site.theme-light .sidebar:has(:focus-visible),
 .site.theme-light .sidebar.sidebar-open {
   background: #f5f6ee;
   border-color: #bfc9b9;
@@ -165,7 +165,7 @@
 }
 .gaming-site.theme-light .sidebar,
 .gaming-site.theme-light .sidebar:hover,
-.gaming-site.theme-light .sidebar:focus-within,
+.gaming-site.theme-light .sidebar:has(:focus-visible),
 .gaming-site.theme-light .sidebar.sidebar-open {
   background: #f4f1fa;
   border-color: #c6c0d5;

@@ -93,7 +93,7 @@ main {
   overflow: hidden;
 }
 .sidebar:hover,
-.sidebar:focus-within,
+.sidebar:has(:focus-visible),
 .sidebar.sidebar-open {
   width: 218px;
   background: #151715;
@@ -139,7 +139,7 @@ main {
   transition: opacity 0.2s;
 }
 .sidebar:hover .brand-name,
-.sidebar:focus-within .brand-name,
+.sidebar:has(:focus-visible) .brand-name,
 .sidebar-open .brand-name {
   opacity: 1;
 }
@@ -191,7 +191,7 @@ main {
   transition: opacity 0.2s;
 }
 .sidebar:hover .nav-label,
-.sidebar:focus-within .nav-label,
+.sidebar:has(:focus-visible) .nav-label,
 .sidebar-open .nav-label {
   opacity: 1;
 }
@@ -237,7 +237,7 @@ main {
   transition: opacity 0.2s;
 }
 .sidebar:hover .theme-toggle-label,
-.sidebar:focus-within .theme-toggle-label,
+.sidebar:has(:focus-visible) .theme-toggle-label,
 .sidebar-open .theme-toggle-label {
   opacity: 1;
 }
@@ -269,8 +269,8 @@ main {
 }
 .sidebar:hover .sidebar-bottom-label,
 .sidebar:hover .sidebar-bottom-arrow,
-.sidebar:focus-within .sidebar-bottom-label,
-.sidebar:focus-within .sidebar-bottom-arrow,
+.sidebar:has(:focus-visible) .sidebar-bottom-label,
+.sidebar:has(:focus-visible) .sidebar-bottom-arrow,
 .sidebar-open .sidebar-bottom-label,
 .sidebar-open .sidebar-bottom-arrow {
   opacity: 1;
@@ -1238,7 +1238,7 @@ a.contact-button:hover {
     box-shadow: 18px 0 60px #0007;
   }
   .sidebar:hover,
-  .sidebar:focus-within,
+  .sidebar:has(:focus-visible),
   .sidebar.sidebar-open {
     width: 230px;
   }

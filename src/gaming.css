@@ -8,7 +8,7 @@
   border-color: #363747;
 }
 .gaming-site .sidebar:hover,
-.gaming-site .sidebar:focus-within,
+.gaming-site .sidebar:has(:focus-visible),
 .gaming-site .sidebar.sidebar-open {
   background: #151624;
 }
@@ -129,7 +129,7 @@
     transform 0.2s,
     box-shadow 0.2s;
 }
-.gaming-socials a:is(:hover, :focus-visible, :focus, :active) {
+.gaming-socials a:is(:hover, :focus-visible) {
   transform: translateY(-3px) scale(1.06);
   box-shadow: 0 7px 20px var(--social-color);
 }
@@ -385,12 +385,22 @@
   display: flex;
   justify-content: space-between;
   align-items: end;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+.gaming-featured-actions > a {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+@media (min-width: 901px) and (max-width: 1230px) {
+  .gaming-featured-actions {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
 }
 .gaming-featured-switcher {
   display: flex;
-  gap: 7px;
+  gap: 6px;
   flex-shrink: 0;
 }
 .gaming-featured-switcher button {
@@ -398,8 +408,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 0 10px;
+  gap: 6px;
+  padding: 0 8px;
   border: 1px solid #8781a9;
   background: transparent;
   color: #e8e1ff;
@@ -1131,14 +1141,14 @@
   opacity: 1;
   transition: opacity 0.3s ease;
 }
-.follow-card:is(:hover, :focus-visible, :focus, :active) {
+.follow-card:is(:hover, :focus-visible) {
   transform: translateY(-7px);
   border-color: var(--follow-color);
   box-shadow:
     0 22px 50px #06071180,
     0 0 35px rgba(var(--follow-rgb), 0.18);
 }
-.follow-card:is(:hover, :focus-visible, :focus, :active):before {
+.follow-card:is(:hover, :focus-visible):before {
   opacity: 1;
 }
 .follow-instagram {
@@ -1192,7 +1202,7 @@
   display: block;
   filter: invert(1);
 }
-.follow-card:is(:hover, :focus-visible, :focus, :active) .follow-card-icon {
+.follow-card:is(:hover, :focus-visible) .follow-card-icon {
   transform: rotate(-9deg) scale(1.1);
   box-shadow:
     0 0 0 24px rgba(var(--follow-rgb), 0.13),
