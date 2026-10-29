@@ -5,6 +5,8 @@ A React + Vite portfolio for Yuvaraj Pradhan. Its fixed navigation rail, large e
 The shared sidebar also has a light/dark mode button. Dark is the default; the choice is saved locally and carries across both pages. Light-theme styling is in `src/light.css`.
 On mobile, the intro of each page also shows a direct link to the other page. Inside the menu, the navigation list scrolls on short screens while the theme and page-switch controls stay visible at the bottom.
 
+VERCEL DEPLOYED LINK - https://yuvaraj-pradhan.vercel.app
+
 ## Run locally
 
 ```sh
