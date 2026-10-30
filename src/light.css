@@ -383,6 +383,33 @@
   --follow-color: #ba183a;
   --follow-rgb: 186, 24, 58;
 }
+.gaming-site.theme-light .gaming-other {
+  background: #f2f0f8;
+}
+.gaming-site.theme-light .other-game-art::after {
+  background: linear-gradient(0deg, #2423344d, transparent 40%);
+}
+.gaming-site.theme-light .other-game-desc {
+  color: #54536b;
+}
+.gaming-site.theme-light .other-game-rating strong {
+  color: #5b45b5;
+}
+.gaming-site.theme-light .other-game-slogan {
+  color: #54536b;
+}
+.gaming-site.theme-light .other-game-copy h2 em {
+  -webkit-text-stroke-color: #6e56c9;
+}
+.gaming-site.theme-light .other-game-button {
+  color: #5b45b5;
+  border-color: #5b45b5;
+}
+.gaming-site.theme-light .other-game-button:hover,
+.gaming-site.theme-light .other-game-button:focus-visible {
+  background: #5b45b5;
+  color: #fff;
+}
 .gaming-site.theme-light .gaming-upcoming {
   background: #ece9f3;
 }

@@ -39,3 +39,15 @@ Append a dated entry here when the owner asks to close out a day's work. Keep se
 - YouTube fallback: when `/api/videos` fails and no live data has loaded, the page shows hard-coded `fallbackVideos` in `src/site-properties.js` (latest `4KNFzjDPd8o`, most viewed `Xw-qBUXNcMI`, recent `4KNFzjDPd8o`, `FKbas0dkV0M`, `e4LNL6gOysI`) with a "showing saved videos" notice. Titles were fetched via YouTube oEmbed; view counts are omitted. Refresh them by hand.
 - Routes: the software page is now `/portfolio` (`portfolio/index.html`) and the gaming page `/gaming` (`gaming/index.html`); `/` redirects to `/portfolio`. Cross-links and the sidebar brand button keep each page on itself. Vite `base` changed to `/`, so serve from the domain root. `vite.config.js` rewrites slash-less routes for dev/preview.
 - Open gaps from the review: no git repo (`.idea/` not ignored), no deployment config (e.g. `vercel.json`), no UI tests, and the large original images are still beside the optimized card copies in `images/`.
+
+## 2026-10-29
+
+### Changes
+
+- Closing section heading ("THE NEXT ADVENTURE IS ONE CLICK AWAY.") reduced by 2px on desktop and mobile (.gaming-channel h2 in src/gaming.css).
+- Loader slogan on screens 760px and narrower is now centered under the IamUV logo (block at 50%, width 86vw, font-size 3.3vw), with the divider and triangle centered too, so it stays aligned at any width. Checked at 366px with a headless Edge screenshot; only seen at ~89%, not the full sequence.
+
+### Where to continue
+
+- If the user meant the closing-section heading (not the loader slogan) when asking for mobile alignment, check that heading at 366px.
+

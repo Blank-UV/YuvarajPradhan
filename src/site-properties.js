@@ -156,6 +156,35 @@ export const siteProperties = {
         buttons: [{ label: 'GUIDES' }, { label: 'CHARACTER GUIDES' }],
       },
     ],
+    otherGames: [
+      {
+        id: 'beast-of-reincarnation',
+        name: 'Beast of Reincarnation',
+        titleTop: 'BEAST OF',
+        titleEm: 'REINCARNATION.',
+        slogan: 'BIG ENEMIES, PARRIES AND A DOG/WOLF',
+        description:
+          'Set in post-apocalyptic Japan in the year 4026, it follows Emma, a blight-afflicted warrior, and her dog Koo on a journey to purge corruption from the land. The "one-person, one-dog" combat blends real-time swordplay with tactical commands for Koo.',
+        rating: '7',
+        playlistUrl: 'https://www.youtube.com/playlist?list=PLH-A9MlOJKy0',
+        imageKey: 'bor_emmaKoo1',
+        shotKey: 'bor_emmaKoo',
+        shotPosition: '72% 50%',
+      },
+      {
+        id: 'phantom-blade-zero',
+        name: 'Phantom Blade Zero',
+        titleTop: 'PHANTOM BLADE',
+        titleEm: 'ZERO.',
+        slogan: 'PARRIES MEETS STYLE',
+        description:
+          'Set in the dark martial arts realm of the Wulin, players control Soul, an elite assassin framed for murdering his leader and racing against a fatal curse to clear his name. Featuring the series’ signature kungfupunk world, it offers single-player, semi-open world exploration, intricate weapon systems, and fluid martial arts combat.',
+        rating: '*',
+        imageKey: 'soul-assassin',
+        shotKey: 'soul-phantom-blade',
+        shotPosition: '75% 40%',
+      },
+    ],
     follow:
       "The good bits don't stop when the video ends. Find the stream, join the chat, and stay close to whatever comes next.",
     upcoming:

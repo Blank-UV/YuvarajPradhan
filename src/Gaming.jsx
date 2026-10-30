@@ -32,6 +32,66 @@ if (wutheringImages.length === 0) {
   throw new Error('No optimized Wuthering Waves images found')
 }
 
+const otherGameImages = Object.fromEntries(
+  Object.entries(
+    import.meta.glob('../images/{bor,pb0}/optimized/*.jpg', {
+      eager: true,
+      query: '?url',
+      import: 'default',
+    }),
+  ).map(([path, url]) => [path.split('/').pop().replace('.jpg', ''), url]),
+)
+
+function OtherGameSlide({ game }) {
+  return (
+    <article className="other-game">
+      <div className="other-game-art">
+        <img src={otherGameImages[game.imageKey]} alt={`${game.name} key art`} loading="lazy" />
+      </div>
+      <div className="other-game-glow" aria-hidden="true" />
+      <div className="other-game-shot" style={{ '--shot-position': game.shotPosition }}>
+        <img
+          src={otherGameImages[game.shotKey]}
+          alt={`${game.name} character art`}
+          loading="lazy"
+        />
+      </div>
+      <div className="other-game-copy">
+        <span className="gaming-eyebrow">PLAYED / PLAYLIST</span>
+        <h2>
+          {game.titleTop}
+          <br />
+          <em>{game.titleEm}</em>
+        </h2>
+        <p className="other-game-slogan">{game.slogan}</p>
+        <p className="other-game-desc">{game.description}</p>
+        <div className="other-game-rating">
+          <span>MY RATING</span>
+          <strong>
+            {game.rating}
+            <small>/10</small>
+          </strong>
+          {game.rating === '*' && <em>NOT PLAYED YET</em>}
+        </div>
+        {game.playlistUrl ? (
+          <a
+            className="other-game-button"
+            href={game.playlistUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            WATCH PLAYLIST <span aria-hidden="true">↗</span>
+          </a>
+        ) : (
+          <span className="other-game-button is-disabled" aria-disabled="true">
+            PLAYLIST COMING SOON
+          </span>
+        )}
+      </div>
+    </article>
+  )
+}
+
 const followPlatforms = [
   {
     name: 'Instagram',
@@ -356,8 +416,7 @@ function slideWidth(track) {
   return track.children[0].offsetWidth
 }
 
-function GameCarousel() {
-  const games = site.gaming.games
+function GameCarousel({ games, renderSlide, label = 'Games', showRings = true }) {
   const trackRef = useRef(null)
   const tabsRef = useRef(null)
   const scrollTarget = useRef(null)
@@ -418,7 +477,7 @@ function GameCarousel() {
   }, [active])
 
   return (
-    <div className="game-carousel" role="region" aria-roledescription="carousel" aria-label="Games">
+    <div className="game-carousel" role="region" aria-roledescription="carousel" aria-label={label}>
       <div className="game-carousel-bar">
         <div className="game-tabs" ref={tabsRef}>
           {games.map((game, index) => (
@@ -445,7 +504,7 @@ function GameCarousel() {
         )}
       </div>
       <div className="game-stage">
-        <div className="game-rings" aria-hidden="true" />
+        {showRings && <div className="game-rings" aria-hidden="true" />}
         <div className="game-track" ref={trackRef}>
           {games.map((game, index) => (
             <div
@@ -456,7 +515,7 @@ function GameCarousel() {
               aria-label={`${index + 1} of ${games.length}: ${game.name}`}
               inert={index !== active}
             >
-              <GameSlide game={game} />
+              {renderSlide(game, index)}
             </div>
           ))}
         </div>
@@ -680,7 +739,10 @@ export default function Gaming() {
             <span className="gaming-square" /> CURRENTLY PLAYING{' '}
             <span>THE WORLD I'M IN RIGHT NOW</span>
           </div>
-          <GameCarousel />
+          <GameCarousel
+            games={site.gaming.games}
+            renderSlide={(game) => <GameSlide game={game} />}
+          />
           <div className="gaming-video-list-head">
             <span>RECENT TRANSMISSIONS</span>
             <span>FROM THE CHANNEL</span>
@@ -697,6 +759,18 @@ export default function Gaming() {
               Loading latest uploads from YouTube...
             </div>
           )}
+        </section>
+
+        <section className="gaming-other section" id="other-games">
+          <div className="gaming-section-top">
+            <span className="gaming-square" /> OTHER GAMES <span>MORE WORLDS I'VE PLAYED</span>
+          </div>
+          <GameCarousel
+            games={site.gaming.otherGames}
+            renderSlide={(game) => <OtherGameSlide game={game} />}
+            label="Other games"
+            showRings={false}
+          />
         </section>
 
         <section className="gaming-follow section" id="socials">
