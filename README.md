@@ -14,7 +14,9 @@ npm install
 npm run dev
 ```
 
-Use `npm run build` for a production build. The pages live at `/portfolio` (`portfolio/index.html`) and `/gaming` (`gaming/index.html`); the root `/` redirects to `/portfolio`. Deploy with a host that runs the serverless function in `api/videos.js` (for example Vercel); a files-only static host cannot provide the live video endpoint.
+Use `npm run build` for a production build. The pages live at `/portfolio` (`portfolio/index.html`) and `/gaming` (`gaming/index.html`); the root `/` is a book-style landing page (`index.html`, `src/Hub.jsx`, `src/hub.css`) with turnable Developer, Gamer, and Coming Soon chapters (edit the `chapters` list in `src/Hub.jsx`). Turn pages with the arrows, chapter contents, keyboard arrow keys while focused inside the book, or a swipe. Page-turn animation is skipped with reduced motion. Deploy with a host that runs the serverless function in `api/videos.js` (for example Vercel); a files-only static host cannot provide the live video endpoint.
+
+The landing book starts closed with a straight navy hardcover. Opening it reveals a blank left page and the selected chapter on the right. Mobile shows only the chapter page, with its own flip-and-fade transitions and no underlying page visible during cover flips. Both states fit the viewport without scrolling. Chapter links and “Close book” sit above the spread, and the previous/next arrows flank it. Desktop closing animates the cover from left to right; reduced motion skips the animation.
 
 ## Personalize
 
