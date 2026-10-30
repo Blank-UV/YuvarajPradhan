@@ -506,6 +506,9 @@
   background: #0b0c14;
 }
 .game-slide > .other-game {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
   height: 100%;
   box-sizing: border-box;
 }
