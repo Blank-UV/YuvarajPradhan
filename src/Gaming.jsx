@@ -601,7 +601,16 @@ export default function Gaming() {
           <div className="gaming-topline">
             <span className="gaming-topline-channel">
               <span className="status-dot" />
-              <span className="gaming-topline-name">Iam{site.identity.creatorName}</span>
+              <a
+                className="gaming-topline-name"
+                href="/intro"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Play channel intro (opens in a new tab)"
+                aria-label="Play IamUV channel intro (opens in a new tab)"
+              >
+                Iam{site.identity.creatorName}
+              </a>
               <span className="gaming-topline-channel-suffix">/ GAMING CHANNEL</span>
             </span>
             <div className="gaming-topline-right">

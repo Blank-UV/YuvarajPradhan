@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node --test",
-    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"api/**/*.js\" \"server/**/*.js\" \"vite.config.js\" \"index.html\" \"portfolio/index.html\" \"gaming/index.html\" \"package.json\"",
-    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"api/**/*.js\" \"server/**/*.js\" \"vite.config.js\" \"index.html\" \"portfolio/index.html\" \"gaming/index.html\" \"package.json\""
+    "format": "prettier --write \"src/**/*.{js,jsx,css}\" \"api/**/*.js\" \"server/**/*.js\" \"vite.config.js\" \"index.html\" \"portfolio/index.html\" \"gaming/index.html\" \"intro/index.html\" \"package.json\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css}\" \"api/**/*.js\" \"server/**/*.js\" \"vite.config.js\" \"index.html\" \"portfolio/index.html\" \"gaming/index.html\" \"intro/index.html\" \"package.json\""
   },
   "dependencies": {
     "react": "^19.2.0",

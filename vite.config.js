@@ -9,10 +9,10 @@ function escapeHtml(value) {
   return value.replace(/[&<>"']/g, (character) => entities[character])
 }
 
-// Serves /portfolio and /gaming (without a trailing slash) from their folders.
+// Serves standalone pages without a trailing slash from their folders.
 function pageRoutes(request, _response, next) {
   const [path, query = ''] = request.url.split('?')
-  if (path === '/portfolio' || path === '/gaming') {
+  if (path === '/portfolio' || path === '/gaming' || path === '/intro') {
     request.url = `${path}/index.html${query ? `?${query}` : ''}`
   }
   next()
@@ -66,6 +66,7 @@ export default defineConfig(({ mode }) => {
           main: resolve(import.meta.dirname, 'index.html'),
           portfolio: resolve(import.meta.dirname, 'portfolio/index.html'),
           gaming: resolve(import.meta.dirname, 'gaming/index.html'),
+          intro: resolve(import.meta.dirname, 'intro/index.html'),
         },
       },
     },

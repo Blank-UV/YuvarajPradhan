@@ -106,6 +106,12 @@
   gap: 12px;
   align-items: center;
 }
+.gaming-topline-name:hover,
+.gaming-topline-name:focus-visible {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
 .gaming-topline-right,
 .gaming-topline-message,
 .gaming-socials {
@@ -529,7 +535,6 @@
   object-fit: cover;
   display: block;
   transform: scale(1.02);
-  transition: transform 1.2s ease;
 }
 .other-game-glow {
   position: absolute;
@@ -551,9 +556,6 @@
   clip-path: polygon(0 0, 100% 0, 100% calc(100% - 28px), calc(100% - 28px) 100%, 0 100%);
   box-shadow: 0 24px 60px #000a;
   transform: rotate(-3deg);
-  transition:
-    transform 0.6s ease,
-    box-shadow 0.6s ease;
 }
 .other-game-shot img {
   width: 100%;
@@ -1977,8 +1979,15 @@
   }
 }
 @media (max-width: 350px) {
-  .gaming-topline-name {
+  .gaming-topline-channel .status-dot {
     display: none;
+  }
+  .gaming-socials {
+    gap: 3px;
+  }
+  .gaming-socials a {
+    width: 26px;
+    height: 26px;
   }
 }
 
