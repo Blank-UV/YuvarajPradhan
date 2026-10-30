@@ -88,3 +88,43 @@ Append a dated entry here when the owner asks to close out a day's work. Keep se
 - Latest gaming sidebar overflow check confirmed `overflow-x: clip` at desktop and mobile widths. The portfolio-return link remains configured in `src/Gaming.jsx`; on short desktop windows its visibility may still depend on the existing sidebar layout.
 - The repository now has Git available (the older "no git repo" note is outdated). No commits were created in this session. README was updated for the default book page.
 - Still needed: confirm the Beast of Reincarnation playlist URL, supply Phantom Blade Zero's playlist when ready, and manually review the final animations in a normal desktop browser and on a phone. Keep software-page content work on hold unless requested.
+
+### Evening session: IamUV channel intro
+
+- Added an independent `/intro` page: `intro/index.html`, `src/intro-main.jsx`, and `src/intro.css`. This is a React/CSS/SVG browser animation, not an exported video or a Remotion project. The landing book, portfolio page, and gaming loader were not replaced.
+- The I drops at the right end of the centered wordmark, lands at 0.35 seconds, settles by 0.55 seconds, then slides left to reveal V, U, m, and a in that order. The completed name still reads IamUV and is fully revealed at 1 second.
+- The accent bar sits just above the letters, drops with the I, and extends left with the reveal. The cat emerges from behind the bar from 1.2 to 1.9 seconds, with paws resting on it. Its mouth animates at the meow cue. The final logo remains on screen; the CSS timeline is 5 seconds.
+- Removed the "PLAY. DISCOVER. REPEAT." caption and the visible meow speech bubble. The page now fills the viewport with only the intro and a small, softly translucent "PRESS AGAIN FOR AUDIO" hint at the top left, with a subtle accent line. No header, footer, sound checkbox, or visible replay button remains.
+- Clicking or tapping anywhere replays with audio; the full-screen interaction is a native button with an accessible label and focus outline. The initial automatic animation is silent because browser autoplay restrictions require interaction for sound. Reduced-motion mode shows the final state without animation or audio.
+
+### Intro recordings and synchronization
+
+- Uses the supplied `audio/whoosh-short-realistic.mp3` and `audio/cat-meow.mp3`. Earlier synthesized meows, landing taps, generated whooshes, and completion clicks were removed; only the two recordings remain.
+- The whoosh starts with the slide at 0.55 seconds. Playback selects only source seconds 0.65 through 1.10, with short gain fades at the cut edges, so it lasts 0.45 seconds and ends with the reveal. The source file is untouched and playback speed is unchanged.
+- The meow starts at 1.9 seconds and plays the full recording at its original speed (about 0.86 seconds). Both recordings load and decode before a sound-enabled replay begins. Replay closes the previous audio context to prevent overlapping takes; loading and playback errors are shown explicitly.
+- Sound scheduling waits for the CSS animation's actual start and maps it to the audio output clock using `getOutputTimestamp`, with a reported-latency fallback. Audio output is allowed to warm up before replay because initial timestamps can be unstable. Do not remove this timing logic as redundant: earlier scheduling produced audibly late cues.
+
+### Gaming link, routing, and cleanup
+
+- The IamUV name in the gaming top bar is now a link to `/intro`, opening in a new tab with `noopener noreferrer`, a tooltip, and hover/focus feedback. No extra PRESS button was added. Below 350px, the status dot is hidden and social buttons are slightly smaller so the name remains visible.
+- Sidebar text colors were not changed. The new color feedback applies only to the clickable channel name in the gaming top bar.
+- Added the intro entry and slashless route to `vite.config.js`, plus `vercel.json` with `/intro` rewritten to `/intro/index.html` for Vercel. The link intentionally remains `/intro`, not `/intro/`. Added `server/page-routes.test.js` to cover dev/preview routing, query strings, existing pages, the build entry, and the deployment rewrite.
+- The old preview server on port 5173 was serving the main book for `/intro` because it had not loaded the updated Vite configuration. Restarting it fixed the actual server; clicking IamUV was then checked against the production preview on port 5173, including opening the correct intro in a separate tab.
+- BOR inner-image framing is `shotPosition: '90% 50%'` in `src/site-properties.js`, centering the girl and wolf together. Straight and lighter-tilt variants were tried; the current frame code uses the original `rotate(-3deg)` and a 1px accent border. Original artwork files remain untouched.
+- Removed unused transitions on the static Other Games frame/background, an unused cat CSS class, and an ineffective cat transform-origin rule. Kept the inner-image hover animation. Old intro UI styles and synthesized-audio code are already gone; all remaining intro CSS class selectors have JSX references.
+
+### Evening checks and handoff
+
+- Latest production build, formatting checks for edited source, and all nine automated tests passed after cleanup. Browser checks used headless Edge and temporary Chrome DevTools Protocol probes, not a committed UI test suite.
+- Checked the reveal and moving bar at desktop/mobile sizes, reduced motion, recording decode/playback, trim boundaries, sound synchronization over repeated replays, replay cleanup, visible audio-loading errors, full-screen layout, hint positioning, and the gaming link in both themes down to 320px. Headless measurements are not a physical-device listening or live animation review.
+- README documents the intro, playback behavior, recordings, trim, and routes. Both local servers (preview on 5173 and dev on 5180) were stopped at the owner's request and their ports were confirmed closed. Start with `npm.cmd run dev`, or run `npm.cmd run build` then `npm.cmd run preview -- --port 5173`; restart preview after Vite route changes.
+- Remaining work: export to a video file only if requested, manually review the final animation/audio in a normal browser and on a phone, and keep the previously listed playlist/content follow-ups. Software-page content work remains on hold.
+
+### Video export (later the same evening)
+
+- Exported the requested MP4 to `exports/IamUV-intro-1080p.mp4`: 1920x1080 landscape, 30 fps, 150 frames, exactly 5 seconds, H.264/yuv420p video, AAC 48 kHz stereo audio, and fast-start metadata. The browser audio hint and controls are omitted from the video.
+- Captured the existing CSS/SVG animation frame by frame in headless Edge. The soundtrack uses the same original-speed whoosh cut (source 0.65-1.10 seconds, playing at 0.55-1.00 seconds with edge fades) and full meow starting at 1.9 seconds. Inspected decoded video frames and verified non-silent audio in the expected windows, silence elsewhere, and no clipping.
+- Generated exports are gitignored, and README describes the output. Encoding tools and capture scripts were isolated in the Copilot session folder; project dependencies were unchanged. The temporary rendering server and browser were stopped afterwards. The MP4 is a rendered snapshot and must be exported again if the animation or recordings change.
+- After size review, the owner approved the entire logo/bar/cat group at 50% of its initial size (`transform: scale(0.5)` on `.intro-composition`). Re-rendered `exports/IamUV-intro-1080p.mp4` at that approved size, preserving all timing and the identical soundtrack. The review dev server on port 5173 was left running; temporary export processes were stopped.
+- Fixed a resize regression that left the I and bar visible in the first video frame: `.intro-composition` now defines `--intro-scale: 0.5`, and the drop starts at `calc(-100dvh / var(--intro-scale))` so its visible travel remains offscreen at any group scale. Re-rendered the MP4 and checked its actual decoded first frame contains only background. The final approved layout, landing/reveal timing, and soundtrack are unchanged.
+- Also rendered `exports/IamUV-intro-4K.mp4` at native 3840x2160 from the browser artwork, not by upscaling the 1080p MP4. It retains the approved 50% composition, 30 fps, 5-second duration, blank first frame, and identical decoded soundtrack. The existing corrected 1080p file was left unchanged. Both exports are documented in README and gitignored.

@@ -24,6 +24,17 @@ The **IamUV** name at the top of `/gaming` opens `/intro` in a new tab. It is al
 
 Open `/intro` for a standalone 5-second IamUV animation (`src/intro-main.jsx`, `src/intro.css`). The I drops at the right end of the centered wordmark, then slides left as the leading edge of a right-to-left reveal (V, U, m, then a), finishing as IamUV at 1 second. The bar sits just above the letters, drops with the I, and extends left with its slide. A cat peeks over the top bar from 1.2 to 1.9 seconds and opens its mouth at the audio cue, without a speech bubble. The page shows only the centered intro against a full-screen background, without navigation or visible controls, apart from a subdued top-left "PRESS AGAIN FOR AUDIO" hint. Click or tap anywhere (or focus the page button and press Enter/Space) to replay with sound. The initial automatic animation is silent because browsers require a user gesture for audio. Replay plays only `audio/whoosh-short-realistic.mp3` at the slide's start (0.55 seconds), followed by `audio/cat-meow.mp3` at the cat's meow cue (1.9 seconds). The whoosh plays only the 0.65–1.10-second portion of its source, with short edge fades, to remove the lead-in and tail and fit the 0.45-second slide. The original file is untouched. Both recordings play at their original speed; there are no synthesized effects, landing taps, or completion clicks. Sound scheduling follows the animation's actual start and compensates for output latency using browser audio timestamps (or reported latency when timestamps are unavailable). Both recordings load before the animation restarts, and replay stops any previous sound. Reduced motion shows the finished logo without animation or sound. This is a browser preview, not an MP4/video exporter, and does not replace the gaming loader or landing page.
 
+### Video export
+
+The drop begins fully above the viewport, with its travel distance compensating for the composition scale. The exported first frame contains only the background.
+
+Rendered YouTube intros are saved locally as:
+
+- `exports/IamUV-intro-1080p.mp4`: 1920x1080.
+- `exports/IamUV-intro-4K.mp4`: native 3840x2160, re-rendered from the browser artwork rather than upscaled from the 1080p video.
+
+Both are 30 fps, 5 seconds, H.264 video with AAC stereo audio. The approved logo, bar, and cat are scaled together to 50% of their initial size in the browser and both exports. The videos include the trimmed whoosh and full meow, but no browser audio hint or controls. Generated exports are gitignored; re-render after approved changes to the animation or recordings.
+
 ## Personalize
 
 The name, Yuvaraj Pradhan, is confirmed by the owner. **Edit `src/site-properties.js` for public details**: identity and channel ID, all social/contact links, displayed handles, page titles/descriptions, portfolio slides and focus areas, and the editable descriptions. This is a regular JavaScript properties module shared by both React pages and the YouTube server function; public links and copy do **not** come from environment variables. Page titles and descriptions in the built HTML are generated from it. Empty optional links are not rendered as live links. Replace the general approach section with real roles and dates when you have them; avoid publishing example career claims as facts. The portfolio artwork and layout are in `src/styles.css`; the gaming page design is in `src/gaming.css`.
