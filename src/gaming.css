@@ -7,6 +7,9 @@
   background: #10111c;
   border-color: #363747;
 }
+.gaming-site .sidebar .side-nav {
+  overflow-x: clip;
+}
 .gaming-site .sidebar:hover,
 .gaming-site .sidebar:has(:focus-visible),
 .gaming-site .sidebar.sidebar-open {
