@@ -169,7 +169,7 @@ export const siteProperties = {
         playlistUrl: 'https://www.youtube.com/playlist?list=PLH-A9MlOJKy0',
         imageKey: 'bor_emmaKoo1',
         shotKey: 'bor_emmaKoo',
-        shotPosition: '72% 50%',
+        shotPosition: '90% 50%',
       },
       {
         id: 'phantom-blade-zero',

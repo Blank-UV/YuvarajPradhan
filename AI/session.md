@@ -51,3 +51,40 @@ Append a dated entry here when the owner asks to close out a day's work. Keep se
 
 - If the user meant the closing-section heading (not the loader slogan) when asking for mobile alignment, check that heading at 366px.
 
+## 2026-10-30
+
+### Gaming page: Other Games
+
+- Added Other Games after Recent Transmissions and before Follow Now, with a matching sidebar navigation item. It shares the Currently Playing carousel controls (name tabs, previous/next arrows, and swipe), while keeping its own visual layout.
+- Beast of Reincarnation has the slogan "BIG ENEMIES, PARRIES AND A DOG/WOLF", the supplied description, a 7/10 rating, and the supplied playlist URL: `https://www.youtube.com/playlist?list=PLH-A9MlOJKy0`. That URL has not been verified; confirm the ID before publishing.
+- Phantom Blade Zero has "PARRIES MEETS STYLE", the supplied description, and */10 with "NOT PLAYED YET". No playlist was supplied, so its playlist button is disabled.
+- Game details live in `gaming.otherGames` in `src/site-properties.js`. Both supplied images for each game are used: a fading background and a smaller tilted, clipped frame. Optimized copies are in `images/bor/optimized` and `images/pb0/optimized`; originals are untouched. Image keys are resolved by the glob in `src/Gaming.jsx`.
+- Text is on the right on desktop. Mobile stacks the artwork and text. Removed the large decorative 01/02 numbers. Only the image inside the smaller frame moves on hover; the frame and background stay still.
+- Fixed overflowing card text, uneven card heights, light-mode contrast, and unintended vertical scrolling inside the carousel track (`overflow-y: hidden`). Other Games bottom padding was reduced.
+- Latest sidebar change: `.gaming-site .sidebar .side-nav` uses `overflow-x: clip` to prevent the horizontal scrollbar caused by long labels. A separate proposal to keep the portfolio-return link pinned on short desktop screens was withdrawn at the owner's request; do not reinstate that layout change without being asked.
+
+### New default landing page: the book
+
+- `/` no longer redirects to `/portfolio`. It loads an independent React entry, `src/hub-main.jsx`, with `src/Hub.jsx` and `src/hub.css`. `/portfolio` and `/gaming` still open directly and reload as before. The book redesign did not modify the portfolio page.
+- Earlier floating bubbles and galaxy designs were discarded. The current landing page is a navy-blue hardcover book with pale blue paper, blue ink, a rounded spine, and no exposed white page edges on the closed cover. It starts closed and straight.
+- Desktop opens into a two-page spread: the left page is now completely blank (no placeholders or text); the right has Developer, Gamer, or Coming Soon. Edit the `chapters` array in `src/Hub.jsx`. Developer links to `/portfolio`; Gamer links to `/gaming`; Coming Soon has no destination.
+- The Developer illustration is a custom outline monitor, CPU tower, and keyboard, with `system.out.println("HELLO")` inside the monitor and "LOGIC / CRAFT / POSSIBILITY" below. Gamer uses outline keyboard, mouse, and controller artwork with "PLAY / DISCOVER / REPEAT"; the decorative asterisk was removed.
+- Page text is centered. Developer / Gamer / Coming Soon / Close book controls sit above the spread; previous/next arrows flank it. The mobile footer "DEVELOPER. GAMER. STILL EXPLORING." is centered. Removed "ONE PERSON. MORE THAN ONE STORY.", the page-turn hint, image-page caption, and VISUALS label.
+- Header retains the shared persistent light/dark preference via `src/useColorMode.js`. The toggle uses aligned 20px inline sun/moon SVG icons.
+- The landing page fits the viewport without scrolling. A `ResizeObserver` scales the library to available height. Desktop closed-cover and individual open-page dimensions match; mobile shows only the right-hand chapter page, not the blank left page.
+
+### Book animation details and fixes
+
+- Desktop opening slides the closed book into position, then unfolds the cover. Closing folds the left page onto the right while stationary, then recenters the closed book. Both states use the same `CoverFace` artwork. Controls fade in after opening and fade out during closing.
+- Mobile has separate partial-flip/fade animations rather than desktop's spread movement. Removed the duplicate chapter from the moving cover to prevent mirrored text. Closing cover fade-in overlaps the outgoing chapter fade-out so the book does not disappear between them.
+- Desktop page turns keep an opaque blank reverse sheet visible while hiding reverse-side text; backward turns are also supported. Ink visibility timing is coordinated with the rotation.
+- Animation timing is shared through CSS variables (`--book-turn-time`, `--book-cover-time`, `--book-slide-time`, `--book-easing`). JavaScript uses animation-end events, not hard-coded completion timers. Reduced-motion mode skips opening, closing, and page-turn animations.
+- Important rendering fix: the rotating cover's `.book-close-sheet` must use `will-change: transform`, not `will-change: transform, opacity`. The opacity hint flattened its preserved 3D faces and made the desktop cover disappear during closing. Page-turn reverse faces use their own explicit visibility rules.
+
+### Checks and where to continue
+
+- Production builds passed after the latest changes. The existing six automated tests passed during today's work. Browser checks used headless Edge via temporary Puppeteer scripts, not a committed UI test suite.
+- Checked opening, chapter navigation in both directions, closing/recentering, control fades, reduced motion, and viewport fit at desktop and mobile widths. Inspected screenshots of both themes and sampled animation frames/opacity to investigate disappearing pages. These checks are not a live manual review on physical devices.
+- Latest gaming sidebar overflow check confirmed `overflow-x: clip` at desktop and mobile widths. The portfolio-return link remains configured in `src/Gaming.jsx`; on short desktop windows its visibility may still depend on the existing sidebar layout.
+- The repository now has Git available (the older "no git repo" note is outdated). No commits were created in this session. README was updated for the default book page.
+- Still needed: confirm the Beast of Reincarnation playlist URL, supply Phantom Blade Zero's playlist when ready, and manually review the final animations in a normal desktop browser and on a phone. Keep software-page content work on hold unless requested.
