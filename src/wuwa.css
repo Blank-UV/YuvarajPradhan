@@ -918,3 +918,177 @@
   width: 100%;
   min-width: 0;
 }
+
+/* Weapons */
+.rarity-3 {
+  background: linear-gradient(165deg, #3f86c9 0%, #2a5c95 55%, #173458 100%);
+}
+.wuwa-weapon-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 10px;
+}
+.wuwa-weapon-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  padding: 10px 14px 10px 10px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  color: var(--w-text);
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.wuwa-weapon-card.rarity-3,
+.wuwa-weapon-card.rarity-4,
+.wuwa-weapon-card.rarity-5 {
+  background: var(--w-panel);
+}
+.wuwa-weapon-icon {
+  position: relative;
+  flex: 0 0 84px;
+  height: 84px;
+  overflow: hidden;
+}
+.rarity-3 .wuwa-weapon-icon {
+  background: linear-gradient(165deg, #3f86c9 0%, #2a5c95 55%, #173458 100%);
+}
+.rarity-4 .wuwa-weapon-icon {
+  background: linear-gradient(165deg, #8c52c9 0%, #5b3391 55%, #34205a 100%);
+}
+.rarity-5 .wuwa-weapon-icon {
+  background: linear-gradient(165deg, #c5aa45 0%, #8a7326 55%, #5c4c14 100%);
+}
+.wuwa-weapon-icon img,
+.wuwa-weapon-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+}
+.wuwa-weapon-icon .wuwa-art-fallback {
+  z-index: 0;
+  font-size: 36px;
+}
+.wuwa-weapon-info {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.wuwa-weapon-name {
+  font:
+    700 15px/1.2 'Space Grotesk',
+    sans-serif;
+  overflow-wrap: anywhere;
+}
+.wuwa-weapon-sub {
+  color: var(--w-num);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.03em;
+}
+.wuwa-weapon-stats {
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+}
+@media (hover: hover) {
+  .wuwa-weapon-card:hover {
+    outline-color: var(--accent);
+    transform: translateY(-2px);
+  }
+}
+.wuwa-weapon-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.wuwa-weapon-profile {
+  grid-template-columns: minmax(150px, 240px) 1fr;
+}
+.wuwa-weapon-portrait {
+  aspect-ratio: 1;
+  border-bottom: 3px solid var(--accent);
+  box-shadow: 0 0 60px -20px var(--accent);
+}
+.wuwa-weapon-portrait .wuwa-art-fallback {
+  z-index: 0;
+}
+.wuwa-levels {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font:
+    500 13px 'DM Mono',
+    monospace;
+}
+.wuwa-levels th,
+.wuwa-levels td {
+  padding: 8px;
+  border-bottom: 1px solid var(--w-line);
+}
+.wuwa-levels th {
+  color: var(--w-muted);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.wuwa-recommended {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 14px 16px 16px;
+  list-style: none;
+}
+.wuwa-recommended li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel-2);
+  font:
+    500 13px 'DM Sans',
+    sans-serif;
+}
+.wuwa-recommended small {
+  color: var(--w-num);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+}
+@media (max-width: 680px) {
+  .wuwa-weapon-profile {
+    grid-template-columns: 1fr;
+  }
+  .wuwa-weapon-portrait {
+    max-width: 200px;
+  }
+}
+
+.rarity-1 {
+  background: linear-gradient(165deg, #7c8794 0%, #566170 55%, #323a46 100%);
+}
+.rarity-2 {
+  background: linear-gradient(165deg, #4aa56a 0%, #2f7549 55%, #1a4429 100%);
+}
+.rarity-1 .wuwa-weapon-icon {
+  background: linear-gradient(165deg, #7c8794 0%, #566170 55%, #323a46 100%);
+}
+.rarity-2 .wuwa-weapon-icon {
+  background: linear-gradient(165deg, #4aa56a 0%, #2f7549 55%, #1a4429 100%);
+}
+.wuwa-weapon-card.rarity-1,
+.wuwa-weapon-card.rarity-2 {
+  background: var(--w-panel);
+}

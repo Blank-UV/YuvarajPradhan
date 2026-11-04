@@ -83,3 +83,12 @@ Character data comes from `/api/wuwa-characters` (`?slug=` for one character), i
 3. Run `node scripts/wuwa-build-seed.mjs` to generate `wuwa-data/seed/seed-01.sql` onward, then run each file in the SQL editor in order. They upsert by slug, so they can be re-run.
 4. Upload the art to a public Storage bucket named `WutheringWaves`, keeping the `image_path` values (for example `characters/aalto.webp`).
 5. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in `.env.local` and in Vercel (no `VITE_` prefix).
+
+### Weapons
+
+`/wuthering-waves/weapons` (grid with search plus rarity, type and substat filters) and `/wuthering-waves/weapons/<slug>` (collapsible skill, syntony ranks, level stats, recommended characters, how to obtain, lore) read `/api/wuwa-weapons` (`api/wuwa-weapons.js`), which uses the same Supabase settings. Setup:
+
+1. Run `db/wuwa-weapons-schema.sql` in the SQL editor.
+2. Scrape the Game8 weapon list: `cd wuwa-data/scraper; node fetch-weapons.mjs; node parse-weapons.mjs` (needs `wuwa-data/weapons-cache/list.html`, the saved Game8 weapon list page). Then add wuthering.gg: save https://wuthering.gg/weapons as `wuwa-data/weapons-cache/gg-list.html`, run `node fetch-gg-weapons.mjs`, then `node merge-gg-weapons.mjs` and `node fix-weapon-levels.mjs` (repairs level tables Game8 left blank or mistyped and removes "Under Investigation!" placeholders) (adds the ten 1★/2★ starter weapons and missing lore). Icons come from wuthering.gg (transparent, larger than Game8's) and go to `wuwa-data/images/weapons/`; the Game8 originals are kept in `wuwa-data/images/weapons-game8/`. Output is the gitignored `wuwa-data/weapons/`.
+3. Run `node scripts/wuwa-build-weapon-seed.mjs`, then run `wuwa-data/seed/weapons-01.sql` onward in the SQL editor (they upsert by slug). Re-run `db/wuwa-weapons-schema.sql` first if it changed (it adds `max_level`).
+4. Upload `wuwa-data/images/weapons/` to the `WutheringWaves` bucket as `weapons/<slug>.png`.

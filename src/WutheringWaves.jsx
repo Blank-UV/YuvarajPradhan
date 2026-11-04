@@ -59,6 +59,10 @@ const SKILL_TABS = [
 ]
 
 const emptyFilters = { search: '', rarities: [], elements: [], weapons: [] }
+const WEAPON_API = '/api/wuwa-weapons'
+const WEAPON_RARITIES = [1, 2, 3, 4, 5]
+const SUBSTATS = ['ATK', 'HP', 'DEF', 'Crit Rate', 'Crit DMG', 'Energy Regen']
+const emptyWeaponFilters = { search: '', rarities: [], types: [], substats: [] }
 
 function parseRoute(pathname) {
   const rest = pathname
@@ -70,6 +74,8 @@ function parseRoute(pathname) {
   if (!section) return { page: 'home' }
   if (section === 'characters' && rest.length === 1) return { page: 'list' }
   if (section === 'characters' && rest.length === 2) return { page: 'detail', slug }
+  if (section === 'weapons' && rest.length === 1) return { page: 'weapons' }
+  if (section === 'weapons' && rest.length === 2) return { page: 'weapon', slug }
   if (section === 'team-calculations' && rest.length === 1) return { page: 'team' }
   return { page: 'missing' }
 }
@@ -408,8 +414,8 @@ function computeStats(character, includeFortes) {
   ]
 }
 
-function Collapsible({ chip, title, children }) {
-  const [open, setOpen] = useState(false)
+function Collapsible({ chip, title, defaultOpen = false, children }) {
+  const [open, setOpen] = useState(defaultOpen)
   return (
     <article className={`wuwa-skill${open ? '' : ' collapsed'}`}>
       <header>
@@ -610,6 +616,295 @@ function CharacterPage({ slug, navigate }) {
   )
 }
 
+function WeaponsPage({ navigate, filters, setFilters }) {
+  const { data: weapons, error, loading } = useRemote(WEAPON_API)
+  const { search, rarities, types, substats } = filters
+
+  const shown = useMemo(() => {
+    const needle = search.trim().toLowerCase()
+    return (weapons ?? []).filter(
+      (weapon) =>
+        (!needle ||
+          weapon.name.toLowerCase().includes(needle) ||
+          (weapon.skill_name ?? '').toLowerCase().includes(needle)) &&
+        (!rarities.length || rarities.includes(weapon.rarity)) &&
+        (!types.length || types.includes(weapon.weapon_type)) &&
+        (!substats.length || substats.includes(weapon.sub_stat)),
+    )
+  }, [weapons, search, rarities, types, substats])
+
+  const dirty = search || rarities.length || types.length || substats.length
+  const update = (patch) => setFilters({ ...filters, ...patch })
+
+  return (
+    <section className="wuwa-section" aria-labelledby="weapons-title">
+      <header className="wuwa-heading">
+        <h1 id="weapons-title">
+          <i aria-hidden="true" /> All Wuthering Waves weapons
+        </h1>
+        {weapons && (
+          <span className="wuwa-count" aria-live="polite">
+            Showing {shown.length} {shown.length === 1 ? 'weapon' : 'weapons'}
+          </span>
+        )}
+      </header>
+
+      <div className="wuwa-toolbar">
+        <label className="wuwa-search">
+          <span className="sr-only">Search weapons</span>
+          <input
+            type="search"
+            value={search}
+            placeholder="Search weapons or skills..."
+            onChange={(event) => update({ search: event.target.value })}
+          />
+        </label>
+        <FilterGroup
+          label="Rarity"
+          options={WEAPON_RARITIES}
+          selected={rarities}
+          onChange={(value) => update({ rarities: value })}
+          render={(rarity) => `${rarity}\u2605`}
+        />
+        <FilterGroup
+          label="Type"
+          options={WEAPONS}
+          selected={types}
+          onChange={(value) => update({ types: value })}
+          render={(type) => type}
+        />
+        <FilterGroup
+          label="Substat"
+          options={SUBSTATS}
+          selected={substats}
+          onChange={(value) => update({ substats: value })}
+          render={(stat) => stat}
+        />
+        <button
+          type="button"
+          className="wuwa-reset"
+          disabled={!dirty}
+          onClick={() => setFilters(emptyWeaponFilters)}
+        >
+          {'\u00D7'} Reset
+        </button>
+      </div>
+
+      {loading && <Panel>Loading weapons...</Panel>}
+      {error && <Panel>{error}</Panel>}
+      {weapons && shown.length === 0 && <Panel>No weapons match these filters.</Panel>}
+
+      <ul className="wuwa-weapon-grid">
+        {shown.map((weapon) => (
+          <li key={weapon.slug}>
+            <RouteLink
+              className={`wuwa-weapon-card rarity-${weapon.rarity}`}
+              to={`${BASE}/weapons/${weapon.slug}`}
+              navigate={navigate}
+              aria-label={`${weapon.name}, ${weapon.rarity} star ${weapon.weapon_type}`}
+            >
+              <span className="wuwa-weapon-icon">
+                <CharacterArt character={weapon} />
+              </span>
+              <span className="wuwa-weapon-info">
+                <span className="wuwa-weapon-name">{weapon.name}</span>
+                <span className="wuwa-weapon-sub">
+                  {'\u2605'.repeat(weapon.rarity)} {weapon.weapon_type}
+                </span>
+                <span className="wuwa-weapon-stats">
+                  ATK {weapon.atk} {'\u00B7'} {weapon.sub_stat} {weapon.sub_value}
+                </span>
+              </span>
+            </RouteLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function WeaponPage({ slug, navigate }) {
+  const {
+    data: weapon,
+    error,
+    loading,
+  } = useRemote(`${WEAPON_API}?slug=${encodeURIComponent(slug)}`)
+
+  const back = (
+    <RouteLink className="wuwa-back" to={`${BASE}/weapons`} navigate={navigate}>
+      {'\u2190'} All weapons
+    </RouteLink>
+  )
+
+  if (loading)
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>Loading weapon...</Panel>
+      </section>
+    )
+  if (error || !weapon) {
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>{error || 'Weapon not found.'}</Panel>
+      </section>
+    )
+  }
+
+  const syntony = weapon.syntony ?? []
+  const levels = weapon.levels ?? []
+  const recommended = weapon.recommended ?? []
+  const lines = (weapon.obtain ?? '').split('\n').filter(Boolean)
+
+  return (
+    <section className="wuwa-section" aria-labelledby="weapon-title">
+      {back}
+      <div className="wuwa-profile wuwa-weapon-profile" style={{ '--element': 'var(--accent)' }}>
+        <div className={`wuwa-portrait wuwa-weapon-portrait rarity-${weapon.rarity}`}>
+          <CharacterArt character={weapon} />
+        </div>
+        <div className="wuwa-profile-copy">
+          <p className="wuwa-eyebrow">
+            {'\u2605'.repeat(weapon.rarity)} {weapon.rarity}-star {weapon.weapon_type}
+          </p>
+          <h1 id="weapon-title">{weapon.name}</h1>
+          <dl className="wuwa-meta">
+            <div>
+              <dt>Base ATK (Lv. {weapon.max_level ?? 90})</dt>
+              <dd>{weapon.atk}</dd>
+            </div>
+            <div>
+              <dt>
+                {weapon.sub_stat} (Lv. {weapon.max_level ?? 90})
+              </dt>
+              <dd>{weapon.sub_value}</dd>
+            </div>
+            <div>
+              <dt>Type</dt>
+              <dd>{weapon.weapon_type}</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+
+      <h2 className="wuwa-subheading">
+        <i aria-hidden="true" /> Weapon skill
+      </h2>
+      <div className="wuwa-skill-grid">
+        <Collapsible chip="Skill" title={weapon.skill_name}>
+          <div className="wuwa-skill-body">
+            <p>
+              <RichText>{weapon.skill_text}</RichText>
+            </p>
+          </div>
+        </Collapsible>
+      </div>
+
+      {syntony.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Syntony ranks
+          </h2>
+          <div className="wuwa-chain">
+            {syntony.map((text, index) => (
+              <Collapsible key={index} chip={`R${index + 1}`} title={`Rank ${index + 1}`}>
+                <div className="wuwa-skill-body">
+                  <p>
+                    <RichText>{text}</RichText>
+                  </p>
+                </div>
+              </Collapsible>
+            ))}
+          </div>
+        </>
+      )}
+
+      {levels.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Level stats
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible chip="Stats" title="ATK and substat by level">
+              <div className="wuwa-skill-body">
+                <table className="wuwa-levels">
+                  <thead>
+                    <tr>
+                      <th>Lv.</th>
+                      <th>ATK</th>
+                      <th>{weapon.sub_stat}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {levels.map((row) => (
+                      <tr key={row.level}>
+                        <td>{row.level}</td>
+                        <td>{row.atk}</td>
+                        <td>{row.sub}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </Collapsible>
+          </div>
+        </>
+      )}
+
+      {recommended.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Recommended characters
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible chip="Best for" title={`${recommended.length} characters`}>
+              <ul className="wuwa-recommended">
+                {recommended.map((item) => (
+                  <li key={item.name}>
+                    <span
+                      className="wuwa-dot"
+                      style={{ background: ELEMENTS[item.element] ?? 'var(--w-muted)' }}
+                    />
+                    {item.name}
+                    {item.rarity ? <small>{`${item.rarity}\u2605`}</small> : null}
+                  </li>
+                ))}
+              </ul>
+            </Collapsible>
+          </div>
+        </>
+      )}
+
+      {(lines.length > 0 || weapon.lore) && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Details
+          </h2>
+          <div className="wuwa-skill-grid">
+            {lines.length > 0 && (
+              <Collapsible chip="Obtain" title="How to get">
+                <div className="wuwa-skill-body">
+                  {lines.map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                </div>
+              </Collapsible>
+            )}
+            {weapon.lore && (
+              <Collapsible chip="Lore" title="Description">
+                <div className="wuwa-skill-body">
+                  <p>{weapon.lore}</p>
+                </div>
+              </Collapsible>
+            )}
+          </div>
+        </>
+      )}
+    </section>
+  )
+}
+
 function TeamCalculationsPage() {
   return (
     <section className="wuwa-section" aria-labelledby="team-title">
@@ -629,6 +924,8 @@ function TeamCalculationsPage() {
 const titles = {
   home: '',
   list: 'Characters',
+  weapons: 'Weapons',
+  weapon: 'Weapon',
   detail: 'Character',
   team: 'Team Calculations',
   missing: 'Page not found',
@@ -661,6 +958,7 @@ export default function WutheringWaves() {
   const [colorMode, toggleColorMode] = useColorMode()
   const [pathname, navigate] = useRoute()
   const [filters, setFilters] = useState(emptyFilters)
+  const [weaponFilters, setWeaponFilters] = useState(emptyWeaponFilters)
   const route = parseRoute(pathname)
 
   useEffect(() => {
@@ -677,9 +975,11 @@ export default function WutheringWaves() {
   const activeId =
     route.page === 'list' || route.page === 'detail'
       ? 'characters'
-      : route.page === 'team'
-        ? 'team-calculations'
-        : ''
+      : route.page === 'weapons' || route.page === 'weapon'
+        ? 'weapons'
+        : route.page === 'team'
+          ? 'team-calculations'
+          : ''
 
   return (
     <div className={`site gaming-site wuwa-site ${colorMode === 'light' ? 'theme-light' : ''}`}>
@@ -712,6 +1012,12 @@ export default function WutheringWaves() {
         )}
         {route.page === 'detail' && (
           <CharacterPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'weapons' && (
+          <WeaponsPage navigate={navigate} filters={weaponFilters} setFilters={setWeaponFilters} />
+        )}
+        {route.page === 'weapon' && (
+          <WeaponPage key={route.slug} slug={route.slug} navigate={navigate} />
         )}
         {route.page === 'team' && <TeamCalculationsPage />}
         {route.page === 'missing' && (
