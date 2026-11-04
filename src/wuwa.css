@@ -701,3 +701,220 @@
   background: var(--accent);
   color: #0d0e18;
 }
+
+/* Home */
+.wuwa-home {
+  position: relative;
+  flex: 1 0 auto;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  padding: 120px clamp(20px, 5vw, 96px) clamp(48px, 9vh, 110px);
+  color: #e8eef7;
+  isolation: isolate;
+}
+.wuwa-home-art {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 50%;
+  animation: wuwa-drift 28s ease-in-out infinite alternate;
+}
+.wuwa-home-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(6, 10, 24, 0.9) 0%, rgba(6, 10, 24, 0.55) 45%, transparent 80%),
+    linear-gradient(0deg, rgba(6, 10, 24, 0.85) 0%, transparent 55%);
+}
+.wuwa-home-copy {
+  max-width: 640px;
+  animation: wuwa-rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.wuwa-home-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 14px;
+  color: var(--accent);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.wuwa-home-kicker i {
+  width: 28px;
+  height: 2px;
+  background: var(--accent);
+}
+.wuwa-home h1 {
+  display: grid;
+  margin: 0 0 22px;
+  font:
+    700 clamp(48px, 9vw, 128px) / 0.92 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  text-shadow: 0 6px 40px rgba(0, 0, 0, 0.45);
+}
+.wuwa-home h1 span:last-child {
+  color: var(--accent);
+}
+.wuwa-home-text {
+  max-width: 54ch;
+  margin: 0 0 28px;
+  padding-left: 16px;
+  border-left: 2px solid var(--accent);
+  color: #d4def0;
+  font:
+    400 clamp(15px, 1.3vw, 18px) / 1.7 'DM Sans',
+    sans-serif;
+}
+.wuwa-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.wuwa-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border: 1px solid rgba(232, 238, 247, 0.5);
+  background: rgba(10, 18, 32, 0.45);
+  backdrop-filter: blur(6px);
+  color: #e8eef7;
+  font:
+    700 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.wuwa-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d0e18;
+}
+.wuwa-btn:hover,
+.wuwa-btn:focus-visible {
+  background: #e8eef7;
+  border-color: #e8eef7;
+  color: #0d0e18;
+}
+.wuwa-home-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.wuwa-home-tags li {
+  padding: 6px 12px;
+  border: 1px solid rgba(232, 238, 247, 0.28);
+  background: rgba(10, 18, 32, 0.4);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+@keyframes wuwa-drift {
+  from {
+    transform: scale(1.04) translateX(0);
+  }
+  to {
+    transform: scale(1.12) translateX(-1.5%);
+  }
+}
+@keyframes wuwa-rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 680px) {
+  .wuwa-home {
+    padding-top: 96px;
+    align-items: flex-end;
+  }
+  .wuwa-home-art {
+    object-position: 58% 50%;
+  }
+  .wuwa-home-shade {
+    background: linear-gradient(
+      0deg,
+      rgba(6, 10, 24, 0.95) 0%,
+      rgba(6, 10, 24, 0.55) 70%,
+      rgba(6, 10, 24, 0.3) 100%
+    );
+  }
+  .wuwa-btn {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wuwa-home-art,
+  .wuwa-home-copy {
+    animation: none;
+  }
+}
+
+/* Home fits the viewport without scrolling */
+.wuwa-main.is-home {
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  overflow: hidden;
+}
+.wuwa-main.is-home .wuwa-footer-wrap {
+  display: none;
+}
+.wuwa-main.is-home .wuwa-home {
+  min-height: 0;
+  height: 100%;
+}
+@media (max-height: 760px) {
+  .wuwa-home h1 {
+    font-size: clamp(40px, min(14vh, 11vw), 128px);
+    margin-bottom: 14px;
+  }
+  .wuwa-home-text {
+    margin-bottom: 18px;
+  }
+  .wuwa-home-tags {
+    margin-top: 16px;
+  }
+}
+@media (max-width: 680px) {
+  .wuwa-home {
+    padding-bottom: 28px;
+  }
+  .wuwa-btn {
+    flex: 1 1 100%;
+    min-height: 42px;
+  }
+  .wuwa-home-actions {
+    gap: 8px;
+  }
+}
+.wuwa-home-copy {
+  width: 100%;
+  min-width: 0;
+}

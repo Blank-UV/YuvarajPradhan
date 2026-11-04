@@ -2,9 +2,45 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { siteProperties as site } from './site-properties.js'
 import Sidebar, { wuwaNavigation } from './Sidebar.jsx'
 import useColorMode from './useColorMode.js'
+import heroImage from '../images/wuwa/hero/piano.jpg'
 
 const BASE = '/wuthering-waves'
 const API = '/api/wuwa-characters'
+const OVERVIEW =
+  'Wuthering Waves is a story-rich open-world action RPG with a high degree of freedom. You wake from your slumber as Rover, joined by a vibrant cast of Resonators on a journey to reclaim your lost memories and change the world.'
+
+function HomePage({ navigate }) {
+  return (
+    <section className="wuwa-home" aria-labelledby="wuwa-home-title">
+      <img className="wuwa-home-art" src={heroImage} alt="" fetchpriority="high" />
+      <div className="wuwa-home-shade" aria-hidden="true" />
+      <div className="wuwa-home-copy">
+        <p className="wuwa-home-kicker">
+          <i aria-hidden="true" /> Open-world action RPG
+        </p>
+        <h1 id="wuwa-home-title">
+          <span>Wuthering</span>
+          <span>Waves</span>
+        </h1>
+        <p className="wuwa-home-text">{OVERVIEW}</p>
+        <div className="wuwa-home-actions">
+          <RouteLink className="wuwa-btn primary" to={`${BASE}/characters`} navigate={navigate}>
+            Browse Resonators {'\u2192'}
+          </RouteLink>
+          <RouteLink className="wuwa-btn" to={`${BASE}/team-calculations`} navigate={navigate}>
+            Team calculations
+          </RouteLink>
+        </div>
+        <ul className="wuwa-home-tags" aria-label="Highlights">
+          <li>Rover</li>
+          <li>Resonators</li>
+          <li>Lost memories</li>
+          <li>Open world</li>
+        </ul>
+      </div>
+    </section>
+  )
+}
 
 const ELEMENTS = {
   Aero: '#55ffb5',
@@ -591,6 +627,7 @@ function TeamCalculationsPage() {
 }
 
 const titles = {
+  home: '',
   list: 'Characters',
   detail: 'Character',
   team: 'Team Calculations',
@@ -627,10 +664,9 @@ export default function WutheringWaves() {
   const route = parseRoute(pathname)
 
   useEffect(() => {
-    if (route.page === 'home') navigate(`${BASE}/characters`, { replace: true })
-    else if (pathname.startsWith('/wutheringwaves'))
+    if (pathname.startsWith('/wutheringwaves'))
       navigate(pathname.replace('/wutheringwaves', BASE), { replace: true })
-  }, [pathname, route.page, navigate])
+  }, [pathname, navigate])
 
   useEffect(() => {
     const section =
@@ -669,7 +705,8 @@ export default function WutheringWaves() {
           navigate(href)
         }}
       />
-      <main id="main" className="wuwa-main">
+      <main id="main" className={`wuwa-main${route.page === 'home' ? ' is-home' : ''}`}>
+        {route.page === 'home' && <HomePage navigate={navigate} />}
         {route.page === 'list' && (
           <CharactersPage navigate={navigate} filters={filters} setFilters={setFilters} />
         )}
