@@ -1,4 +1,4 @@
-﻿# Portfolio
+# Portfolio
 
 A React + Vite portfolio for Yuvaraj Pradhan. Its fixed navigation rail, large editorial sections, geometric visuals, and switchable color slides are inspired by the interaction patterns of the Endfield reference site; no artwork or assets from that site are used. The small button at the bottom of the portfolio menu opens a separate gaming page.
 
@@ -74,7 +74,7 @@ Run `npm run format` to format the source, or `npm run format:check` to check fo
 
 ## Wuthering Waves pages
 
-`/wuthering-waves` (also reachable as `/wutheringwaves`) is a separate client-routed app (`wuthering-waves/index.html`, `src/WutheringWaves.jsx`, `src/wuwa.css`). Its sidebar has one page per item rather than scroll sections: `/wuthering-waves/characters` (searchable grid with rarity, element and weapon filters), `/wuthering-waves/characters/<slug>` (skills, resonance chain, minor fortes and Lv. 90 stats), and `/wuthering-waves/team-calculations` (placeholder). Vite dev/preview and `vercel.json` send every path under it to the same entry.
+`/wuthering-waves` (also reachable as `/wutheringwaves`) is a separate client-routed app (`wuthering-waves/index.html`, `src/WutheringWaves.jsx`, `src/wuwa.css`). Its sidebar has one page per item rather than scroll sections. **Archives** (/wuthering-waves/archives, default tab Characters) holds four tabs in a title bar at the top: Characters, Weapons, Sonata effects and Echoes, with their detail pages opening inside it; the old addresses such as /wuthering-waves/characters redirect to the new ones. Within it: `/wuthering-waves/archives/characters` (searchable grid with rarity, element and weapon filters), `/wuthering-waves/archives/characters/<slug>` (skills, resonance chain, minor fortes and Lv. 90 stats), and `/wuthering-waves/team-calculations` (placeholder). Vite dev/preview and `vercel.json` send every path under it to the same entry.
 
 Character data comes from `/api/wuwa-characters` (`?slug=` for one character), implemented in `api/wuwa-characters.js`. It reads Supabase through its REST API using `SUPABASE_URL` and `SUPABASE_ANON_KEY` and returns a 503 with the message "CHARACTERS CURRENTLY FIGHTING THE THRENODIANS" (shown on the page) and logs the missing settings on the server when they are missing; there is no local fallback, so the database is the only source of character data.
 
@@ -86,9 +86,27 @@ Character data comes from `/api/wuwa-characters` (`?slug=` for one character), i
 
 ### Weapons
 
-`/wuthering-waves/weapons` (grid with search plus rarity, type and substat filters) and `/wuthering-waves/weapons/<slug>` (collapsible skill, syntony ranks, level stats, recommended characters, how to obtain, lore) read `/api/wuwa-weapons` (`api/wuwa-weapons.js`), which uses the same Supabase settings. Setup:
+`/wuthering-waves/archives/weapons` (grid with search plus rarity, type and substat filters) and `/wuthering-waves/archives/weapons/<slug>` (collapsible skill, syntony ranks, level stats, recommended characters, how to obtain, lore) read `/api/wuwa-weapons` (`api/wuwa-weapons.js`), which uses the same Supabase settings. Setup:
 
 1. Run `db/wuwa-weapons-schema.sql` in the SQL editor.
 2. Scrape the Game8 weapon list: `cd wuwa-data/scraper; node fetch-weapons.mjs; node parse-weapons.mjs` (needs `wuwa-data/weapons-cache/list.html`, the saved Game8 weapon list page). Then add wuthering.gg: save https://wuthering.gg/weapons as `wuwa-data/weapons-cache/gg-list.html`, run `node fetch-gg-weapons.mjs`, then `node merge-gg-weapons.mjs` and `node fix-weapon-levels.mjs` (repairs level tables Game8 left blank or mistyped and removes "Under Investigation!" placeholders) (adds the ten 1★/2★ starter weapons and missing lore). Icons come from wuthering.gg (transparent, larger than Game8's) and go to `wuwa-data/images/weapons/`; the Game8 originals are kept in `wuwa-data/images/weapons-game8/`. Output is the gitignored `wuwa-data/weapons/`.
 3. Run `node scripts/wuwa-build-weapon-seed.mjs`, then run `wuwa-data/seed/weapons-01.sql` onward in the SQL editor (they upsert by slug). Re-run `db/wuwa-weapons-schema.sql` first if it changed (it adds `max_level`).
 4. Upload `wuwa-data/images/weapons/` to the `WutheringWaves` bucket as `weapons/<slug>.png`.
+
+### Sonata effects
+
+`/wuthering-waves/archives/sonata-effects` (grid of all 37 echo sets with their 2-/5-piece bonuses; search by set or bonus text, element and piece-count filters) and `/wuthering-waves/archives/sonata-effects/<slug>` (collapsible set bonuses, best and alternative characters, echo main stat priority by cost, the echoes that can use the set, where to farm it, and notes) read `/api/wuwa-sonata` (`api/wuwa-sonata.js`), which uses the same Supabase settings. Setup:
+
+1. Run `db/wuwa-sonata-schema.sql` in the SQL editor.
+2. Scrape Game8's sonata list and set pages: `cd wuwa-data/scraper; node fetch-sonata.mjs; node parse-sonata.mjs` (needs `wuwa-data/sonata-cache/list.html`, the saved Game8 list page, https://game8.co/games/Wuthering-Waves/archives/456215). Set icons come from wuthering.gg's echoes page (save https://wuthering.gg/echos as `wuwa-data/sonata-cache/gg-echos.html`, then `node fetch-sonata-icons.mjs`) into `wuwa-data/images/sonata/`. Output is the gitignored `wuwa-data/sonata/`.
+3. Run `node scripts/wuwa-build-sonata-seed.mjs`, then run `wuwa-data/seed/sonata-01.sql` in the SQL editor (it upserts by slug).
+4. Upload `wuwa-data/images/sonata/` to the `WutheringWaves` bucket as `sonata/<slug>.png`.
+
+### Echoes
+
+`/wuthering-waves/archives/echoes` (grid of all 187 echoes with cost, class and sonata set icons; search by name, cost, class and sonata effect filters) and `/wuthering-waves/archives/echoes/<slug>` (collapsible echo skill, possible sonata effects linking to their pages, main stats and substat ranges at Lv. 25, where to get, and material drops) read `/api/wuwa-echoes` (`api/wuwa-echoes.js`), which uses the same Supabase settings. The sonata set icons come from the sonata effects images, so load those too. Setup:
+
+1. Run `db/wuwa-echoes-schema.sql` in the SQL editor.
+2. Scrape Game8's echo list and pages plus wuthering.gg's echo pages: `cd wuwa-data/scraper; node fetch-echoes.mjs; node parse-echoes.mjs; node fetch-echo-icons.mjs` (needs the saved lists `wuwa-data/echo-cache/list.html`, https://game8.co/games/Wuthering-Waves/archives/452491, and `gg-list.html`, https://wuthering.gg/echos). Output is the gitignored `wuwa-data/echoes/` and `wuwa-data/images/echoes/`.
+3. Run `node scripts/wuwa-build-echo-seed.mjs`, then run `wuwa-data/seed/echoes-01.sql` onward in the SQL editor (they upsert by slug).
+4. Upload `wuwa-data/images/echoes/` to the `WutheringWaves` bucket as `echoes/<slug>.png`.

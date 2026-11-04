@@ -3,6 +3,8 @@ import { defineConfig, loadEnv } from 'vite'
 import { createVideosHandler } from './api/videos.js'
 import { createWuwaCharactersHandler } from './api/wuwa-characters.js'
 import { createWuwaWeaponsHandler } from './api/wuwa-weapons.js'
+import { createWuwaSonataHandler } from './api/wuwa-sonata.js'
+import { createWuwaEchoesHandler } from './api/wuwa-echoes.js'
 import { hoverOnlyPlugin } from './server/hover-only.js'
 import { siteProperties } from './src/site-properties.js'
 
@@ -31,6 +33,16 @@ export default defineConfig(({ mode }) => {
     apiKey: process.env.YOUTUBE_API_KEY || env.YOUTUBE_API_KEY,
   })
   const wuwaHandler = createWuwaCharactersHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
+  })
+  const echoesHandler = createWuwaEchoesHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
+  })
+  const sonataHandler = createWuwaSonataHandler({
     supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
     anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
     imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
@@ -95,6 +107,24 @@ export default defineConfig(({ mode }) => {
         },
         configurePreviewServer(server) {
           server.middlewares.use('/api/wuwa-weapons', weaponsHandler)
+        },
+      },
+      {
+        name: 'wuwa-sonata-api',
+        configureServer(server) {
+          server.middlewares.use('/api/wuwa-sonata', sonataHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/wuwa-sonata', sonataHandler)
+        },
+      },
+      {
+        name: 'wuwa-echoes-api',
+        configureServer(server) {
+          server.middlewares.use('/api/wuwa-echoes', echoesHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/wuwa-echoes', echoesHandler)
         },
       },
     ],

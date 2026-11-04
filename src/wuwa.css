@@ -1092,3 +1092,353 @@
 .wuwa-weapon-card.rarity-2 {
   background: var(--w-panel);
 }
+
+/* Sonata effects */
+.wuwa-sonata-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 10px;
+}
+.wuwa-sonata-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  height: 100%;
+  padding: 14px 16px 14px 14px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  border-left: 3px solid var(--element);
+  color: var(--w-text);
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.wuwa-sonata-icon {
+  position: relative;
+  flex: 0 0 64px;
+  height: 64px;
+}
+.wuwa-sonata-icon img,
+.wuwa-sonata-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 0;
+}
+.wuwa-sonata-icon .wuwa-art-fallback,
+.wuwa-sonata-portrait .wuwa-art-fallback {
+  z-index: 0;
+  font-size: 32px;
+}
+.wuwa-sonata-info {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.wuwa-sonata-name {
+  font:
+    700 16px/1.2 'Space Grotesk',
+    sans-serif;
+}
+.wuwa-sonata-bonus {
+  color: var(--w-muted);
+  font:
+    400 13px/1.5 'DM Sans',
+    sans-serif;
+  overflow-wrap: anywhere;
+}
+.wuwa-sonata-bonus b {
+  margin-right: 4px;
+  color: var(--w-num);
+  font:
+    700 11px 'DM Mono',
+    monospace;
+}
+@media (hover: hover) {
+  .wuwa-sonata-card:hover {
+    outline-color: var(--element);
+    transform: translateY(-2px);
+  }
+}
+.wuwa-sonata-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.wuwa-sonata-portrait {
+  aspect-ratio: 1;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  border-bottom: 3px solid var(--element);
+  box-shadow: 0 0 60px -20px var(--element);
+}
+.wuwa-stat-priority li small {
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.wuwa-stat-priority .priority-lock {
+  border-color: #55d98a;
+}
+.wuwa-stat-priority .priority-lock small {
+  color: #55d98a;
+}
+.wuwa-stat-priority .priority-optional small {
+  color: var(--w-num);
+}
+.wuwa-stat-priority .priority-discard {
+  opacity: 0.55;
+}
+.wuwa-site.theme-light .wuwa-stat-priority .priority-lock small {
+  color: #1f8a4d;
+}
+.wuwa-where-row {
+  color: var(--w-muted);
+}
+@media (max-width: 680px) {
+  .wuwa-sonata-icon {
+    flex-basis: 52px;
+    height: 52px;
+  }
+  .wuwa-sonata-portrait {
+    max-width: 160px;
+  }
+}
+.wuwa-sonata-portrait {
+  width: 160px;
+  max-width: 100%;
+  align-self: end;
+}
+
+/* Echoes */
+.wuwa-echo-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(130px, 12vw, 180px), 1fr));
+  gap: 10px;
+}
+.wuwa-echo-card {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  height: 100%;
+  padding: 10px 10px 12px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  color: var(--w-text);
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.wuwa-echo-icon {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  background: var(--w-panel-2);
+}
+.wuwa-echo-icon img,
+.wuwa-echo-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.wuwa-echo-icon .wuwa-art-fallback,
+.wuwa-echo-portrait .wuwa-art-fallback {
+  z-index: 0;
+  font-size: 36px;
+}
+.wuwa-echo-name {
+  font:
+    700 14px/1.2 'Space Grotesk',
+    sans-serif;
+  overflow-wrap: anywhere;
+}
+.wuwa-echo-meta {
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.wuwa-echo-meta b {
+  margin-right: 4px;
+  padding: 1px 6px;
+  background: var(--accent);
+  color: #0d0e18;
+}
+.wuwa-site.theme-light .wuwa-echo-meta b {
+  color: #fff;
+}
+.wuwa-echo-sonatas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-height: 24px;
+}
+.wuwa-sonata-mini {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+@media (hover: hover) {
+  .wuwa-echo-card:hover {
+    outline-color: var(--accent);
+    transform: translateY(-2px);
+  }
+}
+.wuwa-echo-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.wuwa-echo-portrait {
+  aspect-ratio: 1;
+  background: var(--w-panel-2);
+  border-bottom: 3px solid var(--accent);
+  box-shadow: 0 0 60px -20px var(--accent);
+}
+.wuwa-echo-sets li a {
+  color: var(--w-text);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+.wuwa-echo-sets .wuwa-sonata-mini {
+  width: 28px;
+  height: 28px;
+}
+.wuwa-select select {
+  min-height: 40px;
+  max-width: 100%;
+  padding: 0 14px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  color: var(--w-text);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+}
+.wuwa-select select:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (max-width: 680px) {
+  .wuwa-select select {
+    width: 100%;
+  }
+  .wuwa-echo-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Archives title bar */
+.wuwa-archive-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 28px;
+  padding: 32px clamp(20px, 4vw, 72px) 0;
+  max-width: 1760px;
+  width: 100%;
+}
+.wuwa-archive-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font:
+    700 clamp(22px, 2.4vw, 30px) 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.wuwa-archive-title i {
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+}
+.wuwa-archive-tabs {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.wuwa-archive-tabs a {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  color: var(--w-muted);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.wuwa-archive-tabs a + a {
+  border-left: 1px solid var(--w-line);
+}
+.wuwa-archive-tabs a.on {
+  background: var(--accent);
+  color: #0d0e18;
+  font-weight: 700;
+}
+.wuwa-site.theme-light .wuwa-archive-tabs a.on {
+  color: #fff;
+}
+@media (hover: hover) {
+  .wuwa-archive-tabs a:not(.on):hover {
+    color: var(--w-text);
+    background: rgba(var(--accent-rgb), 0.14);
+  }
+}
+.wuwa-archive-tabs a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.wuwa-archive-bar + .wuwa-section {
+  padding-top: 28px;
+}
+@media (max-width: 680px) {
+  .wuwa-archive-bar {
+    padding-top: 84px;
+  }
+  .wuwa-archive-tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .wuwa-archive-tabs a + a {
+    border-left: 0;
+  }
+  .wuwa-archive-tabs a:nth-child(even) {
+    border-left: 1px solid var(--w-line);
+  }
+  .wuwa-archive-tabs a:nth-child(n + 3) {
+    border-top: 1px solid var(--w-line);
+  }
+  .wuwa-archive-bar + .wuwa-section {
+    padding-top: 20px;
+  }
+}

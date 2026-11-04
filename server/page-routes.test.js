@@ -27,6 +27,8 @@ for (const hook of ['configureServer', 'configurePreviewServer']) {
       ['/wuthering-waves', '/wuthering-waves/index.html'],
       ['/wuthering-waves/characters', '/wuthering-waves/index.html'],
       ['/wuthering-waves/characters/aalto?x=1', '/wuthering-waves/index.html?x=1'],
+      ['/wuthering-waves/archives', '/wuthering-waves/index.html'],
+      ['/wuthering-waves/archives/weapons/abyss-surges', '/wuthering-waves/index.html'],
       ['/wutheringwaves/team-calculations', '/wuthering-waves/index.html'],
       ['/wuthering-waves-other', '/wuthering-waves-other'],
       ['/', '/'],

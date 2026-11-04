@@ -19,8 +19,7 @@ export const gamingNavigation = [
 ]
 
 export const wuwaNavigation = [
-  { id: 'characters', label: 'Characters', icon: '\u25CE', href: '/wuthering-waves/characters' },
-  { id: 'weapons', label: 'Weapons', icon: '\u25C8', href: '/wuthering-waves/weapons' },
+  { id: 'archives', label: 'Archives', icon: '\u25CE', href: '/wuthering-waves/archives' },
   {
     id: 'team-calculations',
     label: 'Team Calculations',

@@ -5,6 +5,13 @@ import useColorMode from './useColorMode.js'
 import heroImage from '../images/wuwa/hero/piano.jpg'
 
 const BASE = '/wuthering-waves'
+const ARCHIVE = `${BASE}/archives`
+const ARCHIVE_TABS = [
+  { id: 'characters', label: 'Characters', href: `${ARCHIVE}/characters` },
+  { id: 'weapons', label: 'Weapons', href: `${ARCHIVE}/weapons` },
+  { id: 'sonata-effects', label: 'Sonata effects', href: `${ARCHIVE}/sonata-effects` },
+  { id: 'echoes', label: 'Echoes', href: `${ARCHIVE}/echoes` },
+]
 const API = '/api/wuwa-characters'
 const OVERVIEW =
   'Wuthering Waves is a story-rich open-world action RPG with a high degree of freedom. You wake from your slumber as Rover, joined by a vibrant cast of Resonators on a journey to reclaim your lost memories and change the world.'
@@ -24,7 +31,7 @@ function HomePage({ navigate }) {
         </h1>
         <p className="wuwa-home-text">{OVERVIEW}</p>
         <div className="wuwa-home-actions">
-          <RouteLink className="wuwa-btn primary" to={`${BASE}/characters`} navigate={navigate}>
+          <RouteLink className="wuwa-btn primary" to={`${ARCHIVE}/characters`} navigate={navigate}>
             Browse Resonators {'\u2192'}
           </RouteLink>
           <RouteLink className="wuwa-btn" to={`${BASE}/team-calculations`} navigate={navigate}>
@@ -63,21 +70,78 @@ const WEAPON_API = '/api/wuwa-weapons'
 const WEAPON_RARITIES = [1, 2, 3, 4, 5]
 const SUBSTATS = ['ATK', 'HP', 'DEF', 'Crit Rate', 'Crit DMG', 'Energy Regen']
 const emptyWeaponFilters = { search: '', rarities: [], types: [], substats: [] }
+const SONATA_API = '/api/wuwa-sonata'
+const SONATA_ELEMENTS = [...Object.keys(ELEMENTS), 'General']
+const SONATA_KINDS = ['2 + 5 pieces', '3 pieces', '1 piece']
+const emptySonataFilters = { search: '', elements: [], kinds: [] }
+const ECHO_API = '/api/wuwa-echoes'
+const ECHO_COSTS = [4, 3, 1]
+const ECHO_CLASSES = ['Calamity', 'Overlord', 'Elite', 'Common']
+const emptyEchoFilters = { search: '', costs: [], classes: [], sonata: '' }
+
+const ARCHIVE_SECTIONS = ['characters', 'weapons', 'sonata-effects', 'echoes']
 
 function parseRoute(pathname) {
-  const rest = pathname
+  let rest = pathname
     .replace(/\/+$/, '')
     .replace(/^\/(?:wuthering-waves|wutheringwaves)/, '')
     .split('/')
     .filter(Boolean)
-  const [section, slug] = rest
-  if (!section) return { page: 'home' }
-  if (section === 'characters' && rest.length === 1) return { page: 'list' }
-  if (section === 'characters' && rest.length === 2) return { page: 'detail', slug }
-  if (section === 'weapons' && rest.length === 1) return { page: 'weapons' }
-  if (section === 'weapons' && rest.length === 2) return { page: 'weapon', slug }
-  if (section === 'team-calculations' && rest.length === 1) return { page: 'team' }
+  const [first] = rest
+  if (!first) return { page: 'home' }
+  // Characters, weapons, sonata effects and echoes live under /archives; the old addresses redirect.
+  if (ARCHIVE_SECTIONS.includes(first))
+    return { page: 'redirect', to: `${ARCHIVE}/${rest.join('/')}` }
+  if (first === 'archives') {
+    rest = rest.slice(1)
+    if (!rest.length) return { page: 'redirect', to: `${ARCHIVE}/characters` }
+    const [section, slug] = rest
+    if (section === 'characters' && rest.length === 1) return { page: 'list' }
+    if (section === 'characters' && rest.length === 2) return { page: 'detail', slug }
+    if (section === 'weapons' && rest.length === 1) return { page: 'weapons' }
+    if (section === 'weapons' && rest.length === 2) return { page: 'weapon', slug }
+    if (section === 'echoes' && rest.length === 1) return { page: 'echoes' }
+    if (section === 'echoes' && rest.length === 2) return { page: 'echo', slug }
+    if (section === 'sonata-effects' && rest.length === 1) return { page: 'sonatas' }
+    if (section === 'sonata-effects' && rest.length === 2) return { page: 'sonata', slug }
+    return { page: 'missing' }
+  }
+  if (first === 'team-calculations' && rest.length === 1) return { page: 'team' }
   return { page: 'missing' }
+}
+
+const ARCHIVE_PAGE_TAB = {
+  list: 'characters',
+  detail: 'characters',
+  weapons: 'weapons',
+  weapon: 'weapons',
+  sonatas: 'sonata-effects',
+  sonata: 'sonata-effects',
+  echoes: 'echoes',
+  echo: 'echoes',
+}
+
+function ArchiveBar({ active, navigate }) {
+  return (
+    <header className="wuwa-archive-bar">
+      <p className="wuwa-archive-title">
+        <i aria-hidden="true" /> Archives
+      </p>
+      <nav className="wuwa-archive-tabs" aria-label="Archives sections">
+        {ARCHIVE_TABS.map((tab) => (
+          <RouteLink
+            key={tab.id}
+            to={tab.href}
+            navigate={navigate}
+            className={active === tab.id ? 'on' : ''}
+            aria-current={active === tab.id ? 'page' : undefined}
+          >
+            {tab.label}
+          </RouteLink>
+        ))}
+      </nav>
+    </header>
+  )
 }
 
 function useRoute() {
@@ -357,7 +421,7 @@ function CharactersPage({ navigate, filters, setFilters }) {
             <RouteLink
               className={`wuwa-card rarity-${character.rarity}`}
               style={{ '--element': ELEMENTS[character.element] }}
-              to={`${BASE}/characters/${character.slug}`}
+              to={`${ARCHIVE}/characters/${character.slug}`}
               navigate={navigate}
               aria-label={`${character.name}, ${character.rarity} star ${character.element} ${character.weapon_type}`}
             >
@@ -474,7 +538,7 @@ function CharacterPage({ slug, navigate }) {
   const color = character && ELEMENTS[character.element]
 
   const back = (
-    <RouteLink className="wuwa-back" to={`${BASE}/characters`} navigate={navigate}>
+    <RouteLink className="wuwa-back" to={`${ARCHIVE}/characters`} navigate={navigate}>
       {'\u2190'} All characters
     </RouteLink>
   )
@@ -699,7 +763,7 @@ function WeaponsPage({ navigate, filters, setFilters }) {
           <li key={weapon.slug}>
             <RouteLink
               className={`wuwa-weapon-card rarity-${weapon.rarity}`}
-              to={`${BASE}/weapons/${weapon.slug}`}
+              to={`${ARCHIVE}/weapons/${weapon.slug}`}
               navigate={navigate}
               aria-label={`${weapon.name}, ${weapon.rarity} star ${weapon.weapon_type}`}
             >
@@ -731,7 +795,7 @@ function WeaponPage({ slug, navigate }) {
   } = useRemote(`${WEAPON_API}?slug=${encodeURIComponent(slug)}`)
 
   const back = (
-    <RouteLink className="wuwa-back" to={`${BASE}/weapons`} navigate={navigate}>
+    <RouteLink className="wuwa-back" to={`${ARCHIVE}/weapons`} navigate={navigate}>
       {'\u2190'} All weapons
     </RouteLink>
   )
@@ -905,6 +969,650 @@ function WeaponPage({ slug, navigate }) {
   )
 }
 
+function pieceKind(set) {
+  const pieces = (set.bonuses ?? []).map((bonus) => bonus.pieces)
+  return pieces.includes(5)
+    ? SONATA_KINDS[0]
+    : pieces.includes(3)
+      ? SONATA_KINDS[1]
+      : SONATA_KINDS[2]
+}
+
+const sonataElement = (set) => set.element ?? 'General'
+
+function SonataArt({ set }) {
+  return <CharacterArt character={set} />
+}
+
+function SonatasPage({ navigate, filters, setFilters }) {
+  const { data: sets, error, loading } = useRemote(SONATA_API)
+  const { search, elements, kinds } = filters
+
+  const shown = useMemo(() => {
+    const needle = search.trim().toLowerCase()
+    return (sets ?? []).filter(
+      (set) =>
+        (!needle ||
+          set.name.toLowerCase().includes(needle) ||
+          set.bonuses.some((bonus) => bonus.text.toLowerCase().includes(needle))) &&
+        (!elements.length || elements.includes(sonataElement(set))) &&
+        (!kinds.length || kinds.includes(pieceKind(set))),
+    )
+  }, [sets, search, elements, kinds])
+
+  const dirty = search || elements.length || kinds.length
+  const update = (patch) => setFilters({ ...filters, ...patch })
+
+  return (
+    <section className="wuwa-section" aria-labelledby="sonatas-title">
+      <header className="wuwa-heading">
+        <h1 id="sonatas-title">
+          <i aria-hidden="true" /> All sonata effects
+        </h1>
+        {sets && (
+          <span className="wuwa-count" aria-live="polite">
+            Showing {shown.length} {shown.length === 1 ? 'set' : 'sets'}
+          </span>
+        )}
+      </header>
+
+      <div className="wuwa-toolbar">
+        <label className="wuwa-search">
+          <span className="sr-only">Search sonata effects</span>
+          <input
+            type="search"
+            value={search}
+            placeholder="Search sets or bonus text..."
+            onChange={(event) => update({ search: event.target.value })}
+          />
+        </label>
+        <FilterGroup
+          label="Element"
+          options={SONATA_ELEMENTS}
+          selected={elements}
+          onChange={(value) => update({ elements: value })}
+          render={(element) => (
+            <>
+              {ELEMENTS[element] && (
+                <span className="wuwa-dot" style={{ background: ELEMENTS[element] }} />
+              )}
+              {element}
+            </>
+          )}
+        />
+        <FilterGroup
+          label="Pieces"
+          options={SONATA_KINDS}
+          selected={kinds}
+          onChange={(value) => update({ kinds: value })}
+          render={(kind) => kind}
+        />
+        <button
+          type="button"
+          className="wuwa-reset"
+          disabled={!dirty}
+          onClick={() => setFilters(emptySonataFilters)}
+        >
+          {'\u00D7'} Reset
+        </button>
+      </div>
+
+      {loading && <Panel>Loading sonata effects...</Panel>}
+      {error && <Panel>{error}</Panel>}
+      {sets && shown.length === 0 && <Panel>No sonata effects match these filters.</Panel>}
+
+      <ul className="wuwa-sonata-grid">
+        {shown.map((set) => (
+          <li key={set.slug}>
+            <RouteLink
+              className="wuwa-sonata-card"
+              style={{ '--element': ELEMENTS[set.element] ?? 'var(--accent)' }}
+              to={`${ARCHIVE}/sonata-effects/${set.slug}`}
+              navigate={navigate}
+              aria-label={`${set.name}, ${pieceKind(set)}`}
+            >
+              <span className="wuwa-sonata-icon">
+                <SonataArt set={set} />
+              </span>
+              <span className="wuwa-sonata-info">
+                <span className="wuwa-sonata-name">{set.name}</span>
+                {set.bonuses.map((bonus) => (
+                  <span key={bonus.pieces} className="wuwa-sonata-bonus">
+                    <b>{bonus.pieces}-pc</b> {bonus.text}
+                  </span>
+                ))}
+              </span>
+            </RouteLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+const PRIORITY_LABEL = { lock: 'Lock', optional: 'Optional', discard: 'Discard' }
+
+function SonataPage({ slug, navigate }) {
+  const { data: set, error, loading } = useRemote(`${SONATA_API}?slug=${encodeURIComponent(slug)}`)
+
+  const back = (
+    <RouteLink className="wuwa-back" to={`${ARCHIVE}/sonata-effects`} navigate={navigate}>
+      {'\u2190'} All sonata effects
+    </RouteLink>
+  )
+
+  if (loading)
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>Loading sonata effect...</Panel>
+      </section>
+    )
+  if (error || !set) {
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>{error || 'Sonata effect not found.'}</Panel>
+      </section>
+    )
+  }
+
+  const bestCharacters = set.best_characters ?? []
+  const optionalCharacters = set.optional_characters ?? []
+  const mainStats = Object.entries(set.main_stats ?? {}).sort(([a], [b]) => Number(b) - Number(a))
+  const echoes = set.echoes ?? []
+  const where = set.where_to_get ?? []
+  const notes = set.notes ?? []
+
+  return (
+    <section className="wuwa-section" aria-labelledby="sonata-title">
+      {back}
+      <div
+        className="wuwa-profile wuwa-weapon-profile"
+        style={{ '--element': ELEMENTS[set.element] ?? 'var(--accent)' }}
+      >
+        <div className="wuwa-portrait wuwa-sonata-portrait">
+          <SonataArt set={set} />
+        </div>
+        <div className="wuwa-profile-copy">
+          <p className="wuwa-eyebrow">
+            {set.element ?? 'General'} {'\u00B7'} {pieceKind(set)}
+          </p>
+          <h1 id="sonata-title">{set.name}</h1>
+          <dl className="wuwa-meta">
+            {set.bonuses.map((bonus) => (
+              <div key={bonus.pieces}>
+                <dt>Set bonus</dt>
+                <dd>{bonus.pieces}-piece</dd>
+              </div>
+            ))}
+            {echoes.length > 0 && (
+              <div>
+                <dt>Echoes</dt>
+                <dd>{echoes.length}</dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      </div>
+
+      <h2 className="wuwa-subheading">
+        <i aria-hidden="true" /> Set bonuses
+      </h2>
+      <div className="wuwa-chain">
+        {set.bonuses.map((bonus) => (
+          <Collapsible
+            key={bonus.pieces}
+            chip={`${bonus.pieces}-pc`}
+            title={`${bonus.pieces}-piece bonus`}
+          >
+            <div className="wuwa-skill-body">
+              <p>
+                <RichText>{bonus.text}</RichText>
+              </p>
+            </div>
+          </Collapsible>
+        ))}
+      </div>
+
+      {(bestCharacters.length > 0 || optionalCharacters.length > 0) && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Best characters
+          </h2>
+          <div className="wuwa-skill-grid">
+            {bestCharacters.length > 0 && (
+              <Collapsible
+                chip="Best"
+                title={`${bestCharacters.length} ${bestCharacters.length === 1 ? 'character' : 'characters'}`}
+              >
+                <ul className="wuwa-recommended">
+                  {bestCharacters.map((name) => (
+                    <li key={name}>{name}</li>
+                  ))}
+                </ul>
+              </Collapsible>
+            )}
+            {optionalCharacters.length > 0 && (
+              <Collapsible
+                chip="Optional"
+                title={`${optionalCharacters.length} alternative builds`}
+              >
+                <ul className="wuwa-recommended">
+                  {optionalCharacters.map((name) => (
+                    <li key={name}>{name}</li>
+                  ))}
+                </ul>
+              </Collapsible>
+            )}
+          </div>
+        </>
+      )}
+
+      {mainStats.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Echo main stats
+          </h2>
+          <div className="wuwa-skill-grid">
+            {mainStats.map(([cost, stats]) => (
+              <Collapsible key={cost} chip={`Cost ${cost}`} title="Main stat priority">
+                <ul className="wuwa-recommended wuwa-stat-priority">
+                  {stats.map((item) => (
+                    <li key={item.stat} className={`priority-${item.priority}`}>
+                      {item.stat}
+                      <small>{PRIORITY_LABEL[item.priority]}</small>
+                    </li>
+                  ))}
+                </ul>
+              </Collapsible>
+            ))}
+          </div>
+        </>
+      )}
+
+      {echoes.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Echoes in this set
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible chip="Echoes" title={`${echoes.length} echoes can use this set`}>
+              <ul className="wuwa-recommended">
+                {echoes.map((echo) => (
+                  <li key={echo.name}>
+                    {echo.name}
+                    {echo.cost ? <small>{`Cost ${echo.cost}`}</small> : null}
+                  </li>
+                ))}
+              </ul>
+            </Collapsible>
+          </div>
+        </>
+      )}
+
+      {where.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Where to get
+          </h2>
+          <div className="wuwa-skill-grid">
+            {where.map((section) => (
+              <Collapsible key={section.title} chip="Farm" title={section.title}>
+                <div className="wuwa-skill-body">
+                  {(section.text ?? []).map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                  {(section.rows ?? []).map((row, index) => (
+                    <p key={`row-${index}`} className="wuwa-where-row">
+                      {row}
+                    </p>
+                  ))}
+                </div>
+              </Collapsible>
+            ))}
+          </div>
+        </>
+      )}
+
+      {notes.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Notes
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible chip="Guide" title="How to use this set">
+              <div className="wuwa-skill-body">
+                {notes.map((line, index) => (
+                  <p key={index}>{line}</p>
+                ))}
+              </div>
+            </Collapsible>
+          </div>
+        </>
+      )}
+    </section>
+  )
+}
+
+const sonataIcon = (echo, slug) => (echo.image_base ? `${echo.image_base}sonata/${slug}.png` : null)
+
+function SonataChip({ echo, effect }) {
+  const [failed, setFailed] = useState(false)
+  const src = sonataIcon(echo, effect.slug)
+  return src && !failed ? (
+    <img
+      className="wuwa-sonata-mini"
+      src={src}
+      alt=""
+      title={effect.name}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  ) : null
+}
+
+function EchoesPage({ navigate, filters, setFilters }) {
+  const { data: echoes, error, loading } = useRemote(ECHO_API)
+  const { search, costs, classes, sonata } = filters
+
+  const sonataNames = useMemo(
+    () =>
+      [
+        ...new Set((echoes ?? []).flatMap((echo) => echo.sonata_effects.map((item) => item.name))),
+      ].sort(),
+    [echoes],
+  )
+  const shown = useMemo(() => {
+    const needle = search.trim().toLowerCase()
+    return (echoes ?? []).filter(
+      (echo) =>
+        (!needle || echo.name.toLowerCase().includes(needle)) &&
+        (!costs.length || costs.includes(echo.cost)) &&
+        (!classes.length || classes.includes(echo.class)) &&
+        (!sonata || echo.sonata_effects.some((item) => item.name === sonata)),
+    )
+  }, [echoes, search, costs, classes, sonata])
+
+  const dirty = search || costs.length || classes.length || sonata
+  const update = (patch) => setFilters({ ...filters, ...patch })
+
+  return (
+    <section className="wuwa-section" aria-labelledby="echoes-title">
+      <header className="wuwa-heading">
+        <h1 id="echoes-title">
+          <i aria-hidden="true" /> All echoes
+        </h1>
+        {echoes && (
+          <span className="wuwa-count" aria-live="polite">
+            Showing {shown.length} {shown.length === 1 ? 'echo' : 'echoes'}
+          </span>
+        )}
+      </header>
+
+      <div className="wuwa-toolbar">
+        <label className="wuwa-search">
+          <span className="sr-only">Search echoes</span>
+          <input
+            type="search"
+            value={search}
+            placeholder="Search echoes..."
+            onChange={(event) => update({ search: event.target.value })}
+          />
+        </label>
+        <FilterGroup
+          label="Cost"
+          options={ECHO_COSTS}
+          selected={costs}
+          onChange={(value) => update({ costs: value })}
+          render={(cost) => `${cost}-cost`}
+        />
+        <FilterGroup
+          label="Class"
+          options={ECHO_CLASSES}
+          selected={classes}
+          onChange={(value) => update({ classes: value })}
+          render={(item) => item}
+        />
+        <label className="wuwa-select">
+          <span className="sr-only">Sonata effect</span>
+          <select value={sonata} onChange={(event) => update({ sonata: event.target.value })}>
+            <option value="">All sonata effects</option>
+            {sonataNames.map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <button
+          type="button"
+          className="wuwa-reset"
+          disabled={!dirty}
+          onClick={() => setFilters(emptyEchoFilters)}
+        >
+          {'\u00D7'} Reset
+        </button>
+      </div>
+
+      {loading && <Panel>Loading echoes...</Panel>}
+      {error && <Panel>{error}</Panel>}
+      {echoes && shown.length === 0 && <Panel>No echoes match these filters.</Panel>}
+
+      <ul className="wuwa-echo-grid">
+        {shown.map((echo) => (
+          <li key={echo.slug}>
+            <RouteLink
+              className="wuwa-echo-card"
+              to={`${ARCHIVE}/echoes/${echo.slug}`}
+              navigate={navigate}
+              aria-label={`${echo.name}, ${echo.cost}-cost ${echo.class ?? ''} echo`}
+            >
+              <span className="wuwa-echo-icon">
+                <CharacterArt character={echo} />
+              </span>
+              <span className="wuwa-echo-name">{echo.name}</span>
+              <span className="wuwa-echo-meta">
+                <b>{echo.cost}</b> {echo.class}
+              </span>
+              <span className="wuwa-echo-sonatas">
+                {echo.sonata_effects.map((effect) => (
+                  <SonataChip key={effect.slug} echo={echo} effect={effect} />
+                ))}
+              </span>
+            </RouteLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+
+function EchoPage({ slug, navigate }) {
+  const { data: echo, error, loading } = useRemote(`${ECHO_API}?slug=${encodeURIComponent(slug)}`)
+
+  const back = (
+    <RouteLink className="wuwa-back" to={`${ARCHIVE}/echoes`} navigate={navigate}>
+      {'\u2190'} All echoes
+    </RouteLink>
+  )
+
+  if (loading)
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>Loading echo...</Panel>
+      </section>
+    )
+  if (error || !echo) {
+    return (
+      <section className="wuwa-section">
+        {back}
+        <Panel>{error || 'Echo not found.'}</Panel>
+      </section>
+    )
+  }
+
+  const mainStats = echo.main_stats ?? []
+  const subStats = echo.sub_stats ?? []
+  const effects = echo.sonata_effects ?? []
+  const where = echo.where_to_get ?? []
+  const drops = echo.drops ?? []
+
+  return (
+    <section className="wuwa-section" aria-labelledby="echo-title">
+      {back}
+      <div className="wuwa-profile wuwa-weapon-profile" style={{ '--element': 'var(--accent)' }}>
+        <div className="wuwa-portrait wuwa-echo-portrait">
+          <CharacterArt character={echo} />
+        </div>
+        <div className="wuwa-profile-copy">
+          <p className="wuwa-eyebrow">
+            {echo.class ?? 'Echo'} {'\u00B7'} {echo.cost}-cost
+          </p>
+          <h1 id="echo-title">{echo.name}</h1>
+          <dl className="wuwa-meta">
+            <div>
+              <dt>Cost</dt>
+              <dd>{echo.cost}</dd>
+            </div>
+            {echo.class && (
+              <div>
+                <dt>Class</dt>
+                <dd>{echo.class}</dd>
+              </div>
+            )}
+            {echo.cooldown != null && (
+              <div>
+                <dt>Cooldown</dt>
+                <dd>{echo.cooldown}s</dd>
+              </div>
+            )}
+            {echo.number && (
+              <div>
+                <dt>No.</dt>
+                <dd>{echo.number}</dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      </div>
+
+      {echo.skill_text && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Echo skill
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible
+              chip="Skill"
+              title={echo.skill_rank ? `Skill at ${echo.skill_rank}` : 'Echo skill'}
+            >
+              <div className="wuwa-skill-body">
+                <p>
+                  <RichText>{echo.skill_text}</RichText>
+                </p>
+              </div>
+            </Collapsible>
+          </div>
+        </>
+      )}
+
+      {effects.length > 0 && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Sonata effects
+          </h2>
+          <div className="wuwa-skill-grid">
+            <Collapsible
+              chip="Sets"
+              title={`${effects.length} possible ${effects.length === 1 ? 'set' : 'sets'}`}
+            >
+              <ul className="wuwa-recommended wuwa-echo-sets">
+                {effects.map((effect) => (
+                  <li key={effect.slug}>
+                    <SonataChip echo={echo} effect={effect} />
+                    <RouteLink to={`${ARCHIVE}/sonata-effects/${effect.slug}`} navigate={navigate}>
+                      {effect.name}
+                    </RouteLink>
+                  </li>
+                ))}
+              </ul>
+            </Collapsible>
+          </div>
+        </>
+      )}
+
+      {(mainStats.length > 0 || subStats.length > 0) && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Stats <small>Lv. 25</small>
+          </h2>
+          <div className="wuwa-skill-grid">
+            {mainStats.length > 0 && (
+              <Collapsible chip="Main" title="Possible main stats">
+                <ul className="wuwa-recommended wuwa-stat-priority">
+                  {mainStats.map((item) => (
+                    <li key={item.stat}>
+                      {item.stat}
+                      <small>{item.fixed ? `${item.value} fixed` : item.value}</small>
+                    </li>
+                  ))}
+                </ul>
+              </Collapsible>
+            )}
+            {subStats.length > 0 && (
+              <Collapsible chip="Sub" title="Substat ranges">
+                <ul className="wuwa-recommended wuwa-stat-priority">
+                  {subStats.map((item) => (
+                    <li key={item.stat}>
+                      {item.stat}
+                      <small>{item.range}</small>
+                    </li>
+                  ))}
+                </ul>
+              </Collapsible>
+            )}
+          </div>
+        </>
+      )}
+
+      {(where.length > 0 || drops.length > 0) && (
+        <>
+          <h2 className="wuwa-subheading">
+            <i aria-hidden="true" /> Where to get
+          </h2>
+          <div className="wuwa-skill-grid">
+            {where.map((section) => (
+              <Collapsible key={section.title} chip="Farm" title={section.title}>
+                <div className="wuwa-skill-body">
+                  {(section.text ?? []).map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                  {(section.rows ?? []).map((row, index) => (
+                    <p key={`row-${index}`} className="wuwa-where-row">
+                      {row}
+                    </p>
+                  ))}
+                </div>
+              </Collapsible>
+            ))}
+            {drops.length > 0 && (
+              <Collapsible chip="Drops" title="Material drops">
+                <ul className="wuwa-recommended">
+                  {drops.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </Collapsible>
+            )}
+          </div>
+        </>
+      )}
+    </section>
+  )
+}
+
 function TeamCalculationsPage() {
   return (
     <section className="wuwa-section" aria-labelledby="team-title">
@@ -926,6 +1634,10 @@ const titles = {
   list: 'Characters',
   weapons: 'Weapons',
   weapon: 'Weapon',
+  echoes: 'Echoes',
+  echo: 'Echo',
+  sonatas: 'Sonata effects',
+  sonata: 'Sonata effect',
   detail: 'Character',
   team: 'Team Calculations',
   missing: 'Page not found',
@@ -959,12 +1671,15 @@ export default function WutheringWaves() {
   const [pathname, navigate] = useRoute()
   const [filters, setFilters] = useState(emptyFilters)
   const [weaponFilters, setWeaponFilters] = useState(emptyWeaponFilters)
+  const [sonataFilters, setSonataFilters] = useState(emptySonataFilters)
+  const [echoFilters, setEchoFilters] = useState(emptyEchoFilters)
   const route = parseRoute(pathname)
 
   useEffect(() => {
-    if (pathname.startsWith('/wutheringwaves'))
+    if (route.page === 'redirect') navigate(route.to, { replace: true })
+    else if (pathname.startsWith('/wutheringwaves'))
       navigate(pathname.replace('/wutheringwaves', BASE), { replace: true })
-  }, [pathname, navigate])
+  }, [pathname, route.page, route.to, navigate])
 
   useEffect(() => {
     const section =
@@ -972,14 +1687,8 @@ export default function WutheringWaves() {
     document.title = `${site.identity.channelName} \u2014 Wuthering Waves${section ? ` \u00B7 ${section}` : ''}`
   }, [route.page, route.slug])
 
-  const activeId =
-    route.page === 'list' || route.page === 'detail'
-      ? 'characters'
-      : route.page === 'weapons' || route.page === 'weapon'
-        ? 'weapons'
-        : route.page === 'team'
-          ? 'team-calculations'
-          : ''
+  const archiveTab = ARCHIVE_PAGE_TAB[route.page]
+  const activeId = archiveTab ? 'archives' : route.page === 'team' ? 'team-calculations' : ''
 
   return (
     <div className={`site gaming-site wuwa-site ${colorMode === 'light' ? 'theme-light' : ''}`}>
@@ -1007,6 +1716,7 @@ export default function WutheringWaves() {
       />
       <main id="main" className={`wuwa-main${route.page === 'home' ? ' is-home' : ''}`}>
         {route.page === 'home' && <HomePage navigate={navigate} />}
+        {archiveTab && <ArchiveBar active={archiveTab} navigate={navigate} />}
         {route.page === 'list' && (
           <CharactersPage navigate={navigate} filters={filters} setFilters={setFilters} />
         )}
@@ -1019,12 +1729,24 @@ export default function WutheringWaves() {
         {route.page === 'weapon' && (
           <WeaponPage key={route.slug} slug={route.slug} navigate={navigate} />
         )}
+        {route.page === 'sonatas' && (
+          <SonatasPage navigate={navigate} filters={sonataFilters} setFilters={setSonataFilters} />
+        )}
+        {route.page === 'sonata' && (
+          <SonataPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'echoes' && (
+          <EchoesPage navigate={navigate} filters={echoFilters} setFilters={setEchoFilters} />
+        )}
+        {route.page === 'echo' && (
+          <EchoPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
         {route.page === 'team' && <TeamCalculationsPage />}
         {route.page === 'missing' && (
           <section className="wuwa-section">
             <Panel>
               This page does not exist.{' '}
-              <RouteLink to={`${BASE}/characters`} navigate={navigate}>
+              <RouteLink to={`${ARCHIVE}/characters`} navigate={navigate}>
                 Back to characters
               </RouteLink>
             </Panel>
