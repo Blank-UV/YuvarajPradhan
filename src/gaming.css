@@ -131,6 +131,11 @@
   background: #4db3ff;
   border-color: #4db3ff;
 }
+.gaming-gamebar a.gaming-gamebar-sp:hover,
+.gaming-gamebar a.gaming-gamebar-sp:focus-visible {
+  background: #ff8a3d;
+  border-color: #ff8a3d;
+}
 .gaming-gamebar-soon {
   opacity: 0.5;
   cursor: default;

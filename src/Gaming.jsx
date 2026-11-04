@@ -674,9 +674,9 @@ export default function Gaming() {
                 OTHER GAMES <span aria-hidden="true">{gamesOpen ? '\u2191' : '\u2193'}</span>
               </button>
               <div className="gaming-gamebar-links">
-                <span className="gaming-gamebar-soon" title="Silver Palace page coming soon">
+                <a className="gaming-gamebar-sp" href="/silver-palace">
                   Silver Palace
-                </span>
+                </a>
               </div>
             </div>
           </nav>

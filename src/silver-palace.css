@@ -1,0 +1,662 @@
+/* Silver Palace archive. Reuses the layout classes of wuwa.css (wuwa-section, wuwa-toolbar, ...) and
+   re-themes them with an orange palette; everything specific to this game is prefixed sp-. */
+.wuwa-site.sp-site {
+  --accent: #ff8a3d;
+  --accent-rgb: 255, 138, 61;
+  --w-bg: #120c08;
+  --w-panel: #1c130d;
+  --w-panel-2: #271a11;
+  --w-line: #43301f;
+  --w-text: #f6ece3;
+  --w-muted: #c4a78d;
+  --w-num: #ffd36b;
+  background: #120c08;
+}
+.gaming-site.wuwa-site.sp-site .sidebar,
+.gaming-site.wuwa-site.sp-site .sidebar:hover,
+.gaming-site.wuwa-site.sp-site .sidebar:has(:focus-visible),
+.gaming-site.wuwa-site.sp-site .sidebar.sidebar-open {
+  background: #160f0a;
+  border-color: #43301f;
+}
+.gaming-site.wuwa-site.sp-site .brand,
+.gaming-site.wuwa-site.sp-site .sidebar-bottom-link,
+.gaming-site.wuwa-site.sp-site .theme-toggle {
+  border-color: #43301f;
+}
+.gaming-site.wuwa-site.sp-site.theme-light {
+  --accent: #c75a0a;
+  --accent-rgb: 199, 90, 10;
+  --w-bg: #fbf1e6;
+  --w-panel: #ffffff;
+  --w-panel-2: #f6e4d0;
+  --w-line: #e3c9ab;
+  --w-text: #2e1d10;
+  --w-muted: #7a5a3d;
+  --w-num: #8a5a00;
+  background: #fbf1e6;
+}
+.gaming-site.wuwa-site.sp-site.theme-light .sidebar,
+.gaming-site.wuwa-site.sp-site.theme-light .sidebar:hover,
+.gaming-site.wuwa-site.sp-site.theme-light .sidebar:has(:focus-visible),
+.gaming-site.wuwa-site.sp-site.theme-light .sidebar.sidebar-open {
+  background: #fdf5ec;
+  border-color: #e3c9ab;
+}
+.gaming-site.wuwa-site.sp-site.theme-light .brand,
+.gaming-site.wuwa-site.sp-site.theme-light .sidebar-bottom-link,
+.gaming-site.wuwa-site.sp-site.theme-light .theme-toggle {
+  border-color: #e3c9ab;
+}
+.gaming-site.wuwa-site.sp-site.theme-light .nav-link {
+  color: #7a5a3d;
+}
+@media (hover: hover) {
+  .gaming-site.wuwa-site.sp-site.theme-light .nav-link:hover {
+    color: #2e1d10;
+    background: #f6e4d0;
+  }
+}
+.sp-site .wuwa-hl {
+  color: var(--accent);
+}
+.gaming-site.wuwa-site.sp-site.theme-light .gaming-footer,
+.gaming-site.wuwa-site.sp-site.theme-light .gaming-footer a {
+  color: var(--w-muted);
+  border-color: var(--w-line);
+}
+/* Rarity backgrounds stay in the warm range: 5 gold (shared), 4 rust, 3 bronze-grey */
+.sp-site .rarity-4 {
+  background: linear-gradient(165deg, #c2502c 0%, #7e2f17 55%, #451509 100%);
+}
+.sp-site .rarity-3 {
+  background: linear-gradient(165deg, #9a7b60 0%, #6b533f 55%, #3d2e22 100%);
+}
+
+/* Home: same layout as the Wuthering Waves home, with a warm shade over the artwork */
+.sp-site .wuwa-home-shade {
+  background:
+    linear-gradient(90deg, rgba(16, 8, 3, 0.9) 0%, rgba(16, 8, 3, 0.5) 45%, transparent 80%),
+    linear-gradient(0deg, rgba(16, 8, 3, 0.85) 0%, transparent 55%);
+}
+.sp-site .wuwa-home-art {
+  object-position: 50% 50%;
+}
+@media (max-width: 680px) {
+  .sp-site .wuwa-home-shade {
+    background: linear-gradient(
+      0deg,
+      rgba(16, 8, 3, 0.95) 0%,
+      rgba(16, 8, 3, 0.55) 70%,
+      rgba(16, 8, 3, 0.3) 100%
+    );
+  }
+  .sp-site .wuwa-home-art {
+    object-position: 38% 50%;
+  }
+}
+
+/* The archive bar has a single tab for now, so size it to its label instead of stretching */
+.sp-site .wuwa-archive-tabs {
+  flex: 0 0 auto;
+}
+.sp-site .wuwa-archive-tabs a {
+  flex: 0 0 auto;
+  padding: 0 28px;
+}
+@media (max-width: 680px) {
+  .sp-site .wuwa-archive-tabs {
+    display: flex;
+    width: auto;
+  }
+}
+
+/* Character grid: the supplied icons are square, so the cards are too */
+.sp-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 13vw, 200px), 1fr));
+  gap: 10px;
+}
+.sp-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  isolation: isolate;
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.sp-card img:not(.sp-trait-icon) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  transition: transform 0.4s ease;
+}
+.sp-card:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, #000c 100%);
+  z-index: -1;
+}
+.sp-card-name {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 8px;
+  color: #fff;
+  font:
+    700 clamp(13px, 1.1vw, 16px) / 1.15 'Space Grotesk',
+    sans-serif;
+  text-shadow: 0 1px 6px #000;
+}
+.sp-card-icons {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.sp-card-icons .sp-trait-icon {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #000a;
+}
+@media (hover: hover) {
+  .sp-card:hover {
+    outline-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .sp-card:hover img:not(.sp-trait-icon) {
+    transform: scale(1.05);
+  }
+}
+.sp-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.sp-card .wuwa-art-fallback {
+  position: absolute;
+}
+
+/* Profile */
+.sp-profile {
+  display: grid;
+  grid-template-columns: minmax(200px, 320px) 1fr;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: end;
+}
+.sp-portrait {
+  position: relative;
+  aspect-ratio: 1 / 2;
+  overflow: hidden;
+  background: var(--w-panel-2);
+  border-bottom: 3px solid var(--element, var(--accent));
+  box-shadow: 0 0 60px -20px var(--element, var(--accent));
+}
+.sp-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sp-profile h1 {
+  margin: 0 0 16px;
+  font:
+    700 clamp(40px, 7vw, 96px) / 0.95 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.sp-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 0;
+  list-style: none;
+}
+.sp-traits li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 8px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+}
+.sp-traits .sp-trait-icon {
+  width: 24px;
+  height: 24px;
+  padding: 2px;
+  border-radius: 50%;
+  background: #3a2a1c;
+}
+.sp-stars {
+  margin: 0 0 18px;
+  color: var(--w-num);
+  font-size: 18px;
+  letter-spacing: 0.15em;
+}
+.sp-site .wuwa-meta div {
+  border-left-color: var(--element, var(--accent));
+}
+
+/* Level sliders (base stats and skills) */
+.sp-slider {
+  margin: 16px 0 12px;
+  padding: 14px 16px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+}
+.sp-slider-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sp-slider-head b {
+  color: var(--accent);
+  font-size: 14px;
+}
+.sp-slider input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.sp-slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 6px;
+}
+.sp-slider-ticks button {
+  min-width: 34px;
+  min-height: 28px;
+  padding: 0 6px;
+  border: 1px solid var(--w-line);
+  background: transparent;
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  cursor: pointer;
+}
+.sp-slider-ticks button.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d0e18;
+  font-weight: 700;
+}
+.sp-site.theme-light .sp-slider-ticks button.on {
+  color: #fff;
+}
+.sp-slider-ticks button:focus-visible,
+.sp-slider input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.sp-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0;
+}
+.sp-stats div,
+.sp-values div {
+  padding: 14px 16px;
+  text-align: center;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+}
+.sp-stats dt,
+.sp-values dt {
+  color: var(--w-muted);
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sp-stats dd {
+  margin: 6px 0 0;
+  font:
+    700 26px 'Space Grotesk',
+    sans-serif;
+}
+
+/* Trust and gifts */
+.sp-minor-heading {
+  margin: 18px 0 10px;
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sp-gifts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+.sp-gifts li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  font:
+    600 14px 'DM Sans',
+    sans-serif;
+}
+.sp-gifts img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+.sp-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.sp-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  text-align: left;
+  font:
+    400 13px/1.5 'DM Sans',
+    sans-serif;
+}
+.sp-table th,
+.sp-table td {
+  padding: 10px 14px;
+  vertical-align: top;
+}
+.sp-table thead th {
+  background: var(--w-panel-2);
+  color: var(--w-muted);
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.sp-table tbody tr + tr {
+  border-top: 1px solid var(--w-line);
+}
+.sp-table tbody th {
+  color: var(--accent);
+  white-space: nowrap;
+}
+.sp-table td {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Skills */
+.sp-tabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  margin: 18px 0 14px;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.sp-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 8px 12px;
+  border: 0;
+  border-left: 1px solid var(--w-line);
+  background: transparent;
+  color: var(--w-muted);
+  text-align: left;
+  font:
+    600 12px/1.25 'Space Grotesk',
+    sans-serif;
+  cursor: pointer;
+}
+.sp-tabs button:first-child {
+  border-left: 0;
+}
+.sp-tabs button small {
+  display: block;
+  margin-bottom: 2px;
+  font:
+    500 9px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.sp-tabs button img {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+.sp-tabs button.on {
+  background: var(--accent);
+  color: #0d0e18;
+}
+.sp-site.theme-light .sp-tabs button.on {
+  color: #fff;
+}
+@media (hover: hover) {
+  .sp-tabs button:not(.on):hover {
+    color: var(--w-text);
+    background: rgba(var(--accent-rgb), 0.14);
+  }
+}
+.sp-tabs button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.sp-skill {
+  margin-top: 0;
+}
+.sp-note {
+  color: var(--w-muted);
+  font-size: 12px;
+}
+.sp-scaling {
+  padding: 0 16px 16px;
+  border-top: 1px solid var(--w-line);
+}
+.sp-scaling .sp-slider {
+  background: var(--w-panel-2);
+}
+.sp-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 8px;
+  margin: 0;
+}
+.sp-values div {
+  text-align: left;
+  background: var(--w-panel-2);
+}
+.sp-values dd {
+  margin: 6px 0 0;
+  color: var(--w-num);
+  font:
+    700 20px 'Space Grotesk',
+    sans-serif;
+}
+
+/* Psyches */
+.sp-psyches {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 12px;
+  margin-top: 14px;
+  align-items: start;
+}
+.sp-psyche-icon {
+  width: 32px;
+  height: 32px;
+  align-self: center;
+  margin-left: 14px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.sp-psyche-icon + h3 {
+  padding-left: 10px;
+}
+.sp-psyche-note {
+  margin: 0 0 12px;
+}
+
+/* Main detail tabs: angled-corner buttons, active one filled with the accent */
+.sp-main-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 40px 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--w-line);
+}
+.sp-main-tabs button {
+  --cut: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 46px;
+  padding: 0 26px;
+  border: 1px solid var(--accent);
+  background: var(--w-panel);
+  color: var(--w-muted);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%
+  );
+  font:
+    700 13px 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.sp-main-tabs button span {
+  color: var(--accent);
+  font:
+    700 12px 'DM Mono',
+    monospace;
+}
+.sp-main-tabs button.on {
+  background: linear-gradient(160deg, var(--accent), rgba(var(--accent-rgb), 0.65));
+  color: #0d0e18;
+}
+.sp-main-tabs button.on span {
+  color: inherit;
+}
+.sp-site.theme-light .sp-main-tabs button.on {
+  color: #fff;
+}
+@media (hover: hover) {
+  .sp-main-tabs button:not(.on):hover {
+    color: var(--w-text);
+    background: rgba(var(--accent-rgb), 0.16);
+  }
+}
+.sp-main-tabs button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.sp-tabpanel {
+  display: grid;
+  gap: 12px;
+}
+.sp-panel-body {
+  padding: 14px 16px 16px;
+}
+.sp-panel-body .sp-slider {
+  margin-top: 0;
+}
+.sp-panel-body .sp-note {
+  margin: 12px 0 0;
+}
+@media (max-width: 680px) {
+  .sp-main-tabs {
+    gap: 8px;
+  }
+  .sp-main-tabs button {
+    flex: 1 1 auto;
+    justify-content: center;
+    padding: 0 14px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .sp-panel-body {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 680px) {
+  .sp-profile {
+    grid-template-columns: 1fr;
+  }
+  .sp-portrait {
+    max-width: 240px;
+  }
+  .sp-profile h1 {
+    overflow-wrap: anywhere;
+  }
+  .sp-stats {
+    grid-template-columns: 1fr;
+  }
+  .sp-tabs {
+    grid-template-columns: 1fr;
+  }
+  .sp-tabs button {
+    border-left: 0;
+    border-top: 1px solid var(--w-line);
+  }
+  .sp-tabs button:first-child {
+    border-top: 0;
+  }
+  .sp-scaling {
+    padding: 0 12px 12px;
+  }
+  .sp-slider-ticks button {
+    min-width: 0;
+    flex: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sp-card,
+  .sp-card img {
+    transition: none;
+  }
+}

@@ -11,6 +11,10 @@
     {
       "source": "/wutheringwaves/:path*",
       "destination": "/wuthering-waves/index.html"
+    },
+    {
+      "source": "/silver-palace/:path*",
+      "destination": "/silver-palace/index.html"
     }
   ]
 }

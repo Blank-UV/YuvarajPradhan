@@ -28,6 +28,10 @@ export const wuwaNavigation = [
   },
 ]
 
+export const silverPalaceNavigation = [
+  { id: 'archives', label: 'Archives', icon: '\u25CE', href: '/silver-palace/archives' },
+]
+
 export default function Sidebar({
   items,
   brandHref,

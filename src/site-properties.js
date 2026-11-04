@@ -60,6 +60,10 @@ export const siteProperties = {
       title: 'Wuthering Waves',
       description: 'Wuthering Waves characters, skills, resonance chains, and team calculations.',
     },
+    silverPalace: {
+      title: 'Silver Palace',
+      description: 'Silver Palace characters, stats, trust, skills, and psyches.',
+    },
   },
   portfolio: {
     about: [
