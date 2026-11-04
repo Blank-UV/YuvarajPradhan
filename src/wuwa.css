@@ -883,6 +883,12 @@
   min-height: 0;
   overflow: hidden;
 }
+html:has(.wuwa-main.is-home),
+body:has(.wuwa-main.is-home) {
+  overflow: hidden;
+  overscroll-behavior: none;
+  height: 100%;
+}
 .wuwa-main.is-home .wuwa-footer-wrap {
   display: none;
 }
