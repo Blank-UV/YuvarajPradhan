@@ -661,7 +661,7 @@ export default function Gaming() {
             aria-label="Game pages"
           >
             <span className="gaming-gamebar-hint">CLICK HERE {'\u2192'}</span>
-            <a className="gaming-gamebar-main" href="/wuthering-waves/characters">
+            <a className="gaming-gamebar-main" href="/wuthering-waves">
               Wuthering Waves
             </a>
             <div className="gaming-gamebar-more">
