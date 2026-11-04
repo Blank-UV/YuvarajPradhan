@@ -526,6 +526,26 @@ function GameCarousel({ games, renderSlide, label = 'Games', showRings = true })
 
 export default function Gaming() {
   const [loading, setLoading] = useState(true)
+  const [gamesOpen, setGamesOpen] = useState(false)
+  const gamebarRef = useRef(null)
+
+  useEffect(() => {
+    if (!gamesOpen) return undefined
+    const close = (event) => {
+      if (
+        event.type === 'keydown'
+          ? event.key === 'Escape'
+          : !gamebarRef.current?.contains(event.target)
+      )
+        setGamesOpen(false)
+    }
+    document.addEventListener('pointerdown', close)
+    document.addEventListener('keydown', close)
+    return () => {
+      document.removeEventListener('pointerdown', close)
+      document.removeEventListener('keydown', close)
+    }
+  }, [gamesOpen])
   const [colorMode, toggleColorMode] = useColorMode()
   const [videos, setVideos] = useState(null)
   const [error, setError] = useState('')
@@ -635,6 +655,31 @@ export default function Gaming() {
               </nav>
             </div>
           </div>
+          <nav
+            ref={gamebarRef}
+            className={`gaming-gamebar ${gamesOpen ? 'open' : ''}`}
+            aria-label="Game pages"
+          >
+            <span className="gaming-gamebar-hint">CLICK HERE {'\u2192'}</span>
+            <a className="gaming-gamebar-main" href="/wuthering-waves/characters">
+              Wuthering Waves
+            </a>
+            <div className="gaming-gamebar-more">
+              <button
+                type="button"
+                className="gaming-gamebar-toggle"
+                aria-expanded={gamesOpen}
+                onClick={() => setGamesOpen((value) => !value)}
+              >
+                OTHER GAMES <span aria-hidden="true">{gamesOpen ? '\u2191' : '\u2193'}</span>
+              </button>
+              <div className="gaming-gamebar-links">
+                <span className="gaming-gamebar-soon" title="Silver Palace page coming soon">
+                  Silver Palace
+                </span>
+              </div>
+            </div>
+          </nav>
           <div className="gaming-hero-layout">
             <div className="gaming-hero-copy">
               <span className="gaming-eyebrow">THE CHANNEL</span>

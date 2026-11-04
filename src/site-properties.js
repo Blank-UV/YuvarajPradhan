@@ -56,6 +56,10 @@ export const siteProperties = {
       title: 'Gaming & Wuthering Waves',
       description: 'gaming videos, Wuthering Waves gameplay, and the next games on the horizon.',
     },
+    wuwa: {
+      title: 'Wuthering Waves',
+      description: 'Wuthering Waves characters, skills, resonance chains, and team calculations.',
+    },
   },
   portfolio: {
     about: [

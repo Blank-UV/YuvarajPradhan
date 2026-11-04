@@ -18,6 +18,16 @@ export const gamingNavigation = [
   { id: 'channel', label: 'Watch & connect', icon: '↗' },
 ]
 
+export const wuwaNavigation = [
+  { id: 'characters', label: 'Characters', icon: '\u25CE', href: '/wuthering-waves/characters' },
+  {
+    id: 'team-calculations',
+    label: 'Team Calculations',
+    icon: '\u25A6',
+    href: '/wuthering-waves/team-calculations',
+  },
+]
+
 export default function Sidebar({
   items,
   brandHref,
@@ -26,11 +36,19 @@ export default function Sidebar({
   bottomIcon,
   colorMode,
   onToggleColorMode,
+  activeId,
+  onNavigate,
+  brandMark = site.identity.initials,
+  brandName = site.identity.name,
 }) {
-  const [active, setActive] = useState(items[0].id)
+  const [scrolledActive, setActive] = useState(items[0].id)
   const [open, setOpen] = useState(false)
+  // Page-per-item sidebars pass activeId and skip scroll tracking.
+  const routed = activeId !== undefined
+  const active = routed ? activeId : scrolledActive
 
   useEffect(() => {
+    if (routed) return undefined
     const ratios = new Map()
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,7 +62,7 @@ export default function Sidebar({
     )
     document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section))
     return () => observer.disconnect()
-  }, [])
+  }, [routed])
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : ''
@@ -84,25 +102,31 @@ export default function Sidebar({
         <a
           href={brandHref}
           className="brand"
-          aria-label={`${site.identity.name}, home`}
-          onClick={() => setOpen(false)}
+          aria-label={`${brandName}, home`}
+          onClick={(event) => {
+            setOpen(false)
+            onNavigate?.(brandHref, event)
+          }}
         >
           <span className="brand-mark">
-            {site.identity.initials}
+            {brandMark}
             <i />
           </span>
           <span className="brand-name">
-            {site.identity.name.split(' ')[0]}
+            {brandName.split(' ')[0]}
             <br />
-            {site.identity.name.split(' ').slice(1).join(' ')}
+            {brandName.split(' ').slice(1).join(' ')}
           </span>
         </a>
         <nav className="side-nav" aria-label="Main navigation">
           {items.map((item) => (
             <a
               key={item.id}
-              href={`#${item.id}`}
-              onClick={() => setOpen(false)}
+              href={item.href ?? `#${item.id}`}
+              onClick={(event) => {
+                setOpen(false)
+                onNavigate?.(item.href, event)
+              }}
               className={`nav-link ${active === item.id ? 'nav-active' : ''}`}
               aria-current={active === item.id ? 'location' : undefined}
             >

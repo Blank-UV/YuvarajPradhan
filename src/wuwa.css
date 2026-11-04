@@ -1,0 +1,625 @@
+.wuwa-site {
+  --accent: #4db3ff;
+  --accent-rgb: 77, 179, 255;
+  --w-bg: #0a1220;
+  --w-panel: #101a2c;
+  --w-panel-2: #152238;
+  --w-line: #26364f;
+  --w-text: #e8eef7;
+  --w-muted: #94a5bf;
+  --w-num: #ffd36b;
+  --element: var(--accent);
+  background: #0a1220;
+}
+.gaming-site.wuwa-site .sidebar,
+.gaming-site.wuwa-site .sidebar:hover,
+.gaming-site.wuwa-site .sidebar:has(:focus-visible),
+.gaming-site.wuwa-site .sidebar.sidebar-open {
+  background: #0c1626;
+  border-color: #26364f;
+}
+.gaming-site.wuwa-site .brand,
+.gaming-site.wuwa-site .sidebar-bottom-link,
+.gaming-site.wuwa-site .theme-toggle {
+  border-color: #26364f;
+}
+.gaming-site.wuwa-site .sidebar-bottom-link {
+  color: var(--accent);
+}
+.gaming-site.wuwa-site.theme-light {
+  --accent: #1a6fc4;
+  --accent-rgb: 26, 111, 196;
+  --w-bg: #eef4fb;
+  --w-panel: #ffffff;
+  --w-panel-2: #e3edf8;
+  --w-line: #b9cce2;
+  --w-text: #1c2a3d;
+  --w-muted: #546681;
+  --w-num: #8a5a00;
+  background: #eef4fb;
+}
+.gaming-site.wuwa-site.theme-light .sidebar,
+.gaming-site.wuwa-site.theme-light .sidebar:hover,
+.gaming-site.wuwa-site.theme-light .sidebar:has(:focus-visible),
+.gaming-site.wuwa-site.theme-light .sidebar.sidebar-open {
+  background: #f1f6fc;
+  border-color: #b9cce2;
+}
+.gaming-site.wuwa-site.theme-light .brand,
+.gaming-site.wuwa-site.theme-light .sidebar-bottom-link,
+.gaming-site.wuwa-site.theme-light .theme-toggle {
+  border-color: #b9cce2;
+}
+.gaming-site.wuwa-site.theme-light .nav-link {
+  color: #4a5b75;
+}
+@media (hover: hover) {
+  .gaming-site.wuwa-site.theme-light .nav-link:hover {
+    color: #14233a;
+    background: #dde9f6;
+  }
+}
+.gaming-site.wuwa-site .brand-mark .ww-w1 {
+  color: #ff4d5e;
+}
+.gaming-site.wuwa-site .brand-mark .ww-w2 {
+  color: #ffd23f;
+}
+.gaming-site.wuwa-site.theme-light .brand-mark .ww-w1 {
+  color: #d62839;
+}
+.gaming-site.wuwa-site.theme-light .brand-mark .ww-w2 {
+  color: #d99a00;
+}
+.gaming-site.wuwa-site main,
+.gaming-site.wuwa-site.theme-light main {
+  background: var(--w-bg);
+}
+.wuwa-site .wuwa-main,
+.wuwa-site.theme-light .wuwa-main {
+  background: var(--w-bg);
+  color: var(--w-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.wuwa-section {
+  padding: 48px clamp(20px, 4vw, 72px) 96px;
+  max-width: 1760px;
+  width: 100%;
+  flex: 1 0 auto;
+}
+.wuwa-footer-wrap {
+  width: 100%;
+  max-width: 1760px;
+  padding: 0 clamp(20px, 4vw, 72px);
+}
+.wuwa-footer {
+  border-top-color: var(--w-line);
+  color: var(--w-muted);
+}
+
+/* Headings */
+.wuwa-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--accent);
+}
+.wuwa-heading h1,
+.wuwa-subheading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font:
+    700 16px/1.2 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.wuwa-heading h1 i,
+.wuwa-subheading i {
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+.wuwa-subheading {
+  margin-top: 40px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--w-line);
+}
+.wuwa-subheading small {
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  color: var(--w-muted);
+}
+.wuwa-count {
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  color: var(--w-muted);
+}
+
+/* Filters */
+.wuwa-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 20px;
+  align-items: stretch;
+}
+.wuwa-search {
+  flex: 1 1 260px;
+  min-width: 200px;
+}
+.wuwa-search input {
+  width: 100%;
+  height: 100%;
+  min-height: 40px;
+  padding: 0 14px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  color: var(--w-text);
+  font:
+    400 13px 'DM Sans',
+    sans-serif;
+}
+.wuwa-search input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.wuwa-filter-group {
+  display: flex;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.wuwa-filter-group button,
+.wuwa-reset,
+.wuwa-tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+.wuwa-filter-group button + button {
+  border-left: 1px solid var(--w-line);
+}
+.wuwa-filter-group button.on,
+.wuwa-tabs button.on {
+  background: var(--accent);
+  color: #0d0e18;
+  font-weight: 700;
+}
+.wuwa-site.theme-light .wuwa-filter-group button.on,
+.wuwa-site.theme-light .wuwa-tabs button.on {
+  color: #fff;
+}
+.wuwa-reset {
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.wuwa-reset:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+@media (hover: hover) {
+  .wuwa-filter-group button:not(.on):hover,
+  .wuwa-reset:not(:disabled):hover,
+  .wuwa-tabs button:not(.on):hover {
+    color: var(--w-text);
+    background: rgba(var(--accent-rgb), 0.14);
+  }
+}
+.wuwa-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* Character grid */
+.wuwa-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(120px, 11vw, 172px), 1fr));
+  gap: 10px;
+}
+.wuwa-card,
+.wuwa-portrait {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 3 / 4.1;
+  isolation: isolate;
+}
+.rarity-5 {
+  background: linear-gradient(165deg, #c5aa45 0%, #8a7326 55%, #5c4c14 100%);
+}
+.rarity-4 {
+  background: linear-gradient(165deg, #8c52c9 0%, #5b3391 55%, #34205a 100%);
+}
+.wuwa-card img,
+.wuwa-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  z-index: -1;
+  transition: transform 0.4s ease;
+}
+.wuwa-art-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font:
+    700 clamp(48px, 6vw, 90px) 'Space Grotesk',
+    sans-serif;
+  color: #ffffff30;
+  z-index: -1;
+}
+.wuwa-card:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, #000c 100%);
+  z-index: -1;
+}
+.wuwa-card-name {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  color: #fff;
+  font:
+    700 clamp(12px, 1vw, 15px) / 1.15 'Space Grotesk',
+    sans-serif;
+  text-shadow: 0 1px 6px #000;
+}
+.wuwa-card-element {
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--element);
+  box-shadow:
+    0 0 0 2px #0008,
+    0 0 12px var(--element);
+}
+.wuwa-card-new {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3px 8px;
+  background: #ee3b3b;
+  color: #fff;
+  font:
+    700 10px 'DM Mono',
+    monospace;
+}
+.wuwa-card {
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+@media (hover: hover) {
+  .wuwa-card:hover {
+    outline-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .wuwa-card:hover img {
+    transform: scale(1.05);
+  }
+}
+.wuwa-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* States */
+.wuwa-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 20px 0;
+  padding: 28px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  color: var(--w-muted);
+  font:
+    500 13px 'DM Mono',
+    monospace;
+}
+.wuwa-panel a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+.wuwa-soon {
+  color: var(--accent);
+  font:
+    700 clamp(28px, 4vw, 52px) 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Character page */
+.wuwa-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--accent);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.wuwa-profile {
+  display: grid;
+  grid-template-columns: minmax(180px, 280px) 1fr;
+  gap: clamp(20px, 4vw, 56px);
+  align-items: end;
+}
+.wuwa-portrait {
+  border-bottom: 3px solid var(--element);
+  box-shadow: 0 0 60px -20px var(--element);
+}
+.wuwa-eyebrow {
+  margin: 0 0 8px;
+  color: var(--w-num);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.wuwa-profile h1 {
+  margin: 0 0 22px;
+  font:
+    700 clamp(40px, 7vw, 96px) / 0.95 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.wuwa-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+}
+.wuwa-meta div {
+  min-width: 130px;
+  padding: 12px 16px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  border-left: 3px solid var(--element);
+}
+.wuwa-meta dt,
+.wuwa-stats dt {
+  color: var(--w-muted);
+  font:
+    500 10px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.wuwa-meta dd {
+  margin: 4px 0 0;
+  font:
+    700 18px 'Space Grotesk',
+    sans-serif;
+}
+.wuwa-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 18px 0 14px;
+  border: 1px solid var(--w-line);
+  background: var(--w-panel);
+}
+.wuwa-tabs button + button {
+  border-left: 1px solid var(--w-line);
+}
+.wuwa-skill-grid,
+.wuwa-chain {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.wuwa-tabs + .wuwa-skill-grid {
+  margin-top: 0;
+}
+.wuwa-skill {
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+}
+.wuwa-skill header {
+  display: flex;
+  align-items: stretch;
+  background: var(--w-panel-2);
+}
+.wuwa-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #0d0e18;
+  font:
+    700 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.03em;
+}
+.wuwa-site.theme-light .wuwa-chip {
+  color: #fff;
+}
+.wuwa-skill h3 {
+  margin: 0;
+  padding: 10px 14px;
+  align-self: center;
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+}
+.wuwa-skill-body {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px 16px;
+  color: var(--w-text);
+  font:
+    400 14px/1.6 'DM Sans',
+    sans-serif;
+}
+.wuwa-skill-body p {
+  margin: 0;
+}
+.wuwa-skill-body h4 {
+  margin: 8px 0 0;
+  color: var(--w-num);
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+}
+.wuwa-skill-body h4:first-child {
+  margin-top: 0;
+}
+.wuwa-hl {
+  color: #8f9bff;
+}
+.wuwa-site.theme-light .wuwa-hl {
+  color: #4552c4;
+}
+.wuwa-num {
+  color: var(--w-num);
+  font-weight: 700;
+}
+.wuwa-element-text {
+  font-weight: 700;
+}
+.wuwa-fortes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.wuwa-fortes div {
+  padding: 14px;
+  text-align: center;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  font:
+    500 13px 'DM Mono',
+    monospace;
+}
+.wuwa-fortes b {
+  color: var(--accent);
+}
+.wuwa-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 16px 0 12px;
+  cursor: pointer;
+  font:
+    500 12px 'DM Mono',
+    monospace;
+  color: var(--w-muted);
+}
+.wuwa-switch input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--accent);
+}
+.wuwa-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin: 0;
+}
+.wuwa-stats div {
+  padding: 14px 16px;
+  text-align: center;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+}
+.wuwa-stats dd {
+  margin: 6px 0 0;
+  font:
+    700 22px 'Space Grotesk',
+    sans-serif;
+}
+
+@media (max-width: 900px) {
+  .wuwa-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 680px) {
+  .wuwa-section {
+    padding-top: 84px;
+  }
+  .wuwa-profile {
+    grid-template-columns: 1fr;
+  }
+  .wuwa-portrait {
+    max-width: 240px;
+  }
+  .wuwa-filter-group {
+    flex-wrap: wrap;
+  }
+  .wuwa-toolbar {
+    flex-direction: column;
+  }
+  .wuwa-search {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+  .wuwa-search input {
+    height: 40px;
+    min-height: 0;
+  }
+  .wuwa-tabs {
+    grid-template-columns: 1fr;
+  }
+  .wuwa-tabs button + button {
+    border-left: 0;
+    border-top: 1px solid var(--w-line);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wuwa-card,
+  .wuwa-card img {
+    transition: none;
+  }
+}

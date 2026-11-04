@@ -101,6 +101,103 @@
     monospace;
   letter-spacing: 0.12em;
 }
+.gaming-gamebar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  height: 34px;
+  border-bottom: 1px solid #aeb0d039;
+  font:
+    11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.1em;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.gaming-gamebar-hint {
+  margin-right: 6px;
+  color: var(--accent);
+}
+.gaming-gamebar a,
+.gaming-gamebar-soon {
+  padding: 3px 12px;
+  border: 1px solid #aeb0d055;
+  color: #c4c4d5;
+}
+.gaming-gamebar a:hover,
+.gaming-gamebar a:focus-visible {
+  color: #06101c;
+  background: #4db3ff;
+  border-color: #4db3ff;
+}
+.gaming-gamebar-soon {
+  opacity: 0.5;
+  cursor: default;
+}
+.gaming-gamebar-links {
+  display: flex;
+  gap: 8px;
+}
+.gaming-gamebar-more {
+  display: contents;
+}
+.gaming-gamebar-toggle {
+  display: none;
+}
+@media (max-width: 680px) {
+  .gaming-gamebar {
+    overflow: visible;
+    gap: 6px;
+    height: 42px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .gaming-gamebar-more {
+    display: block;
+    position: relative;
+  }
+  .gaming-gamebar-hint {
+    display: none;
+  }
+  .gaming-gamebar a {
+    padding: 7px 12px;
+  }
+  .gaming-gamebar-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+  }
+  .gaming-gamebar-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    z-index: 20;
+    min-width: 0;
+    flex-direction: column;
+    padding: 6px;
+    background: #10111c;
+    border: 1px solid #363747;
+    box-shadow: 0 14px 30px #0008;
+  }
+  .gaming-gamebar.open .gaming-gamebar-links {
+    display: flex;
+  }
+  .gaming-gamebar-links .gaming-gamebar-soon {
+    padding: 6px 12px;
+    text-align: center;
+  }
+}
 .gaming-topline-channel {
   display: flex;
   gap: 12px;
@@ -173,9 +270,10 @@
   display: grid;
   grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
   align-items: center;
+  align-content: start;
   gap: clamp(35px, 5vw, 90px);
   flex: 1;
-  padding: 50px 0;
+  padding: 28px 0 50px;
 }
 .gaming-hero-copy {
   min-width: 0;
@@ -1693,7 +1791,7 @@
   }
   .gaming-hero-layout {
     grid-template-columns: minmax(0, 1fr);
-    padding: 60px 0;
+    padding: 24px 0 60px;
     gap: 50px;
   }
   .gaming-hero {
@@ -1799,7 +1897,7 @@
     min-height: 900px;
   }
   .gaming-hero-layout {
-    padding: 70px 0 45px;
+    padding: 24px 0 45px;
     gap: 45px;
   }
   .gaming-hero-copy h1 {

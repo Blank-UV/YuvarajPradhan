@@ -3,3 +3,5 @@ dist/
 .vite/
 .env.local
 .env.*.local
+# Locally collected Wuthering Waves character data and generated seed SQL; never pushed.
+wuwa-data/

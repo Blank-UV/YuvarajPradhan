@@ -3,6 +3,14 @@
     {
       "source": "/intro",
       "destination": "/intro/index.html"
+    },
+    {
+      "source": "/wuthering-waves/:path*",
+      "destination": "/wuthering-waves/index.html"
+    },
+    {
+      "source": "/wutheringwaves/:path*",
+      "destination": "/wuthering-waves/index.html"
     }
   ]
 }

@@ -24,6 +24,11 @@ for (const hook of ['configureServer', 'configurePreviewServer']) {
       ['/intro/index.html', '/intro/index.html'],
       ['/portfolio', '/portfolio/index.html'],
       ['/gaming', '/gaming/index.html'],
+      ['/wuthering-waves', '/wuthering-waves/index.html'],
+      ['/wuthering-waves/characters', '/wuthering-waves/index.html'],
+      ['/wuthering-waves/characters/aalto?x=1', '/wuthering-waves/index.html?x=1'],
+      ['/wutheringwaves/team-calculations', '/wuthering-waves/index.html'],
+      ['/wuthering-waves-other', '/wuthering-waves-other'],
       ['/', '/'],
       ['/intro-other', '/intro-other'],
     ]) {
@@ -38,8 +43,13 @@ for (const hook of ['configureServer', 'configurePreviewServer']) {
   })
 }
 
-test('production builds and Vercel route /intro to the intro entry', async () => {
+test('production builds and Vercel route /intro and Wuthering Waves to their entries', async () => {
   assert.match(config.build.rollupOptions.input.intro, /[\\/]intro[\\/]index\.html$/)
+  assert.match(config.build.rollupOptions.input.wuwa, /[\\/]wuthering-waves[\\/]index\.html$/)
   const deployment = JSON.parse(await readFile(new URL('../vercel.json', import.meta.url), 'utf8'))
-  assert.deepEqual(deployment.rewrites, [{ source: '/intro', destination: '/intro/index.html' }])
+  assert.deepEqual(deployment.rewrites, [
+    { source: '/intro', destination: '/intro/index.html' },
+    { source: '/wuthering-waves/:path*', destination: '/wuthering-waves/index.html' },
+    { source: '/wutheringwaves/:path*', destination: '/wuthering-waves/index.html' },
+  ])
 })
