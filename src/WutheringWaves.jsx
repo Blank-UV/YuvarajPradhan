@@ -5,6 +5,7 @@ import useColorMode from './useColorMode.js'
 import {
   Collapsible,
   FilterGroup,
+  FilterPanel,
   Panel,
   RouteLink,
   ToTopButton,
@@ -265,40 +266,38 @@ function CharactersPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Rarity"
-          options={RARITIES}
-          selected={rarities}
-          onChange={(value) => update({ rarities: value })}
-          render={(rarity) => `${rarity}\u2605`}
-        />
-        <FilterGroup
-          label="Element"
-          options={Object.keys(ELEMENTS)}
-          selected={elements}
-          onChange={(value) => update({ elements: value })}
-          render={(element) => (
-            <>
-              <span className="wuwa-dot" style={{ background: ELEMENTS[element] }} />
-              {element}
-            </>
-          )}
-        />
-        <FilterGroup
-          label="Weapon"
-          options={WEAPONS}
-          selected={weapons}
-          onChange={(value) => update({ weapons: value })}
-          render={(weapon) => weapon}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyFilters)}
+        <FilterPanel
+          active={rarities.length + elements.length + weapons.length}
+          dirty={dirty}
+          onReset={() => setFilters(emptyFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Rarity"
+            options={RARITIES}
+            selected={rarities}
+            onChange={(value) => update({ rarities: value })}
+            render={(rarity) => `${rarity}\u2605`}
+          />
+          <FilterGroup
+            label="Element"
+            options={Object.keys(ELEMENTS)}
+            selected={elements}
+            onChange={(value) => update({ elements: value })}
+            render={(element) => (
+              <>
+                <span className="wuwa-dot" style={{ background: ELEMENTS[element] }} />
+                {element}
+              </>
+            )}
+          />
+          <FilterGroup
+            label="Weapon"
+            options={WEAPONS}
+            selected={weapons}
+            onChange={(value) => update({ weapons: value })}
+            render={(weapon) => weapon}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading characters...</Panel>}
@@ -591,35 +590,33 @@ function WeaponsPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Rarity"
-          options={WEAPON_RARITIES}
-          selected={rarities}
-          onChange={(value) => update({ rarities: value })}
-          render={(rarity) => `${rarity}\u2605`}
-        />
-        <FilterGroup
-          label="Type"
-          options={WEAPONS}
-          selected={types}
-          onChange={(value) => update({ types: value })}
-          render={(type) => type}
-        />
-        <FilterGroup
-          label="Substat"
-          options={SUBSTATS}
-          selected={substats}
-          onChange={(value) => update({ substats: value })}
-          render={(stat) => stat}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyWeaponFilters)}
+        <FilterPanel
+          active={rarities.length + types.length + substats.length}
+          dirty={dirty}
+          onReset={() => setFilters(emptyWeaponFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Rarity"
+            options={WEAPON_RARITIES}
+            selected={rarities}
+            onChange={(value) => update({ rarities: value })}
+            render={(rarity) => `${rarity}\u2605`}
+          />
+          <FilterGroup
+            label="Type"
+            options={WEAPONS}
+            selected={types}
+            onChange={(value) => update({ types: value })}
+            render={(type) => type}
+          />
+          <FilterGroup
+            label="Substat"
+            options={SUBSTATS}
+            selected={substats}
+            onChange={(value) => update({ substats: value })}
+            render={(stat) => stat}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading weapons...</Panel>}
@@ -894,35 +891,33 @@ function SonatasPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Element"
-          options={SONATA_ELEMENTS}
-          selected={elements}
-          onChange={(value) => update({ elements: value })}
-          render={(element) => (
-            <>
-              {ELEMENTS[element] && (
-                <span className="wuwa-dot" style={{ background: ELEMENTS[element] }} />
-              )}
-              {element}
-            </>
-          )}
-        />
-        <FilterGroup
-          label="Pieces"
-          options={SONATA_KINDS}
-          selected={kinds}
-          onChange={(value) => update({ kinds: value })}
-          render={(kind) => kind}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptySonataFilters)}
+        <FilterPanel
+          active={elements.length + kinds.length}
+          dirty={dirty}
+          onReset={() => setFilters(emptySonataFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Element"
+            options={SONATA_ELEMENTS}
+            selected={elements}
+            onChange={(value) => update({ elements: value })}
+            render={(element) => (
+              <>
+                {ELEMENTS[element] && (
+                  <span className="wuwa-dot" style={{ background: ELEMENTS[element] }} />
+                )}
+                {element}
+              </>
+            )}
+          />
+          <FilterGroup
+            label="Pieces"
+            options={SONATA_KINDS}
+            selected={kinds}
+            onChange={(value) => update({ kinds: value })}
+            render={(kind) => kind}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading sonata effects...</Panel>}
@@ -1228,39 +1223,37 @@ function EchoesPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Cost"
-          options={ECHO_COSTS}
-          selected={costs}
-          onChange={(value) => update({ costs: value })}
-          render={(cost) => `${cost}-cost`}
-        />
-        <FilterGroup
-          label="Class"
-          options={ECHO_CLASSES}
-          selected={classes}
-          onChange={(value) => update({ classes: value })}
-          render={(item) => item}
-        />
-        <label className="wuwa-select">
-          <span className="sr-only">Sonata effect</span>
-          <select value={sonata} onChange={(event) => update({ sonata: event.target.value })}>
-            <option value="">All sonata effects</option>
-            {sonataNames.map((name) => (
-              <option key={name} value={name}>
-                {name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyEchoFilters)}
+        <FilterPanel
+          active={costs.length + classes.length + (sonata ? 1 : 0)}
+          dirty={dirty}
+          onReset={() => setFilters(emptyEchoFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Cost"
+            options={ECHO_COSTS}
+            selected={costs}
+            onChange={(value) => update({ costs: value })}
+            render={(cost) => `${cost}-cost`}
+          />
+          <FilterGroup
+            label="Class"
+            options={ECHO_CLASSES}
+            selected={classes}
+            onChange={(value) => update({ classes: value })}
+            render={(item) => item}
+          />
+          <label className="wuwa-select">
+            <span className="sr-only">Sonata effect</span>
+            <select value={sonata} onChange={(event) => update({ sonata: event.target.value })}>
+              <option value="">All sonata effects</option>
+              {sonataNames.map((name) => (
+                <option key={name} value={name}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading echoes...</Panel>}

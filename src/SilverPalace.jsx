@@ -6,6 +6,7 @@ import heroImage from '../images/sp/hero/sp-main.jpg'
 import {
   Collapsible,
   FilterGroup,
+  FilterPanel,
   Panel,
   RouteLink,
   ToTopButton,
@@ -18,12 +19,15 @@ import { MotivePage, MotivesPage, emptyMotiveFilters } from './SilverPalaceMotiv
 import { EpiphanyPage, EpiphaniesPage, emptyEpiphanyFilters } from './SilverPalaceEpiphanies.jsx'
 import { CatalystPage, CatalystsPage, emptyCatalystFilters } from './SilverPalaceCatalysts.jsx'
 
+import { ImplementPage, ImplementsPage, emptyImplementFilters } from './SilverPalaceImplements.jsx'
+
 const BASE = '/silver-palace'
 const ARCHIVE_TABS = [
   { id: 'characters', label: 'Characters', href: `${ARCHIVE}/characters` },
   { id: 'motives', label: 'Motives', href: `${ARCHIVE}/motives` },
   { id: 'epiphanies', label: 'Epiphanies', href: `${ARCHIVE}/epiphanies` },
   { id: 'catalysts', label: 'Catalysts', href: `${ARCHIVE}/catalysts` },
+  { id: 'implements', label: 'Implements', href: `${ARCHIVE}/implements` },
 ]
 const API = '/api/sp-characters'
 const OVERVIEW =
@@ -48,6 +52,8 @@ function parseRoute(pathname) {
     if (rest[1] === 'epiphanies' && rest.length === 3) return { page: 'epiphany', slug: rest[2] }
     if (rest[1] === 'catalysts' && rest.length === 2) return { page: 'catalysts' }
     if (rest[1] === 'catalysts' && rest.length === 3) return { page: 'catalyst', slug: rest[2] }
+    if (rest[1] === 'implements' && rest.length === 2) return { page: 'implements' }
+    if (rest[1] === 'implements' && rest.length === 3) return { page: 'implement', slug: rest[2] }
   }
   return { page: 'missing' }
 }
@@ -108,6 +114,7 @@ function CharactersPage({ navigate, filters, setFilters }) {
   }, [characters, search, rarities, attributes, styles, identities])
 
   const dirty = search || rarities.length || attributes.length || styles.length || identities.length
+  const activeCount = rarities.length + attributes.length + styles.length + identities.length
   const update = (patch) => setFilters({ ...filters, ...patch })
 
   return (
@@ -133,44 +140,38 @@ function CharactersPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        {options.rarities.length > 1 && (
+        <FilterPanel active={activeCount} dirty={dirty} onReset={() => setFilters(emptyFilters)}>
+          {options.rarities.length > 1 && (
+            <FilterGroup
+              label="Rarity"
+              options={options.rarities}
+              selected={rarities}
+              onChange={(value) => update({ rarities: value })}
+              render={(rarity) => `${rarity}\u2605`}
+            />
+          )}
           <FilterGroup
-            label="Rarity"
-            options={options.rarities}
-            selected={rarities}
-            onChange={(value) => update({ rarities: value })}
-            render={(rarity) => `${rarity}\u2605`}
+            label="Attribute"
+            options={options.attributes}
+            selected={attributes}
+            onChange={(value) => update({ attributes: value })}
+            render={(name) => name}
           />
-        )}
-        <FilterGroup
-          label="Attribute"
-          options={options.attributes}
-          selected={attributes}
-          onChange={(value) => update({ attributes: value })}
-          render={(name) => name}
-        />
-        <FilterGroup
-          label="Combat style"
-          options={options.styles}
-          selected={styles}
-          onChange={(value) => update({ styles: value })}
-          render={(name) => name}
-        />
-        <FilterGroup
-          label="Identity"
-          options={options.identities}
-          selected={identities}
-          onChange={(value) => update({ identities: value })}
-          render={(name) => name}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyFilters)}
-        >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Combat style"
+            options={options.styles}
+            selected={styles}
+            onChange={(value) => update({ styles: value })}
+            render={(name) => name}
+          />
+          <FilterGroup
+            label="Identity"
+            options={options.identities}
+            selected={identities}
+            onChange={(value) => update({ identities: value })}
+            render={(name) => name}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading characters...</Panel>}
@@ -552,6 +553,7 @@ export default function SilverPalace() {
   const [motiveFilters, setMotiveFilters] = useState(emptyMotiveFilters)
   const [epiphanyFilters, setEpiphanyFilters] = useState(emptyEpiphanyFilters)
   const [catalystFilters, setCatalystFilters] = useState(emptyCatalystFilters)
+  const [implementFilters, setImplementFilters] = useState(emptyImplementFilters)
   const route = parseRoute(pathname)
 
   useEffect(() => {
@@ -568,6 +570,8 @@ export default function SilverPalace() {
       epiphany: route.slug?.replace(/-/g, ' '),
       catalysts: 'Catalysts',
       catalyst: route.slug?.replace(/-/g, ' '),
+      implements: 'Implements',
+      implement: route.slug?.replace(/-/g, ' '),
     }[route.page]
     document.title = `${site.identity.channelName} \u2014 Silver Palace${section ? ` \u00B7 ${section}` : ''}`
   }, [route.page, route.slug])
@@ -581,6 +585,8 @@ export default function SilverPalace() {
     epiphany: 'epiphanies',
     catalysts: 'catalysts',
     catalyst: 'catalysts',
+    implements: 'implements',
+    implement: 'implements',
   }[route.page]
   const inArchive = Boolean(archiveTab)
 
@@ -639,6 +645,16 @@ export default function SilverPalace() {
         )}
         {route.page === 'catalyst' && (
           <CatalystPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'implements' && (
+          <ImplementsPage
+            navigate={navigate}
+            filters={implementFilters}
+            setFilters={setImplementFilters}
+          />
+        )}
+        {route.page === 'implement' && (
+          <ImplementPage key={route.slug} slug={route.slug} navigate={navigate} />
         )}
         {route.page === 'missing' && (
           <section className="wuwa-section">

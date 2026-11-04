@@ -122,6 +122,29 @@ export function FilterGroup({ label, options, selected, onChange, render }) {
   )
 }
 
+// The filter controls and Reset: always visible on desktop, behind a Filter button on phones.
+export function FilterPanel({ active = 0, dirty, onReset, children }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button
+        type="button"
+        className="wuwa-reset wuwa-filter-toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((value) => !value)}
+      >
+        Filter{active ? ` (${active})` : ''} {open ? '\u25B2' : '\u25BC'}
+      </button>
+      <div className={`wuwa-filter-panel${open ? ' is-open' : ''}`}>
+        {children}
+        <button type="button" className="wuwa-reset" disabled={!dirty} onClick={onReset}>
+          {'\u00D7'} Reset
+        </button>
+      </div>
+    </>
+  )
+}
+
 export function Collapsible({ chip, title, icon, aside, defaultOpen = false, children }) {
   const [open, setOpen] = useState(defaultOpen)
   return (

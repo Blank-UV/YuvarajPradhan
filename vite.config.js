@@ -9,6 +9,7 @@ import { createSilverPalaceCharactersHandler } from './api/sp-characters.js'
 import { createSilverPalaceMotivesHandler } from './api/sp-motives.js'
 import { createSilverPalaceEpiphaniesHandler } from './api/sp-epiphanies.js'
 import { createSilverPalaceCatalystsHandler } from './api/sp-catalysts.js'
+import { createSilverPalaceImplementsHandler } from './api/sp-implements.js'
 import { hoverOnlyPlugin } from './server/hover-only.js'
 import { siteProperties } from './src/site-properties.js'
 
@@ -78,6 +79,12 @@ export default defineConfig(({ mode }) => {
   })
 
   const spCatalystsHandler = createSilverPalaceCatalystsHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
+  })
+
+  const spImplementsHandler = createSilverPalaceImplementsHandler({
     supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
     anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
     imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
@@ -185,6 +192,15 @@ export default defineConfig(({ mode }) => {
         },
         configurePreviewServer(server) {
           server.middlewares.use('/api/sp-catalysts', spCatalystsHandler)
+        },
+      },
+      {
+        name: 'sp-implements-api',
+        configureServer(server) {
+          server.middlewares.use('/api/sp-implements', spImplementsHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/sp-implements', spImplementsHandler)
         },
       },
       {

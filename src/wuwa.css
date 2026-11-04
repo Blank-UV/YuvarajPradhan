@@ -1363,6 +1363,25 @@ body:has(.wuwa-main.is-home) {
 }
 
 /* Archives title bar */
+.wuwa-filter-toggle {
+  display: none;
+}
+.wuwa-filter-panel {
+  display: contents;
+}
+@media (max-width: 680px) {
+  .wuwa-filter-toggle {
+    display: inline-flex;
+  }
+  .wuwa-filter-panel {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .wuwa-filter-panel.is-open {
+    display: flex;
+  }
+}
 .wuwa-archive-bar {
   display: flex;
   flex-wrap: wrap;

@@ -1,5 +1,12 @@
 import React, { useMemo } from 'react'
-import { Collapsible, FilterGroup, Panel, RouteLink, useRemote } from './archive-kit.jsx'
+import {
+  Collapsible,
+  FilterGroup,
+  FilterPanel,
+  Panel,
+  RouteLink,
+  useRemote,
+} from './archive-kit.jsx'
 import { ARCHIVE, Art } from './sp-parts.jsx'
 
 const API = '/api/sp-epiphanies'
@@ -56,28 +63,26 @@ export function EpiphaniesPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Main stat"
-          options={statOptions}
-          selected={stats}
-          onChange={(value) => update({ stats: value })}
-          render={(label) => label}
-        />
-        <FilterGroup
-          label="Level"
-          options={levelOptions}
-          selected={levels}
-          onChange={(value) => update({ levels: value })}
-          render={(level) => `Lv. ${level}`}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyEpiphanyFilters)}
+        <FilterPanel
+          active={stats.length + levels.length}
+          dirty={dirty}
+          onReset={() => setFilters(emptyEpiphanyFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Main stat"
+            options={statOptions}
+            selected={stats}
+            onChange={(value) => update({ stats: value })}
+            render={(label) => label}
+          />
+          <FilterGroup
+            label="Level"
+            options={levelOptions}
+            selected={levels}
+            onChange={(value) => update({ levels: value })}
+            render={(level) => `Lv. ${level}`}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading epiphanies...</Panel>}

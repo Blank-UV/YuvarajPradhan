@@ -1,5 +1,12 @@
 import React, { useMemo, useState } from 'react'
-import { Collapsible, FilterGroup, Panel, RouteLink, useRemote } from './archive-kit.jsx'
+import {
+  Collapsible,
+  FilterGroup,
+  FilterPanel,
+  Panel,
+  RouteLink,
+  useRemote,
+} from './archive-kit.jsx'
 import { ARCHIVE, Art, LevelSlider, TraitIcon, numberFormat } from './sp-parts.jsx'
 
 const API = '/api/sp-motives'
@@ -54,28 +61,26 @@ export function MotivesPage({ navigate, filters, setFilters }) {
             onChange={(event) => update({ search: event.target.value })}
           />
         </label>
-        <FilterGroup
-          label="Rarity"
-          options={RARITIES}
-          selected={rarities}
-          onChange={(value) => update({ rarities: value })}
-          render={(rarity) => `${rarity}\u2605`}
-        />
-        <FilterGroup
-          label="Identity"
-          options={identityOptions}
-          selected={identities}
-          onChange={(value) => update({ identities: value })}
-          render={(name) => name}
-        />
-        <button
-          type="button"
-          className="wuwa-reset"
-          disabled={!dirty}
-          onClick={() => setFilters(emptyMotiveFilters)}
+        <FilterPanel
+          active={rarities.length + identities.length}
+          dirty={dirty}
+          onReset={() => setFilters(emptyMotiveFilters)}
         >
-          {'\u00D7'} Reset
-        </button>
+          <FilterGroup
+            label="Rarity"
+            options={RARITIES}
+            selected={rarities}
+            onChange={(value) => update({ rarities: value })}
+            render={(rarity) => `${rarity}\u2605`}
+          />
+          <FilterGroup
+            label="Identity"
+            options={identityOptions}
+            selected={identities}
+            onChange={(value) => update({ identities: value })}
+            render={(name) => name}
+          />
+        </FilterPanel>
       </div>
 
       {loading && <Panel>Loading motives...</Panel>}
