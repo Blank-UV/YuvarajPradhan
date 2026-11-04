@@ -3,6 +3,8 @@ import { siteProperties as site } from './site-properties.js'
 import Sidebar, { wuwaNavigation } from './Sidebar.jsx'
 import useColorMode from './useColorMode.js'
 import heroImage from '../images/wuwa/hero/piano.jpg'
+import WuwaBuildShow from './WuwaBuildShow.jsx'
+import { filterEchoes } from './wuwa-catalog.js'
 
 const BASE = '/wuthering-waves'
 const ARCHIVE = `${BASE}/archives`
@@ -107,6 +109,7 @@ function parseRoute(pathname) {
     return { page: 'missing' }
   }
   if (first === 'team-calculations' && rest.length === 1) return { page: 'team' }
+  if (first === 'build' && rest.length === 1) return { page: 'build' }
   return { page: 'missing' }
 }
 
@@ -1323,16 +1326,10 @@ function EchoesPage({ navigate, filters, setFilters }) {
       ].sort(),
     [echoes],
   )
-  const shown = useMemo(() => {
-    const needle = search.trim().toLowerCase()
-    return (echoes ?? []).filter(
-      (echo) =>
-        (!needle || echo.name.toLowerCase().includes(needle)) &&
-        (!costs.length || costs.includes(echo.cost)) &&
-        (!classes.length || classes.includes(echo.class)) &&
-        (!sonata || echo.sonata_effects.some((item) => item.name === sonata)),
-    )
-  }, [echoes, search, costs, classes, sonata])
+  const shown = useMemo(
+    () => filterEchoes(echoes ?? [], { search, costs, classes, sonata }),
+    [echoes, search, costs, classes, sonata],
+  )
 
   const dirty = search || costs.length || classes.length || sonata
   const update = (patch) => setFilters({ ...filters, ...patch })
@@ -1640,6 +1637,7 @@ const titles = {
   sonata: 'Sonata effect',
   detail: 'Character',
   team: 'Team Calculations',
+  build: 'Build/Show',
   missing: 'Page not found',
 }
 
@@ -1688,7 +1686,13 @@ export default function WutheringWaves() {
   }, [route.page, route.slug])
 
   const archiveTab = ARCHIVE_PAGE_TAB[route.page]
-  const activeId = archiveTab ? 'archives' : route.page === 'team' ? 'team-calculations' : ''
+  const activeId = archiveTab
+    ? 'archives'
+    : route.page === 'team'
+      ? 'team-calculations'
+      : route.page === 'build'
+        ? 'build'
+        : ''
 
   return (
     <div className={`site gaming-site wuwa-site ${colorMode === 'light' ? 'theme-light' : ''}`}>
@@ -1742,6 +1746,7 @@ export default function WutheringWaves() {
           <EchoPage key={route.slug} slug={route.slug} navigate={navigate} />
         )}
         {route.page === 'team' && <TeamCalculationsPage />}
+        {route.page === 'build' && <WuwaBuildShow />}
         {route.page === 'missing' && (
           <section className="wuwa-section">
             <Panel>

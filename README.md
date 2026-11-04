@@ -110,3 +110,125 @@ Character data comes from `/api/wuwa-characters` (`?slug=` for one character), i
 2. Scrape Game8's echo list and pages plus wuthering.gg's echo pages: `cd wuwa-data/scraper; node fetch-echoes.mjs; node parse-echoes.mjs; node fetch-echo-icons.mjs` (needs the saved lists `wuwa-data/echo-cache/list.html`, https://game8.co/games/Wuthering-Waves/archives/452491, and `gg-list.html`, https://wuthering.gg/echos). Output is the gitignored `wuwa-data/echoes/` and `wuwa-data/images/echoes/`.
 3. Run `node scripts/wuwa-build-echo-seed.mjs`, then run `wuwa-data/seed/echoes-01.sql` onward in the SQL editor (they upsert by slug).
 4. Upload `wuwa-data/images/echoes/` to the `WutheringWaves` bucket as `echoes/<slug>.png`.
+
+### Build/Show reference data
+
+The Build/Show page is available at `/wuthering-waves/build` from the Wuthering
+Waves sidebar (open the menu on mobile). It reuses
+`wuwa_characters`, `wuwa_weapons`, `wuwa_echoes`, and `wuwa_sonata_effects`; it does not
+replace Archives records or upload anything automatically.
+
+The editor uses `/api/wuwa-builder` to load public catalogs and rules, then
+character/weapon reference details on selection. The **interactive page is HTML,
+not a PNG preview**: click the portrait to open a Resonator gallery, click the
+weapon card to browse compatible weapons, or click any echo slot to choose an
+echo. Pickers support search and category filters. Echo cost, class and sonata
+filtering shares the same matcher as Archives. Selecting a result equips it in
+the slot that opened the picker; changing a Resonator keeps echoes and a
+compatible weapon but resets character-specific choices and custom totals.
+
+Levels default to their reference cap, and echoes default to five-star +25.
+Change levels, syntony rank, chain and skill levels directly on the page. Select
+an echo's sonata and main stat, then enter its actual tuned substat rolls inside
+that card. Main/fixed values follow cost, rarity and level automatically. Total
+echo cost is limited to 12, substat types cannot repeat within an echo, and
+duplicate echoes count once toward sonata piece totals.
+
+**Equipment totals calculate automatically** from character base stats, weapon
+base/secondary stats, echo main/fixed stats, tuned rolls and selected full
+minor-forte stat branches. Percent ATK scales character + weapon base ATK;
+percent HP/DEF scales character base HP/DEF, with flat bonuses added afterward.
+Weapon passives, resonance-chain buffs, sonata bonuses, active echo skills and
+combat buffs are **not** auto-applied. The included/excluded sources are explained
+on the page. Use **Adjust totals** to replace any individual value with an actual
+in-game total; clearing it restores automatic calculation. Missing source base
+stats remain unavailable and are called out rather than treated as zero.
+
+Echo CV is `2 × tuned Crit. Rate + tuned Crit. DMG`, not total character CV.
+Only **Export PNG** or **Copy image** invokes the element-coloured 1600×940
+showcase renderer; it is not shown beside the editing interface. Image copying
+requires HTTPS (or localhost), clipboard permission and browser support; use
+Export PNG when copying is unsupported. Public bucket images must allow
+cross-origin access for exports. Missing artwork is labelled in the editor and
+failed export images report an explicit error that can be retried.
+
+Display name, UID and build inputs remain in page memory, are never included in
+API requests, and are lost on refresh/navigation. No account login, UID lookup
+or server-side build saving is implemented. A character without uploaded
+builder reference data shows an explicit unavailable message; it does not
+silently substitute another character.
+
+Collect the missing public reference tables and images from wuthering.gg:
+
+```powershell
+node scripts\wuwa-fetch-builder-data.mjs
+node scripts\wuwa-build-builder-seed.mjs
+```
+
+The collector reads static data bundles as data, without executing downloaded
+JavaScript. Downloads are cached under `wuwa-data\builder\cache`; use `--refresh`
+to fetch them again. All downloaded data, images, SQL imports, the upload manifest,
+and the coverage report stay in the gitignored `wuwa-data` folder.
+
+**Supabase setup, in order:**
+
+1. The existing character and weapon schemas and seeds must already be loaded.
+2. Run `db\wuwa-builder-schema.sql` in the SQL editor. It adds three public,
+   read-only reference tables: `wuwa_builder_characters` (portrait/icon paths,
+   level stats, skill multipliers and chain icons), `wuwa_builder_weapons` (level
+   stats and R1-R5 passive parameters), and `wuwa_builder_rules` (stat definitions
+   and echo reference values).
+3. Run **all** files in `wuwa-data\builder\seed` in filename order:
+   `01-rules.sql`, `02-characters-*.sql`, then `03-weapons-*.sql`.
+   They upsert and can be rerun. They are intentionally outside `wuwa-data\seed`
+   because the old character seed generator clears that directory.
+4. Upload the `builder` folder from `wuwa-data\images` into the **existing public**
+   `WutheringWaves` Storage bucket. Preserve its subfolders: `builder/portraits`,
+   `builder/skills`, `builder/sequences`, `builder/elements`, and `builder/stats`.
+   Do not add an extra `images` folder in the bucket. Enable overwrite when
+   refreshing files. `wuwa-data\builder\upload-manifest.json` lists each exact
+   `local_path`, `bucket_path`, source URL, dimensions, size, and SHA-256.
+5. Keep the existing `characters`, `weapons`, `echoes`, and `sonata` bucket folders.
+   The builder will reuse them. Sonata/echo schemas, seeds and images must also
+   be loaded for equipment selection; see the preceding setup sections.
+
+For example, `builder/portraits/cantarella-1607.png` resolves to
+`<SUPABASE_URL>/storage/v1/object/public/WutheringWaves/builder/portraits/cantarella-1607.png`.
+No new bucket, credentials, or frontend environment variables are required.
+
+**Data boundaries and units:**
+
+- `wuwa-data\builder\report.json` lists actual coverage, failed downloads, missing
+  characters and source limitations. Missing assets are `null`, not broken URLs;
+  missing stats are not substituted with another character's stats.
+- Character level stats are derived from the published level-1 stats and growth
+  ratios, rounded down as on the source site. They can differ by one point from
+  Archives' Prydwen values. The `ascension` field distinguishes both rows at
+  level boundaries. Missing/zero source base stats become `null` in level rows,
+  not usable zero stats. Raw `base_stats` percentages use hundredths (500 = 5%).
+- Weapon `level_stats.sub_value` and echo percentage values use display units
+  (72 means 72%, not 0.72). Starter weapons stop at level 60. Skill multiplier
+  `values` are arrays of source strings by level, retained rather than evaluated.
+  Only levels 1-10 are collected; do not expose internal higher source levels.
+- R1-R5 parameters, chain descriptions and echo/set bonuses can be conditional.
+  They are **not** precomputed always-on buffs. Existing `minor_fortes` and
+  weapon `syntony` descriptions remain in the Archives tables. Missing rank
+  parameters are `null`; do not fill them by repeating an earlier rank.
+- Echo main-stat presets cover costs 1/3/4, rarities 2-5, and every enhancement
+  level through the rarity's cap (+10/+15/+20/+25). Match all three fields
+  (`cost`, `rarity`, `level`); never reuse max-level values for lower-level echoes.
+  Five-star +25 presets are cross-checked against every existing echo record.
+- The source supplies substat ranges, not a verified list of discrete rolls.
+  Some ranges disagree across sources. They are marked `reference-only`, with
+  `allowed_rolls: null`; never reject a player's real roll based on them.
+- Some portraits are only available as the source site's optimized 400x552
+  versions. Their manifest entries have `quality: "published-optimized-image"`;
+  use the recorded dimensions when assessing export quality.
+
+**Player-owned input stays separate:** display name/UID (optional), character
+level and ascension, chain unlocks, skill levels, minor-forte unlocks, weapon
+level/rank, five echo selections and sets, echo levels, actual main/substat rolls,
+and final in-game stat totals. These are not reference rows and must not go into
+the public tables above. The initial builder can keep a draft on-device; a later
+account-based save feature needs a separate owner-protected schema and policies.
+Do not treat a UID as authentication or put player data in the public asset bucket.

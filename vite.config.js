@@ -5,6 +5,7 @@ import { createWuwaCharactersHandler } from './api/wuwa-characters.js'
 import { createWuwaWeaponsHandler } from './api/wuwa-weapons.js'
 import { createWuwaSonataHandler } from './api/wuwa-sonata.js'
 import { createWuwaEchoesHandler } from './api/wuwa-echoes.js'
+import { createWuwaBuilderHandler } from './api/wuwa-builder.js'
 import { hoverOnlyPlugin } from './server/hover-only.js'
 import { siteProperties } from './src/site-properties.js'
 
@@ -52,11 +53,25 @@ export default defineConfig(({ mode }) => {
     anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
     imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
   })
+  const builderHandler = createWuwaBuilderHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
+  })
 
   return {
     base: '/',
     plugins: [
       hoverOnlyPlugin(),
+      {
+        name: 'wuwa-builder-api',
+        configureServer(server) {
+          server.middlewares.use('/api/wuwa-builder', builderHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/wuwa-builder', builderHandler)
+        },
+      },
       {
         name: 'page-routes',
         configureServer(server) {

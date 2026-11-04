@@ -20,6 +20,7 @@ export const gamingNavigation = [
 
 export const wuwaNavigation = [
   { id: 'archives', label: 'Archives', icon: '\u25CE', href: '/wuthering-waves/archives' },
+  { id: 'build', label: 'Build/Show', icon: '\u25C8', href: '/wuthering-waves/build' },
   {
     id: 'team-calculations',
     label: 'Team Calculations',
