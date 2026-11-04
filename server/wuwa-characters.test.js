@@ -111,7 +111,17 @@ test('rejects bad requests and unknown characters', async () => {
 
 test('reports missing configuration instead of serving local data', async () => {
   const handler = createWuwaCharactersHandler({ supabaseUrl: '', anonKey: '' })
-  assert.equal((await call(handler, '/')).status, 503)
+  const originalError = console.error
+  const logged = []
+  console.error = (message) => logged.push(message)
+  try {
+    const response = await call(handler, '/')
+    assert.equal(response.status, 503)
+    assert.equal(response.body.error, 'CHARACTERS CURRENTLY FIGHTING THE THRENODIANS')
+    assert.match(logged[0], /SUPABASE_URL/)
+  } finally {
+    console.error = originalError
+  }
 })
 
 test('reports database failures as a gateway error', async () => {

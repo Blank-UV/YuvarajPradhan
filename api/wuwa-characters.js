@@ -15,6 +15,7 @@ export function createWuwaCharactersHandler({
   fetchImpl = fetch,
 } = {}) {
   const configured = Boolean(supabaseUrl && anonKey)
+  let warned = false
   const apiUrl = configured ? supabaseUrl.replace(/\/$/, '') : ''
   const base = imageBase ?? `${apiUrl}/storage/v1/object/public/WutheringWaves/`
 
@@ -39,10 +40,11 @@ export function createWuwaCharactersHandler({
       return
     }
     if (!configured) {
-      send(res, 503, {
-        error:
-          'Character data is not configured. Set SUPABASE_URL and SUPABASE_ANON_KEY on the server.',
-      })
+      if (!warned) {
+        warned = true
+        console.error('Wuthering Waves: set SUPABASE_URL and SUPABASE_ANON_KEY on the server.')
+      }
+      send(res, 503, { error: 'CHARACTERS CURRENTLY FIGHTING THE THRENODIANS' })
       return
     }
     const slug = new URL(req.url, 'http://localhost').searchParams.get('slug')
