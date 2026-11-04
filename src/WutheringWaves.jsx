@@ -372,13 +372,31 @@ function computeStats(character, includeFortes) {
   ]
 }
 
+function Collapsible({ chip, title, children }) {
+  const [open, setOpen] = useState(false)
+  return (
+    <article className={`wuwa-skill${open ? '' : ' collapsed'}`}>
+      <header>
+        <span className="wuwa-chip">{chip}</span>
+        <h3>{title}</h3>
+        <button
+          type="button"
+          className="wuwa-toggle"
+          aria-expanded={open}
+          aria-label={`${open ? 'Collapse' : 'Expand'} ${title}`}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? '\u2212' : '+'}
+        </button>
+      </header>
+      {open && children}
+    </article>
+  )
+}
+
 function SkillCard({ skill }) {
   return (
-    <article className="wuwa-skill">
-      <header>
-        <span className="wuwa-chip">{skill.kind}</span>
-        <h3>{skill.name}</h3>
-      </header>
+    <Collapsible chip={skill.kind} title={skill.name}>
       <div className="wuwa-skill-body">
         {skill.body?.length ? (
           <Body body={skill.body} />
@@ -400,7 +418,7 @@ function SkillCard({ skill }) {
           </>
         )}
       </div>
-    </article>
+    </Collapsible>
   )
 }
 
@@ -502,11 +520,7 @@ function CharacterPage({ slug, navigate }) {
           </h2>
           <div className="wuwa-chain">
             {character.sequences.map((sequence) => (
-              <article key={sequence.node} className="wuwa-skill">
-                <header>
-                  <span className="wuwa-chip">S{sequence.node}</span>
-                  <h3>{sequence.name}</h3>
-                </header>
+              <Collapsible key={sequence.node} chip={`S${sequence.node}`} title={sequence.name}>
                 <div className="wuwa-skill-body">
                   {sequence.body?.length ? (
                     <Body body={sequence.body} />
@@ -516,7 +530,7 @@ function CharacterPage({ slug, navigate }) {
                     </p>
                   )}
                 </div>
-              </article>
+              </Collapsible>
             ))}
           </div>
         </>
@@ -581,6 +595,29 @@ const titles = {
   detail: 'Character',
   team: 'Team Calculations',
   missing: 'Page not found',
+}
+
+function ToTopButton() {
+  const [away, setAway] = useState(false)
+
+  useEffect(() => {
+    const update = () => setAway(window.scrollY > 80)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+
+  if (!away) return null
+  return (
+    <button
+      type="button"
+      className="wuwa-to-top"
+      aria-label="Back to top"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+      {'\u2191'}
+    </button>
+  )
 }
 
 export default function WutheringWaves() {
@@ -667,6 +704,7 @@ export default function WutheringWaves() {
             </a>
           </footer>
         </div>
+        <ToTopButton />
       </main>
     </div>
   )
