@@ -918,6 +918,17 @@
   width: 100%;
   min-width: 0;
 }
+.wuwa-main.is-home .wuwa-home {
+  align-items: center;
+  padding-top: clamp(56px, 8vh, 96px);
+  padding-bottom: clamp(56px, 8vh, 96px);
+}
+@media (max-width: 680px) {
+  .wuwa-main.is-home .wuwa-home {
+    padding-top: 72px;
+    padding-bottom: 40px;
+  }
+}
 
 /* Weapons */
 .rarity-3 {
