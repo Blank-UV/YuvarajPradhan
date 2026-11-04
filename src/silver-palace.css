@@ -654,6 +654,147 @@
     flex: 1;
   }
 }
+/* Panel chips (EFFECT, STATS, INK, LORE, P1, ...) share one width with the text centered */
+.sp-site .wuwa-chip {
+  flex: 0 0 96px;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
+}
+@media (max-width: 680px) {
+  .sp-site .wuwa-chip {
+    flex-basis: 68px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Motives */
+.sp-motive-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+  gap: 10px;
+}
+.sp-motive-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  padding: 12px;
+  background: var(--w-panel);
+  border: 1px solid var(--w-line);
+  border-top: 3px solid var(--accent);
+  color: var(--w-text);
+  outline: 1px solid transparent;
+  transition:
+    outline-color 0.2s,
+    transform 0.2s;
+}
+.sp-motive-card.rarity-5 {
+  border-top-color: #e3b93c;
+}
+.sp-motive-card.rarity-4 {
+  border-top-color: #c2502c;
+}
+.sp-motive-card.rarity-3 {
+  border-top-color: #9a7b60;
+}
+.sp-motive-card[class*='rarity-'] {
+  background: var(--w-panel);
+}
+.sp-motive-art {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+}
+.sp-motive-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+.sp-motive-name {
+  font:
+    700 14px/1.25 'Space Grotesk',
+    sans-serif;
+}
+.sp-motive-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto;
+  color: var(--w-muted);
+  font:
+    500 11px 'DM Mono',
+    monospace;
+  text-transform: uppercase;
+}
+.sp-motive-stars {
+  color: var(--w-num);
+  letter-spacing: 0.1em;
+}
+@media (hover: hover) {
+  .sp-motive-card:hover {
+    outline-color: var(--accent);
+    transform: translateY(-3px);
+  }
+  .sp-motive-card:hover .sp-motive-art img {
+    transform: scale(1.06);
+  }
+}
+.sp-motive-card:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.sp-motive-profile {
+  display: grid;
+  grid-template-columns: minmax(140px, 220px) 1fr;
+  gap: clamp(20px, 4vw, 48px);
+  align-items: end;
+}
+.sp-motive-portrait {
+  position: relative;
+  aspect-ratio: 1;
+  background: var(--w-panel-2);
+  border-bottom: 3px solid var(--accent);
+}
+.sp-motive-portrait img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.sp-motive-profile h1 {
+  margin: 0 0 16px;
+  font:
+    700 clamp(32px, 5vw, 72px) / 1 'Space Grotesk',
+    sans-serif;
+  letter-spacing: -0.02em;
+}
+.sp-motive-panels {
+  margin-top: 32px;
+}
+.sp-rank-text {
+  margin: 12px 0 0;
+  font:
+    400 14px/1.6 'DM Sans',
+    sans-serif;
+}
+@media (max-width: 680px) {
+  .sp-motive-profile {
+    grid-template-columns: 1fr;
+  }
+  .sp-motive-portrait {
+    max-width: 180px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .sp-card,
   .sp-card img {

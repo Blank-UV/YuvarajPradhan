@@ -124,3 +124,30 @@ The tables are normalised and all prefixed `sp_` (see the diagram at the top of 
 3. Run `node scripts/sp-build-seed.mjs`, then run `sp-data/seed/sp-01.sql` onward in the SQL editor. Each file is self-contained (it upserts its traits and gifts, then replaces the character's child rows), so files can be run in any order and re-run after a refresh.
 4. Upload the contents of `sp-data/images/` to a public bucket named `SilverPalace`, keeping the folder structure (`characters/`, `traits/`, `gifts/`, `psyches/`).
 5. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in `.env.local` and in Vercel (shared with the Wuthering Waves pages).
+
+### Motives
+
+The Archives bar also has a **Motives** tab: `/silver-palace/archives/motives` (grid of all 40 motives; search by name or effect, rarity and identity filters) and `/silver-palace/archives/motives/<slug>` (base HP/ATK and bonus stat, the motive skill with an R1–R5 slider, and the lore; panels start minimized). Code: `src/SilverPalaceMotives.jsx`, API `api/sp-motives.js` (tests in `server/sp-motives.test.js`). Setup, after the character setup above:
+
+1. Run `db/silver-palace-motives-schema.sql` (adds `sp_motives` and `sp_motive_ranks`; a motive's identity links to `sp_traits`).
+2. `node scripts/sp-scrape-motives.mjs` reads hideoutgacha.com's motives list into `sp-data/motives/<slug>.json` and the icons into `sp-data/images/motives/`. Two pairs of motives share a name, so those slugs end with the game id.
+3. `node scripts/sp-build-motives-seed.mjs`, then run `sp-data/seed/sp-motives.sql` in the SQL editor (safe to re-run; it adds the one new identity, Victim, without touching existing icons).
+4. Upload `sp-data/images/motives/` to the `SilverPalace` bucket as `motives/<file>`.
+
+### Epiphanies
+
+The **Epiphanies** tab (equipment) has `/silver-palace/archives/epiphanies` (grid of all 30; search by name or effect, main stat and level filters) and `/silver-palace/archives/epiphanies/<slug>` (main stat, level, effect, a Stats panel with the main stat, three substats and level, the shared "Possible addendums · Any-character Ink" list, and lore; panels start minimized). The level is the level the listed stats are quoted for; higher-level epiphanies roll larger numbers (a DMG Bonus main stat is +15% at Lv. 20 and +19.5% at Lv. 70). The addendum list is the same for every epiphany, so it is one shared table (`sp_epiphany_addendums`). Code: `src/SilverPalaceEpiphanies.jsx`, API `api/sp-epiphanies.js` (tests in `server/sp-epiphanies.test.js`). Stats are stored as published with label, number and unit split out. Setup:
+
+1. Run `db/silver-palace-epiphanies-schema.sql` (adds `sp_epiphanies` and `sp_epiphany_substats`).
+2. `node scripts/sp-scrape-epiphanies.mjs` writes `sp-data/epiphanies/<slug>.json` and downloads the icons to `sp-data/images/epiphanies/`.
+3. `node scripts/sp-build-epiphanies-seed.mjs`, then run `sp-data/seed/sp-epiphanies.sql` in the SQL editor (safe to re-run).
+4. Upload `sp-data/images/epiphanies/` to the `SilverPalace` bucket as `epiphanies/<file>`.
+
+### Catalysts
+
+The **Catalysts** tab has `/silver-palace/archives/catalysts` (grid of all 17; search by name, effect or where to get it) and `/silver-palace/archives/catalysts/<slug>` (type, max stack, the effect and where to get it; panels start minimized). Code: `src/SilverPalaceCatalysts.jsx`, API `api/sp-catalysts.js` (tests in `server/sp-catalysts.test.js`). Several catalysts share one icon. Setup:
+
+1. Run `db/silver-palace-catalysts-schema.sql` (adds `sp_catalysts` and `sp_catalyst_sources`).
+2. `node scripts/sp-scrape-catalysts.mjs` writes `sp-data/catalysts/<slug>.json` and downloads the icons to `sp-data/images/catalysts/`.
+3. `node scripts/sp-build-catalysts-seed.mjs`, then run `sp-data/seed/sp-catalysts.sql` in the SQL editor (safe to re-run).
+4. Upload `sp-data/images/catalysts/` to the `SilverPalace` bucket as `catalysts/<file>`.

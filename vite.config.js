@@ -6,6 +6,9 @@ import { createWuwaWeaponsHandler } from './api/wuwa-weapons.js'
 import { createWuwaSonataHandler } from './api/wuwa-sonata.js'
 import { createWuwaEchoesHandler } from './api/wuwa-echoes.js'
 import { createSilverPalaceCharactersHandler } from './api/sp-characters.js'
+import { createSilverPalaceMotivesHandler } from './api/sp-motives.js'
+import { createSilverPalaceEpiphaniesHandler } from './api/sp-epiphanies.js'
+import { createSilverPalaceCatalystsHandler } from './api/sp-catalysts.js'
 import { hoverOnlyPlugin } from './server/hover-only.js'
 import { siteProperties } from './src/site-properties.js'
 
@@ -57,6 +60,24 @@ export default defineConfig(({ mode }) => {
     imageBase: process.env.WUWA_IMAGE_BASE || env.WUWA_IMAGE_BASE,
   })
   const spCharactersHandler = createSilverPalaceCharactersHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
+  })
+
+  const spMotivesHandler = createSilverPalaceMotivesHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
+  })
+
+  const spEpiphaniesHandler = createSilverPalaceEpiphaniesHandler({
+    supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
+    anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
+    imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
+  })
+
+  const spCatalystsHandler = createSilverPalaceCatalystsHandler({
     supabaseUrl: process.env.SUPABASE_URL || env.SUPABASE_URL,
     anonKey: process.env.SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY,
     imageBase: process.env.SP_IMAGE_BASE || env.SP_IMAGE_BASE,
@@ -137,6 +158,33 @@ export default defineConfig(({ mode }) => {
         },
         configurePreviewServer(server) {
           server.middlewares.use('/api/sp-characters', spCharactersHandler)
+        },
+      },
+      {
+        name: 'sp-motives-api',
+        configureServer(server) {
+          server.middlewares.use('/api/sp-motives', spMotivesHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/sp-motives', spMotivesHandler)
+        },
+      },
+      {
+        name: 'sp-epiphanies-api',
+        configureServer(server) {
+          server.middlewares.use('/api/sp-epiphanies', spEpiphaniesHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/sp-epiphanies', spEpiphaniesHandler)
+        },
+      },
+      {
+        name: 'sp-catalysts-api',
+        configureServer(server) {
+          server.middlewares.use('/api/sp-catalysts', spCatalystsHandler)
+        },
+        configurePreviewServer(server) {
+          server.middlewares.use('/api/sp-catalysts', spCatalystsHandler)
         },
       },
       {

@@ -13,10 +13,18 @@ import {
   useRemote,
   useRoute,
 } from './archive-kit.jsx'
+import { ARCHIVE, Art, LevelSlider, TraitIcon, numberFormat } from './sp-parts.jsx'
+import { MotivePage, MotivesPage, emptyMotiveFilters } from './SilverPalaceMotives.jsx'
+import { EpiphanyPage, EpiphaniesPage, emptyEpiphanyFilters } from './SilverPalaceEpiphanies.jsx'
+import { CatalystPage, CatalystsPage, emptyCatalystFilters } from './SilverPalaceCatalysts.jsx'
 
 const BASE = '/silver-palace'
-const ARCHIVE = `${BASE}/archives`
-const ARCHIVE_TABS = [{ id: 'characters', label: 'Characters', href: `${ARCHIVE}/characters` }]
+const ARCHIVE_TABS = [
+  { id: 'characters', label: 'Characters', href: `${ARCHIVE}/characters` },
+  { id: 'motives', label: 'Motives', href: `${ARCHIVE}/motives` },
+  { id: 'epiphanies', label: 'Epiphanies', href: `${ARCHIVE}/epiphanies` },
+  { id: 'catalysts', label: 'Catalysts', href: `${ARCHIVE}/catalysts` },
+]
 const API = '/api/sp-characters'
 const OVERVIEW =
   'Silver Palace is set in Silvernia, a city of detectives, aristocratic houses and a great many secrets. You play as the Detective, and the story advances case by case rather than as one continuous campaign.'
@@ -34,6 +42,12 @@ function parseRoute(pathname) {
     if (rest.length === 1) return { page: 'redirect', to: `${ARCHIVE}/characters` }
     if (rest[1] === 'characters' && rest.length === 2) return { page: 'list' }
     if (rest[1] === 'characters' && rest.length === 3) return { page: 'detail', slug: rest[2] }
+    if (rest[1] === 'motives' && rest.length === 2) return { page: 'motives' }
+    if (rest[1] === 'motives' && rest.length === 3) return { page: 'motive', slug: rest[2] }
+    if (rest[1] === 'epiphanies' && rest.length === 2) return { page: 'epiphanies' }
+    if (rest[1] === 'epiphanies' && rest.length === 3) return { page: 'epiphany', slug: rest[2] }
+    if (rest[1] === 'catalysts' && rest.length === 2) return { page: 'catalysts' }
+    if (rest[1] === 'catalysts' && rest.length === 3) return { page: 'catalyst', slug: rest[2] }
   }
   return { page: 'missing' }
 }
@@ -59,23 +73,6 @@ function ArchiveBar({ active, navigate }) {
       </nav>
     </header>
   )
-}
-
-function Art({ src, name }) {
-  const [failed, setFailed] = useState(false)
-  if (!src || failed) {
-    return (
-      <span className="wuwa-art-fallback" aria-hidden="true">
-        {name.charAt(0)}
-      </span>
-    )
-  }
-  return <img src={src} alt="" loading="lazy" draggable="false" onError={() => setFailed(true)} />
-}
-
-function TraitIcon({ trait }) {
-  if (!trait?.image_url) return null
-  return <img className="sp-trait-icon" src={trait.image_url} alt="" loading="lazy" />
 }
 
 const unique = (characters, pick) =>
@@ -205,43 +202,7 @@ function CharactersPage({ navigate, filters, setFilters }) {
   )
 }
 
-// Slider over a list of published levels (stats come in steps of 10, skills in steps of 5).
-function LevelSlider({ label, levels, index, onChange }) {
-  const level = levels[index]
-  return (
-    <div className="sp-slider">
-      <div className="sp-slider-head">
-        <span>{label}</span>
-        <b>Lv. {level}</b>
-      </div>
-      <input
-        type="range"
-        min={0}
-        max={levels.length - 1}
-        step={1}
-        value={index}
-        aria-label={label}
-        aria-valuetext={`Level ${level}`}
-        onChange={(event) => onChange(Number(event.target.value))}
-      />
-      <div className="sp-slider-ticks" role="group" aria-label={`${label} levels`}>
-        {levels.map((value, position) => (
-          <button
-            key={value}
-            type="button"
-            className={position === index ? 'on' : ''}
-            aria-pressed={position === index}
-            onClick={() => onChange(position)}
-          >
-            {value}
-          </button>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-const number = new Intl.NumberFormat('en-US')
+const number = numberFormat
 
 function StatsSection({ character }) {
   const [index, setIndex] = useState(Math.max(character.stats.length - 1, 0))
@@ -588,6 +549,9 @@ export default function SilverPalace() {
   const [colorMode, toggleColorMode] = useColorMode()
   const [pathname, navigate] = useRoute()
   const [filters, setFilters] = useState(emptyFilters)
+  const [motiveFilters, setMotiveFilters] = useState(emptyMotiveFilters)
+  const [epiphanyFilters, setEpiphanyFilters] = useState(emptyEpiphanyFilters)
+  const [catalystFilters, setCatalystFilters] = useState(emptyCatalystFilters)
   const route = parseRoute(pathname)
 
   useEffect(() => {
@@ -595,11 +559,30 @@ export default function SilverPalace() {
   }, [route.page, route.to, navigate])
 
   useEffect(() => {
-    const section = { list: 'Characters', detail: route.slug?.replace(/-/g, ' ') }[route.page]
+    const section = {
+      list: 'Characters',
+      detail: route.slug?.replace(/-/g, ' '),
+      motives: 'Motives',
+      motive: route.slug?.replace(/-/g, ' '),
+      epiphanies: 'Epiphanies',
+      epiphany: route.slug?.replace(/-/g, ' '),
+      catalysts: 'Catalysts',
+      catalyst: route.slug?.replace(/-/g, ' '),
+    }[route.page]
     document.title = `${site.identity.channelName} \u2014 Silver Palace${section ? ` \u00B7 ${section}` : ''}`
   }, [route.page, route.slug])
 
-  const inArchive = route.page === 'list' || route.page === 'detail'
+  const archiveTab = {
+    list: 'characters',
+    detail: 'characters',
+    motives: 'motives',
+    motive: 'motives',
+    epiphanies: 'epiphanies',
+    epiphany: 'epiphanies',
+    catalysts: 'catalysts',
+    catalyst: 'catalysts',
+  }[route.page]
+  const inArchive = Boolean(archiveTab)
 
   return (
     <div
@@ -623,13 +606,39 @@ export default function SilverPalace() {
         }}
       />
       <main id="main" className={`wuwa-main${route.page === 'home' ? ' is-home' : ''}`}>
-        {inArchive && <ArchiveBar active="characters" navigate={navigate} />}
+        {inArchive && <ArchiveBar active={archiveTab} navigate={navigate} />}
         {route.page === 'home' && <HomePage navigate={navigate} />}
         {route.page === 'list' && (
           <CharactersPage navigate={navigate} filters={filters} setFilters={setFilters} />
         )}
         {route.page === 'detail' && (
           <CharacterPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'motives' && (
+          <MotivesPage navigate={navigate} filters={motiveFilters} setFilters={setMotiveFilters} />
+        )}
+        {route.page === 'motive' && (
+          <MotivePage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'epiphanies' && (
+          <EpiphaniesPage
+            navigate={navigate}
+            filters={epiphanyFilters}
+            setFilters={setEpiphanyFilters}
+          />
+        )}
+        {route.page === 'epiphany' && (
+          <EpiphanyPage key={route.slug} slug={route.slug} navigate={navigate} />
+        )}
+        {route.page === 'catalysts' && (
+          <CatalystsPage
+            navigate={navigate}
+            filters={catalystFilters}
+            setFilters={setCatalystFilters}
+          />
+        )}
+        {route.page === 'catalyst' && (
+          <CatalystPage key={route.slug} slug={route.slug} navigate={navigate} />
         )}
         {route.page === 'missing' && (
           <section className="wuwa-section">

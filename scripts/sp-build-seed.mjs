@@ -13,15 +13,7 @@ const SOURCE = {
   url: 'https://www.hideoutgacha.com/games/silver-palace/character-information',
 }
 
-// Dollar quoting avoids apostrophe escaping, which some SQL editors mishandle when pasted.
-const text = (value) => {
-  if (value == null || value === '') return 'null'
-  const string = String(value)
-  if (string.includes('$q$')) throw new Error(`Text contains the quote delimiter: ${string}`)
-  return `$q$${string}$q$`
-}
-const number = (value) => (value == null || Number.isNaN(value) ? 'null' : String(Number(value)))
-const json = (value) => `${text(JSON.stringify(value ?? []))}::jsonb`
+import { json, number, text } from './sp-sql.mjs'
 
 // "124%" -> { num: 124, unit: '%' }; "1,251.6%" -> 1251.6; text with no leading number -> null.
 function splitValue(value) {
