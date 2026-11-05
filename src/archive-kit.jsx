@@ -31,7 +31,34 @@ export function plainClick(event) {
   )
 }
 
+// Detail pages and the API that serves them, so a link can fetch its page before it is opened.
+const DETAIL_ROUTES = [
+  ['/wuthering-waves/archives/characters/', '/api/wuwa-characters'],
+  ['/wuthering-waves/archives/weapons/', '/api/wuwa-weapons'],
+  ['/wuthering-waves/archives/sonata-effects/', '/api/wuwa-sonata'],
+  ['/wuthering-waves/archives/echoes/', '/api/wuwa-echoes'],
+  ['/silver-palace/archives/characters/', '/api/sp-characters'],
+  ['/silver-palace/archives/motives/', '/api/sp-motives'],
+  ['/silver-palace/archives/epiphanies/', '/api/sp-epiphanies'],
+  ['/silver-palace/archives/catalysts/', '/api/sp-catalysts'],
+  ['/silver-palace/archives/implements/', '/api/sp-implements'],
+]
+
+function detailUrl(to) {
+  for (const [prefix, api] of DETAIL_ROUTES) {
+    if (typeof to === 'string' && to.startsWith(prefix)) {
+      const slug = to.slice(prefix.length).split(/[/?#]/)[0]
+      if (slug) return `${api}?slug=${encodeURIComponent(slug)}`
+    }
+  }
+  return null
+}
+
 export function RouteLink({ to, navigate, children, ...props }) {
+  const warm = () => {
+    const url = detailUrl(to)
+    if (url) preloadData(url)
+  }
   return (
     <a
       href={to}
@@ -40,6 +67,9 @@ export function RouteLink({ to, navigate, children, ...props }) {
         event.preventDefault()
         navigate(to)
       }}
+      onPointerEnter={warm}
+      onFocus={warm}
+      onTouchStart={warm}
       {...props}
     >
       {children}
@@ -56,33 +86,128 @@ async function getJson(url) {
   return body
 }
 
+// Responses are kept for the session (memory + sessionStorage) so revisiting a tab or page shows
+// at once; the data is then refreshed in the background (stale-while-revalidate).
+const memory = new Map()
+const inflight = new Map()
+const STORE = 'archive-cache:'
+
+function cached(url) {
+  if (memory.has(url)) return memory.get(url)
+  try {
+    const raw = window.sessionStorage.getItem(STORE + url)
+    if (raw) {
+      const data = JSON.parse(raw)
+      memory.set(url, data)
+      return data
+    }
+  } catch {
+    // storage unavailable or full: memory cache only
+  }
+  return null
+}
+
+function remember(url, data) {
+  memory.set(url, data)
+  try {
+    window.sessionStorage.setItem(STORE + url, JSON.stringify(data))
+  } catch {
+    // storage unavailable or full: memory cache only
+  }
+}
+
+function load(url) {
+  if (!inflight.has(url)) {
+    const request = getJson(url)
+      .then((data) => {
+        remember(url, data)
+        return data
+      })
+      .finally(() => inflight.delete(url))
+    inflight.set(url, request)
+  }
+  return inflight.get(url)
+}
+
+// Resolves once the data is in the cache; a failure also resolves (the page shows its own error).
+export function preloadData(url) {
+  return cached(url)
+    ? Promise.resolve()
+    : load(url).then(
+        () => {},
+        () => {},
+      )
+}
+
+// Once a list is loaded, quietly fetches each item's page (a few at a time) so opening any of
+// them is instant.
+export function usePrefetchDetails(listUrl, api) {
+  useEffect(() => {
+    let stop = false
+    const timer = window.setTimeout(async () => {
+      await preloadData(listUrl)
+      const list = cached(listUrl)
+      if (!Array.isArray(list)) return
+      const slugs = list.map((item) => item.slug).filter(Boolean)
+      for (let index = 0; index < slugs.length && !stop; index += 3) {
+        await Promise.all(
+          slugs
+            .slice(index, index + 3)
+            .map((slug) => preloadData(`${api}?slug=${encodeURIComponent(slug)}`)),
+        )
+      }
+    }, 2500)
+    return () => {
+      stop = true
+      window.clearTimeout(timer)
+    }
+  }, [listUrl, api])
+}
+
+// Warms the cache for pages the visitor is likely to open next, once the browser is idle.
+export function usePrefetch(urls) {
+  const key = urls.join('|')
+  useEffect(() => {
+    const run = () => urls.forEach((url) => !cached(url) && load(url).catch(() => {}))
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(run, { timeout: 3000 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const id = window.setTimeout(run, 1500)
+    return () => window.clearTimeout(id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+}
+
 export function useRemote(url) {
-  const [state, setState] = useState({ url: null, data: null, error: '' })
+  const [state, setState] = useState(() => ({ url, data: url ? cached(url) : null, error: '' }))
 
   useEffect(() => {
     if (!url) return undefined
     let active = true
-    getJson(url)
+    const hit = cached(url)
+    if (hit) setState({ url, data: hit, error: '' })
+    load(url)
       .then((data) => active && setState({ url, data, error: '' }))
-      .catch(
-        (error) =>
-          active &&
-          setState({
-            url,
-            data: null,
-            error: error instanceof Error ? error.message : 'Could not load data',
-          }),
-      )
+      .catch((error) => {
+        if (!active || hit) return
+        setState({
+          url,
+          data: null,
+          error: error instanceof Error ? error.message : 'Could not load data',
+        })
+      })
     return () => {
       active = false
     }
   }, [url])
 
-  const ready = state.url === url
+  const ready = state.url === url && (state.data !== null || state.error !== '')
+  const fresh = state.url === url ? state.data : cached(url)
   return {
-    data: ready ? state.data : null,
+    data: ready ? state.data : fresh,
     error: ready ? state.error : '',
-    loading: !ready,
+    loading: !ready && !fresh,
   }
 }
 

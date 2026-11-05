@@ -13,12 +13,23 @@ export function Art({ src, name }) {
       </span>
     )
   }
-  return <img src={src} alt="" loading="lazy" draggable="false" onError={() => setFailed(true)} />
+  return (
+    <img
+      src={src}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      draggable="false"
+      onError={() => setFailed(true)}
+    />
+  )
 }
 
 export function TraitIcon({ trait }) {
   if (!trait?.image_url) return null
-  return <img className="sp-trait-icon" src={trait.image_url} alt="" loading="lazy" />
+  return (
+    <img className="sp-trait-icon" src={trait.image_url} alt="" loading="lazy" decoding="async" />
+  )
 }
 
 // Slider over a list of published steps (character levels, skill levels, motive ranks).

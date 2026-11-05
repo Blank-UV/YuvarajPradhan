@@ -212,6 +212,11 @@
   background: #1a6fc4;
   border-color: #1a6fc4;
 }
+.gaming-site.theme-light .gaming-gamebar a.gaming-gamebar-sp:hover,
+.gaming-site.theme-light .gaming-gamebar a.gaming-gamebar-sp:focus-visible {
+  background: #b3202a;
+  border-color: #b3202a;
+}
 @media (max-width: 680px) {
   .gaming-site.theme-light .gaming-gamebar-links {
     background: #f5f6ee;

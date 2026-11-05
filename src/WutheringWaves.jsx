@@ -11,9 +11,12 @@ import {
   ToTopButton,
   plainClick,
   useRemote,
+  usePrefetch,
+  usePrefetchDetails,
   useRoute,
 } from './archive-kit.jsx'
 import heroImage from '../images/wuwa/hero/piano.jpg'
+import ArchiveLoader, { shouldShowArchiveLoader } from './ArchiveLoader.jsx'
 
 const BASE = '/wuthering-waves'
 const ARCHIVE = `${BASE}/archives`
@@ -24,6 +27,8 @@ const ARCHIVE_TABS = [
   { id: 'echoes', label: 'Echoes', href: `${ARCHIVE}/echoes` },
 ]
 const API = '/api/wuwa-characters'
+const LOADER_IMAGES = [heroImage]
+const PREFETCH = [API, '/api/wuwa-weapons', '/api/wuwa-sonata', '/api/wuwa-echoes']
 const OVERVIEW =
   'Wuthering Waves is a story-rich open-world action RPG with a high degree of freedom. You wake from your slumber as Rover, joined by a vibrant cast of Resonators on a journey to reclaim your lost memories and change the world.'
 
@@ -219,6 +224,7 @@ function CharacterArt({ character }) {
       src={character.image_url}
       alt=""
       loading="lazy"
+      decoding="async"
       draggable="false"
       onError={() => setFailed(true)}
     />
@@ -1170,6 +1176,7 @@ function SonataChip({ echo, effect }) {
       alt=""
       title={effect.name}
       loading="lazy"
+      decoding="async"
       onError={() => setFailed(true)}
     />
   ) : null
@@ -1507,6 +1514,9 @@ const titles = {
 export default function WutheringWaves() {
   const [colorMode, toggleColorMode] = useColorMode()
   const [pathname, navigate] = useRoute()
+  usePrefetch(PREFETCH)
+  usePrefetchDetails(API, API)
+  const [opening, setOpening] = useState(() => shouldShowArchiveLoader('wuwa'))
   const [filters, setFilters] = useState(emptyFilters)
   const [weaponFilters, setWeaponFilters] = useState(emptyWeaponFilters)
   const [sonataFilters, setSonataFilters] = useState(emptySonataFilters)
@@ -1530,6 +1540,18 @@ export default function WutheringWaves() {
 
   return (
     <div className={`site gaming-site wuwa-site ${colorMode === 'light' ? 'theme-light' : ''}`}>
+      {opening && (
+        <ArchiveLoader
+          variant="wuwa"
+          storageKey="wuwa"
+          eyebrow="Resonance archive"
+          title="Wuthering Waves"
+          status="Tuning the frequency..."
+          urls={PREFETCH}
+          images={LOADER_IMAGES}
+          onDone={() => setOpening(false)}
+        />
+      )}
       <Sidebar
         items={wuwaNavigation}
         brandHref={BASE}

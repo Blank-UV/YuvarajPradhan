@@ -133,8 +133,9 @@
 }
 .gaming-gamebar a.gaming-gamebar-sp:hover,
 .gaming-gamebar a.gaming-gamebar-sp:focus-visible {
-  background: #ff8a3d;
-  border-color: #ff8a3d;
+  color: #fff;
+  background: #e5383b;
+  border-color: #e5383b;
 }
 .gaming-gamebar-soon {
   opacity: 0.5;

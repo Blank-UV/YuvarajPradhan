@@ -12,8 +12,11 @@ import {
   ToTopButton,
   plainClick,
   useRemote,
+  usePrefetch,
+  usePrefetchDetails,
   useRoute,
 } from './archive-kit.jsx'
+import ArchiveLoader, { shouldShowArchiveLoader } from './ArchiveLoader.jsx'
 import { ARCHIVE, Art, LevelSlider, TraitIcon, numberFormat } from './sp-parts.jsx'
 import { MotivePage, MotivesPage, emptyMotiveFilters } from './SilverPalaceMotives.jsx'
 import { EpiphanyPage, EpiphaniesPage, emptyEpiphanyFilters } from './SilverPalaceEpiphanies.jsx'
@@ -30,6 +33,14 @@ const ARCHIVE_TABS = [
   { id: 'implements', label: 'Implements', href: `${ARCHIVE}/implements` },
 ]
 const API = '/api/sp-characters'
+const LOADER_IMAGES = [heroImage]
+const PREFETCH = [
+  API,
+  '/api/sp-motives',
+  '/api/sp-epiphanies',
+  '/api/sp-catalysts',
+  '/api/sp-implements',
+]
 const OVERVIEW =
   'Silver Palace is set in Silvernia, a city of detectives, aristocratic houses and a great many secrets. You play as the Detective, and the story advances case by case rather than as one continuous campaign.'
 const RARITIES = [5, 4, 3]
@@ -249,7 +260,9 @@ function TrustSection({ character }) {
             <ul className="sp-gifts">
               {character.gifts.map((gift) => (
                 <li key={gift.name}>
-                  {gift.image_url && <img src={gift.image_url} alt="" loading="lazy" />}
+                  {gift.image_url && (
+                    <img src={gift.image_url} alt="" loading="lazy" decoding="async" />
+                  )}
                   <span>{gift.name}</span>
                 </li>
               ))}
@@ -356,7 +369,7 @@ function SkillsSection({ character }) {
             className={position === selected ? 'on' : ''}
             onClick={() => setSelected(position)}
           >
-            {item.image_url && <img src={item.image_url} alt="" loading="lazy" />}
+            {item.image_url && <img src={item.image_url} alt="" loading="lazy" decoding="async" />}
             <span>
               <small>{item.kind ?? item.code}</small>
               {item.name}
@@ -549,6 +562,9 @@ function HomePage({ navigate }) {
 export default function SilverPalace() {
   const [colorMode, toggleColorMode] = useColorMode()
   const [pathname, navigate] = useRoute()
+  usePrefetch(PREFETCH)
+  usePrefetchDetails(API, API)
+  const [opening, setOpening] = useState(() => shouldShowArchiveLoader('sp'))
   const [filters, setFilters] = useState(emptyFilters)
   const [motiveFilters, setMotiveFilters] = useState(emptyMotiveFilters)
   const [epiphanyFilters, setEpiphanyFilters] = useState(emptyEpiphanyFilters)
@@ -594,6 +610,18 @@ export default function SilverPalace() {
     <div
       className={`site gaming-site wuwa-site sp-site ${colorMode === 'light' ? 'theme-light' : ''}`}
     >
+      {opening && (
+        <ArchiveLoader
+          variant="sp"
+          storageKey="sp"
+          eyebrow="Case files"
+          title="Silver Palace"
+          status="Opening the archives..."
+          urls={PREFETCH}
+          images={LOADER_IMAGES}
+          onDone={() => setOpening(false)}
+        />
+      )}
       <Sidebar
         items={silverPalaceNavigation}
         brandHref={BASE}

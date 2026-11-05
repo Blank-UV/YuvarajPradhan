@@ -52,7 +52,7 @@ export function createWuwaSonataHandler({
     }
 
     try {
-      const cache = 'public, max-age=0, s-maxage=300, stale-while-revalidate=300'
+      const cache = 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
       if (!slug) {
         const sets = await query(
           `wuwa_sonata_effects?select=${LIST_FIELDS}&order=name.asc&limit=1000`,

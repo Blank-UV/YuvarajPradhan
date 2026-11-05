@@ -1,0 +1,336 @@
+/* Opening sequences for the game archives. Wuthering Waves: resonance rings and a waveform that
+   lights up with progress. Silver Palace: a noir art-deco frame and a curtain that splits open.
+   Both stay dark whatever the page theme is. */
+html.arc-loader-active,
+html.arc-loader-active body {
+  overflow: hidden;
+}
+
+.arc-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #fff;
+  font-family: 'Space Grotesk', 'DM Sans', Arial, sans-serif;
+}
+.arc-stage {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.arc-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 6vw;
+  text-align: center;
+}
+.arc-eyebrow,
+.arc-status {
+  margin: 0;
+  color: var(--arc);
+  font:
+    500 0.75rem 'DM Mono',
+    monospace;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+.arc-title {
+  margin: 14px 0 0;
+  font-size: clamp(2rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  text-transform: uppercase;
+  animation: arc-rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.arc-count {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-top: 18px;
+  color: var(--arc);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 500;
+  line-height: 1;
+}
+.arc-count small {
+  font-size: 0.5em;
+}
+.arc-status {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.7rem;
+}
+@keyframes arc-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* ---------- Wuthering Waves ---------- */
+.arc-wuwa {
+  --arc: #4db3ff;
+  --arc-rgb: 77, 179, 255;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(var(--arc-rgb), 0.2), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(var(--arc-rgb), 0.05) 0 1px, transparent 1px 6px), #060d1a;
+}
+.arc-wuwa .arc-title {
+  letter-spacing: 0.14em;
+  text-shadow: 0 0 40px rgba(var(--arc-rgb), 0.55);
+}
+.arc-ring {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 60vmin;
+  height: 60vmin;
+  border: 1px solid rgba(var(--arc-rgb), 0.55);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.2);
+  animation: arc-ripple 4.2s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+  will-change: transform, opacity;
+}
+.arc-ring:nth-child(2) {
+  animation-delay: 1.4s;
+}
+.arc-ring:nth-child(3) {
+  animation-delay: 2.8s;
+}
+@keyframes arc-ripple {
+  0% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.6);
+  }
+}
+.arc-wave {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  width: min(80vw, 560px);
+  height: 90px;
+  margin-top: 28px;
+}
+.arc-wave span {
+  flex: 1;
+  max-width: 10px;
+  height: 100%;
+  border-radius: 2px;
+  background: rgba(var(--arc-rgb), 0.22);
+  transform: scaleY(var(--h));
+  animation: arc-wave 1.6s ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -90ms);
+  transition:
+    background 0.45s ease,
+    box-shadow 0.45s ease;
+  will-change: transform;
+}
+.arc-wave span.on {
+  background: var(--arc);
+  box-shadow: 0 0 12px rgba(var(--arc-rgb), 0.7);
+}
+@keyframes arc-wave {
+  from {
+    transform: scaleY(0.12);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.arc-wuwa.arc-leaving {
+  animation: arc-wipe 0.7s cubic-bezier(0.7, 0, 0.3, 1) 0.4s forwards;
+}
+.arc-wuwa.arc-leaving::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--arc);
+  box-shadow: 0 0 40px 12px rgba(var(--arc-rgb), 0.6);
+  animation: arc-sweep 0.7s cubic-bezier(0.7, 0, 0.3, 1) 0.4s forwards;
+}
+.arc-wuwa.arc-leaving .arc-wave span {
+  animation-play-state: paused;
+  transform: scaleY(0.05);
+  transition:
+    transform 0.4s ease,
+    background 0.2s;
+}
+@keyframes arc-wipe {
+  to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+@keyframes arc-sweep {
+  to {
+    left: 100%;
+  }
+}
+
+/* ---------- Silver Palace ---------- */
+.arc-sp {
+  --arc: #e5383b;
+  --arc-rgb: 229, 56, 59;
+  background: transparent;
+}
+.arc-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: #0f0507;
+  transition: transform 0.9s cubic-bezier(0.77, 0, 0.18, 1) 0.4s;
+}
+.arc-half-top {
+  top: 0;
+  background:
+    radial-gradient(ellipse 50% 90% at 50% 0%, rgba(var(--arc-rgb), 0.24), transparent 75%), #0f0507;
+}
+.arc-half-bottom {
+  bottom: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(var(--arc-rgb), 0.08), transparent 75%),
+    #0f0507;
+}
+.arc-sp .arc-stage {
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(var(--arc-rgb), 0.04) 0 1px,
+    transparent 1px 14px
+  );
+  transition: opacity 0.35s ease;
+}
+.arc-sp .arc-title {
+  letter-spacing: 0.22em;
+  font-weight: 600;
+  text-shadow: 0 0 36px rgba(var(--arc-rgb), 0.4);
+}
+.arc-diamond {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(70vmin, 520px);
+  height: min(70vmin, 520px);
+  border: 1px solid rgba(var(--arc-rgb), 0.16);
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: arc-spin 28s linear infinite;
+}
+@keyframes arc-spin {
+  to {
+    transform: translate(-50%, -50%) rotate(405deg);
+  }
+}
+.arc-frame {
+  position: absolute;
+  inset: clamp(14px, 3vw, 36px);
+  border: 1px solid rgba(var(--arc-rgb), 0.55);
+  animation: arc-frame-in 1.1s ease both;
+}
+.arc-frame::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(var(--arc-rgb), 0.2);
+}
+.arc-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--arc);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.arc-corner-tl {
+  left: 0;
+  top: 0;
+}
+.arc-corner-tr {
+  left: 100%;
+  top: 0;
+}
+.arc-corner-bl {
+  left: 0;
+  top: 100%;
+}
+.arc-corner-br {
+  left: 100%;
+  top: 100%;
+}
+@keyframes arc-frame-in {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+}
+.arc-line {
+  position: relative;
+  width: min(70vw, 460px);
+  height: 2px;
+  margin-top: 30px;
+  background: rgba(var(--arc-rgb), 0.2);
+}
+.arc-line i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--arc);
+  box-shadow: 0 0 14px rgba(var(--arc-rgb), 0.8);
+}
+.arc-line b {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  background: var(--arc);
+  box-shadow: 0 0 14px rgba(var(--arc-rgb), 0.9);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+.arc-sp.arc-leaving .arc-stage,
+.arc-sp.arc-leaving .arc-center {
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.arc-sp.arc-leaving .arc-half-top {
+  transform: translateY(-100%);
+}
+.arc-sp.arc-leaving .arc-half-bottom {
+  transform: translateY(100%);
+}
+
+@media (max-width: 680px) {
+  .arc-title {
+    font-size: clamp(1.7rem, 9vw, 2.6rem);
+  }
+  .arc-eyebrow {
+    letter-spacing: 0.28em;
+    font-size: 0.65rem;
+  }
+  .arc-sp .arc-title {
+    letter-spacing: 0.12em;
+  }
+  .arc-wave {
+    height: 64px;
+    gap: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arc-loader *,
+  .arc-loader::after {
+    animation: none !important;
+  }
+}

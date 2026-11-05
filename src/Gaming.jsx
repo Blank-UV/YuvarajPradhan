@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { siteProperties as site } from './site-properties.js'
 import HoloGlobe from './HoloGlobe.jsx'
 import Loader from './Loader.jsx'
+import { markArchiveLoaderShown, shouldShowArchiveLoader } from './ArchiveLoader.jsx'
 import Sidebar, { gamingNavigation } from './Sidebar.jsx'
 import useColorMode from './useColorMode.js'
 import silverPalaceImage from '../images/silver-palace-mc-card.jpg'
@@ -525,7 +526,7 @@ function GameCarousel({ games, renderSlide, label = 'Games', showRings = true })
 }
 
 export default function Gaming() {
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(() => shouldShowArchiveLoader('gaming'))
   const [gamesOpen, setGamesOpen] = useState(false)
   const gamebarRef = useRef(null)
 
@@ -600,7 +601,10 @@ export default function Gaming() {
           images={[...wutheringImages, silverPalaceImage, anantaImage]}
           title={`Iam${site.identity.creatorName}`}
           slogan="THE NEXT ADVENTURE IS ONE CLICK AWAY"
-          onDone={() => setLoading(false)}
+          onDone={() => {
+            markArchiveLoaderShown('gaming')
+            setLoading(false)
+          }}
         />
       )}
       <Sidebar

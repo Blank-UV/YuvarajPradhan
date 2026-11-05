@@ -61,7 +61,7 @@ export function createSilverPalaceEpiphaniesHandler({
     }
 
     try {
-      const cache = 'public, max-age=0, s-maxage=300, stale-while-revalidate=300'
+      const cache = 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
       if (!slug) {
         const rows = await query(
           `sp_epiphanies?select=${LIST_FIELDS}&order=source_id.asc&limit=1000`,

@@ -1,60 +1,60 @@
 /* Silver Palace archive. Reuses the layout classes of wuwa.css (wuwa-section, wuwa-toolbar, ...) and
-   re-themes them with an orange palette; everything specific to this game is prefixed sp-. */
+   re-themes them with a crimson palette; everything specific to this game is prefixed sp-. */
 .wuwa-site.sp-site {
-  --accent: #ff8a3d;
-  --accent-rgb: 255, 138, 61;
-  --w-bg: #120c08;
-  --w-panel: #1c130d;
-  --w-panel-2: #271a11;
-  --w-line: #43301f;
-  --w-text: #f6ece3;
-  --w-muted: #c4a78d;
-  --w-num: #ffd36b;
-  background: #120c08;
+  --accent: #e5383b;
+  --accent-rgb: 229, 56, 59;
+  --w-bg: #0f0507;
+  --w-panel: #1a0b0e;
+  --w-panel-2: #261116;
+  --w-line: #4a2128;
+  --w-text: #f8eaeb;
+  --w-muted: #c9a0a5;
+  --w-num: #ffc86e;
+  background: #0f0507;
 }
 .gaming-site.wuwa-site.sp-site .sidebar,
 .gaming-site.wuwa-site.sp-site .sidebar:hover,
 .gaming-site.wuwa-site.sp-site .sidebar:has(:focus-visible),
 .gaming-site.wuwa-site.sp-site .sidebar.sidebar-open {
-  background: #160f0a;
-  border-color: #43301f;
+  background: #14070a;
+  border-color: #4a2128;
 }
 .gaming-site.wuwa-site.sp-site .brand,
 .gaming-site.wuwa-site.sp-site .sidebar-bottom-link,
 .gaming-site.wuwa-site.sp-site .theme-toggle {
-  border-color: #43301f;
+  border-color: #4a2128;
 }
 .gaming-site.wuwa-site.sp-site.theme-light {
-  --accent: #c75a0a;
-  --accent-rgb: 199, 90, 10;
-  --w-bg: #fbf1e6;
+  --accent: #b3202a;
+  --accent-rgb: 179, 32, 42;
+  --w-bg: #fbeff0;
   --w-panel: #ffffff;
-  --w-panel-2: #f6e4d0;
-  --w-line: #e3c9ab;
-  --w-text: #2e1d10;
-  --w-muted: #7a5a3d;
+  --w-panel-2: #f7dde0;
+  --w-line: #e6c0c5;
+  --w-text: #2e1014;
+  --w-muted: #7a4a51;
   --w-num: #8a5a00;
-  background: #fbf1e6;
+  background: #fbeff0;
 }
 .gaming-site.wuwa-site.sp-site.theme-light .sidebar,
 .gaming-site.wuwa-site.sp-site.theme-light .sidebar:hover,
 .gaming-site.wuwa-site.sp-site.theme-light .sidebar:has(:focus-visible),
 .gaming-site.wuwa-site.sp-site.theme-light .sidebar.sidebar-open {
-  background: #fdf5ec;
-  border-color: #e3c9ab;
+  background: #fdf4f5;
+  border-color: #e6c0c5;
 }
 .gaming-site.wuwa-site.sp-site.theme-light .brand,
 .gaming-site.wuwa-site.sp-site.theme-light .sidebar-bottom-link,
 .gaming-site.wuwa-site.sp-site.theme-light .theme-toggle {
-  border-color: #e3c9ab;
+  border-color: #e6c0c5;
 }
 .gaming-site.wuwa-site.sp-site.theme-light .nav-link {
-  color: #7a5a3d;
+  color: #7a4a51;
 }
 @media (hover: hover) {
   .gaming-site.wuwa-site.sp-site.theme-light .nav-link:hover {
-    color: #2e1d10;
-    background: #f6e4d0;
+    color: #2e1014;
+    background: #f7dde0;
   }
 }
 .sp-site .wuwa-hl {
@@ -65,19 +65,19 @@
   color: var(--w-muted);
   border-color: var(--w-line);
 }
-/* Rarity backgrounds stay in the warm range: 5 gold (shared), 4 rust, 3 bronze-grey */
+/* Rarity backgrounds stay in the warm range: 5 gold (shared), 4 wine, 3 slate */
 .sp-site .rarity-4 {
-  background: linear-gradient(165deg, #c2502c 0%, #7e2f17 55%, #451509 100%);
+  background: linear-gradient(165deg, #a3304f 0%, #5e1a33 55%, #2e0b19 100%);
 }
 .sp-site .rarity-3 {
-  background: linear-gradient(165deg, #9a7b60 0%, #6b533f 55%, #3d2e22 100%);
+  background: linear-gradient(165deg, #8a7a80 0%, #5c4f55 55%, #352c30 100%);
 }
 
-/* Home: same layout as the Wuthering Waves home, with a warm shade over the artwork */
+/* Home: same layout as the Wuthering Waves home, with a dark red shade over the artwork */
 .sp-site .wuwa-home-shade {
   background:
-    linear-gradient(90deg, rgba(16, 8, 3, 0.9) 0%, rgba(16, 8, 3, 0.5) 45%, transparent 80%),
-    linear-gradient(0deg, rgba(16, 8, 3, 0.85) 0%, transparent 55%);
+    linear-gradient(90deg, rgba(15, 5, 7, 0.9) 0%, rgba(15, 5, 7, 0.5) 45%, transparent 80%),
+    linear-gradient(0deg, rgba(15, 5, 7, 0.85) 0%, transparent 55%);
 }
 .sp-site .wuwa-home-art {
   object-position: 50% 50%;
@@ -86,9 +86,9 @@
   .sp-site .wuwa-home-shade {
     background: linear-gradient(
       0deg,
-      rgba(16, 8, 3, 0.95) 0%,
-      rgba(16, 8, 3, 0.55) 70%,
-      rgba(16, 8, 3, 0.3) 100%
+      rgba(15, 5, 7, 0.95) 0%,
+      rgba(15, 5, 7, 0.55) 70%,
+      rgba(15, 5, 7, 0.3) 100%
     );
   }
   .sp-site .wuwa-home-art {
@@ -250,7 +250,7 @@
   height: 24px;
   padding: 2px;
   border-radius: 50%;
-  background: #3a2a1c;
+  background: #3a1a20;
 }
 .sp-stars {
   margin: 0 0 18px;
@@ -519,7 +519,7 @@
 /* Implement pieces */
 .sp-pieces {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
   gap: 12px;
   margin-top: 16px;
 }
@@ -745,10 +745,10 @@
   border-top-color: #e3b93c;
 }
 .sp-motive-card.rarity-4 {
-  border-top-color: #c2502c;
+  border-top-color: #c2416a;
 }
 .sp-motive-card.rarity-3 {
-  border-top-color: #9a7b60;
+  border-top-color: #8a7a80;
 }
 .sp-motive-card[class*='rarity-'] {
   background: var(--w-panel);
@@ -861,4 +861,14 @@
   .sp-card img {
     transition: none;
   }
+}
+
+/* Dark text on crimson looks heavy; selected controls use white text on the red accent */
+.sp-site .wuwa-filter-group button.on,
+.sp-site .wuwa-tabs button.on,
+.sp-site .wuwa-archive-tabs a.on,
+.sp-slider-ticks button.on,
+.sp-tabs button.on,
+.sp-main-tabs button.on {
+  color: #fff;
 }

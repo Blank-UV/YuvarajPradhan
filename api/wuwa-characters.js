@@ -54,7 +54,7 @@ export function createWuwaCharactersHandler({
     }
 
     try {
-      const cache = 'public, max-age=0, s-maxage=300, stale-while-revalidate=300'
+      const cache = 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
       if (!slug) {
         const characters = await query(`wuwa_characters?select=${LIST_FIELDS}&order=name.asc`)
         send(res, 200, characters.map(withImage), cache)

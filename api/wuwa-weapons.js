@@ -53,7 +53,7 @@ export function createWuwaWeaponsHandler({
     }
 
     try {
-      const cache = 'public, max-age=0, s-maxage=300, stale-while-revalidate=300'
+      const cache = 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
       if (!slug) {
         const weapons = await query(
           `wuwa_weapons?select=${LIST_FIELDS}&order=rarity.desc,name.asc&limit=1000`,

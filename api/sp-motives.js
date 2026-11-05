@@ -74,7 +74,7 @@ export function createSilverPalaceMotivesHandler({
     }
 
     try {
-      const cache = 'public, max-age=0, s-maxage=300, stale-while-revalidate=300'
+      const cache = 'public, max-age=60, s-maxage=300, stale-while-revalidate=600'
       if (!slug) {
         const [rows, identities] = await Promise.all([
           query(`sp_motives?select=${LIST_FIELDS}&order=rarity.desc,source_id.asc&limit=1000`),
