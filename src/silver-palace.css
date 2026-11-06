@@ -1571,3 +1571,59 @@ a.sp-team-gear-item:focus-visible {
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
 }
+.sp-team-detail {
+  scroll-margin-top: 76px;
+}
+@media (max-width: 680px) {
+  .sp-team-list,
+  .sp-team-seats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .sp-team-list button {
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+  .sp-team-faces {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+    gap: 3px;
+  }
+  .sp-team-faces span {
+    width: 26px;
+    height: 26px;
+  }
+  .sp-team-list b {
+    grid-row: 3;
+    font-size: 13px;
+  }
+  .sp-team-seats button {
+    grid-template-columns: 38px minmax(0, 1fr);
+    gap: 8px;
+    padding: 6px;
+  }
+  .sp-team-seats button > img {
+    display: none;
+  }
+  .sp-team-seat-art {
+    width: 38px;
+    height: 38px;
+  }
+  .sp-team-seat-text small {
+    font-size: 9px;
+  }
+  .sp-team-seat-text b {
+    font-size: 13px;
+  }
+}
+.sp-team-detail .sp-guide-section-head {
+  flex-wrap: nowrap;
+}
+.sp-team-detail .sp-guide-section-head h2 {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.sp-team-steppers {
+  flex: 0 0 auto;
+}

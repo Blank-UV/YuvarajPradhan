@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { Panel, RouteLink, useRemote } from './archive-kit.jsx'
 import { ARCHIVE, Art } from './sp-parts.jsx'
 import teams from './data/sp-teams.json'
@@ -129,6 +129,7 @@ export default function SilverPalaceTeams({ navigate }) {
   const [attribute, setAttribute] = useState('')
   const [teamId, setTeamId] = useState(teams[0].id)
   const [seat, setSeat] = useState(1)
+  const detailRef = useRef(null)
 
   const bySlug = useMemo(
     () => new Map((characters ?? []).map((character) => [character.slug, character])),
@@ -175,9 +176,15 @@ export default function SilverPalaceTeams({ navigate }) {
   const team = shown[index]
   const member = team.members.find((m) => m.seat === seat) ?? team.members[0]
 
-  const pickTeam = (id) => {
+  const pickTeam = (id, scroll = false) => {
     setTeamId(id)
     setSeat(1)
+    // On narrow screens the detail sits below the team list, so bring it into view.
+    if (scroll && window.matchMedia('(max-width: 900px)').matches) {
+      requestAnimationFrame(() =>
+        detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
+      )
+    }
   }
 
   if (loading || error || !characters) {
@@ -232,7 +239,7 @@ export default function SilverPalaceTeams({ navigate }) {
               type="button"
               className={item.id === team.id ? 'on' : ''}
               aria-current={item.id === team.id ? 'true' : undefined}
-              onClick={() => pickTeam(item.id)}
+              onClick={() => pickTeam(item.id, true)}
             >
               <span className="sp-team-num">
                 {String(teams.indexOf(item) + 1).padStart(2, '0')}
@@ -249,7 +256,7 @@ export default function SilverPalaceTeams({ navigate }) {
           ))}
         </nav>
 
-        <article className="sp-team-detail" aria-live="polite">
+        <article className="sp-team-detail" aria-live="polite" ref={detailRef}>
           <div className="sp-guide-section-head">
             <h2>
               <span className="sp-team-num">
