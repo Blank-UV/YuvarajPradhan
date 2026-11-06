@@ -30,6 +30,7 @@ export const wuwaNavigation = [
 
 export const silverPalaceNavigation = [
   { id: 'archives', label: 'Archives', icon: '\u25CE', href: '/silver-palace/archives' },
+  { id: 'guides', label: 'Guides', icon: '\u25C8', href: '/silver-palace/guides' },
 ]
 
 export default function Sidebar({

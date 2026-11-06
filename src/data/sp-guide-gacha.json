@@ -1,0 +1,361 @@
+{
+  "title": "Silver Palace Gacha Guide",
+  "updated": "2026-10-02",
+  "intro": {
+    "blocks": [
+      {
+        "type": "text",
+        "text": "The number that matters:"
+      },
+      {
+        "type": "equation",
+        "text": "A featured 5 star is guaranteed within 100 Revelations"
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "100",
+            "label": "Revelations to a guaranteed featured 5 star"
+          },
+          {
+            "value": "80",
+            "label": "Revelations to a guaranteed 5 star Motive"
+          },
+          {
+            "value": "20",
+            "label": "Revelations to a guaranteed featured 4 star"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "text": "That guarantee resets the moment you obtain a featured 5 star, so it is a running counter rather than something you bank permanently. Plan around 100 and treat anything earlier as luck."
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "how-revelations-work",
+      "title": "How Revelations Work",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Pulls are called Revelations, and you spend Judgement Shots to carry them out. Limited banners are Limited-Time Repertoires, and all of them share the same featured 5 star guarantee mechanic. The Vengeful Ant is one such Limited-Time Repertoire."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Currency",
+              "name": "Judgement Shots",
+              "text": "The currency spent to perform Revelations on a banner.",
+              "image": "currency-t_itemlarge_currency_21100002.webp"
+            },
+            {
+              "label": "The pulls",
+              "name": "Revelations",
+              "text": "The pulls themselves. Guarantees are all counted in Revelations.",
+              "image": null
+            },
+            {
+              "label": "Limited banner",
+              "name": "Limited-Time Repertoire",
+              "text": "A limited banner. Every one uses the same featured 5 star guarantee, which resets when you get the featured character.",
+              "image": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "character-banner-rates",
+      "title": "Character Banner Rates",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "0.8%",
+              "label": "Base rate for a 5 star"
+            },
+            {
+              "value": "1.8%",
+              "label": "Overall 5 star rate, guarantees included"
+            },
+            {
+              "value": "6%",
+              "label": "Base rate for a 4 star"
+            },
+            {
+              "value": "13%",
+              "label": "Overall 4 star rate, guarantees included"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "head": [
+            "Mechanic",
+            "Value"
+          ],
+          "rows": [
+            [
+              "5 star base rate",
+              "0.8%"
+            ],
+            [
+              "5 star overall rate, guarantees included",
+              "1.8%"
+            ],
+            [
+              "Featured 5 star guarantee",
+              "within 100 Revelations"
+            ],
+            [
+              "4 star base rate",
+              "6%"
+            ],
+            [
+              "4 star overall rate, guarantees included",
+              "13%"
+            ],
+            [
+              "4 star guarantee",
+              "within 10 Revelations"
+            ],
+            [
+              "Chance a 4 star is featured",
+              "50%"
+            ],
+            [
+              "Featured 4 star guarantee",
+              "within 20 Revelations"
+            ],
+            [
+              "3 star Motive base rate",
+              "93.2%"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "A 5 star is not always the one you want",
+          "text": "The 5 star pool covers both the current featured character and the standard characters, so a 5 star landing does not by itself mean you got the one you wanted. The featured guarantee at 100 Revelations is what removes that risk."
+        }
+      ]
+    },
+    {
+      "id": "the-guarantees-in-plain-terms",
+      "title": "The Guarantees In Plain Terms",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            {
+              "title": "Every 10 Revelations give at least one 4 star",
+              "text": "The 4 star base rate is 6%, rising to 13% overall once this guarantee is counted in."
+            },
+            {
+              "title": "Half of your 4 stars are featured",
+              "text": "When 4 star content appears there is a 50% chance it is a current featured 4 star, with featured characters sharing that chance equally and non featured ones sharing the rest equally."
+            },
+            {
+              "title": "Every 20 Revelations give a featured 4 star",
+              "text": "So a featured 4 star is never more than twenty pulls away."
+            },
+            {
+              "title": "Every 100 Revelations give a featured 5 star",
+              "text": "The base 5 star rate is 0.8% and the overall rate is 1.8%. Once you obtain the featured 5 star, this counter resets."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "motives-banner",
+      "title": "Motives Banner",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "80",
+              "label": "Revelations to a 5 star Motive, rather than 100"
+            },
+            {
+              "value": "1.8%",
+              "label": "Overall 5 star Motive rate"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "The Motive banner runs on the same Revelation counters but targets weapons, and it has no featured character split to worry about."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Mechanic",
+            "Value"
+          ],
+          "rows": [
+            [
+              "5 star Motive base rate",
+              "0.8%"
+            ],
+            [
+              "5 star Motive overall rate",
+              "1.8%"
+            ],
+            [
+              "5 star Motive guarantee",
+              "within 80 Revelations"
+            ],
+            [
+              "4 star base rate",
+              "6%"
+            ],
+            [
+              "4 star overall rate",
+              "13%"
+            ],
+            [
+              "4 star or higher guarantee",
+              "within 10 Revelations"
+            ],
+            [
+              "Chance a 4 star Motive is featured",
+              "50%"
+            ],
+            [
+              "Featured 4 star Motive guarantee",
+              "within 20 Revelations"
+            ],
+            [
+              "3 star Motive base rate",
+              "93.2%"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "duplicates-and-rewards",
+      "title": "Duplicates And Rewards",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "20",
+              "label": "Mind Shards for a 5 star copy, 50 from the 8th"
+            },
+            {
+              "value": "4",
+              "label": "Mind Shards for a 4 star copy, 10 from the 8th"
+            },
+            {
+              "value": "8",
+              "label": "Mind Grains for every 3 star Motive"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Duplicates are not wasted. Every copy past the first converts into that character Trait and pays out shards, and the payout increases once you pass the seventh copy."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Characters",
+              "name": "Mind Shards",
+              "text": "Shards paid with every character you pull. Copies 2 to 7 also give the Trait.",
+              "image": "currency-t_itemlarge_currency_21100003.webp"
+            },
+            {
+              "label": "3 star Motives",
+              "name": "Mind Grains",
+              "text": "8 Mind Grains for every copy.",
+              "image": "currency-t_itemlarge_currency_21100006.webp"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "head": [
+            "Obtained",
+            "Reward"
+          ],
+          "rows": [
+            [
+              "5 star, first copy",
+              "20 Mind Shards"
+            ],
+            [
+              "5 star, copies 2 to 7",
+              "Trait plus 20 Mind Shards each"
+            ],
+            [
+              "5 star, 8th copy onward",
+              "50 Mind Shards"
+            ],
+            [
+              "4 star, first copy",
+              "4 Mind Shards"
+            ],
+            [
+              "4 star, copies 2 to 7",
+              "Trait plus 4 Mind Shards each"
+            ],
+            [
+              "4 star, 8th copy onward",
+              "10 Mind Shards"
+            ],
+            [
+              "3 star Motive, every copy",
+              "8 Mind Grains"
+            ]
+          ]
+        },
+        {
+          "type": "note",
+          "title": "How the game words the rule",
+          "text": "The game words the duplicate rule as the next six duplicates after the first copy, then an increased rate from the seventh duplicate onward, which is the eighth copy overall."
+        }
+      ]
+    },
+    {
+      "id": "how-many-revelations-to-save",
+      "title": "How Many Revelations To Save",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "100",
+              "label": "For a featured character"
+            },
+            {
+              "value": "80",
+              "label": "For a Motive"
+            },
+            {
+              "value": "20",
+              "label": "For a featured 4 star"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Save 100 Revelations for a featured character you actually want. That figure is the only hard guarantee on the character banner, and because it resets once the featured character arrives, going in with a full 100 means you cannot miss."
+        },
+        {
+          "type": "text",
+          "text": "For Motives the equivalent number is 80. If you are chasing a specific featured 4 star instead, 20 Revelations is enough, which makes featured 4 stars by far the cheapest targeted pull in the game."
+        }
+      ]
+    }
+  ]
+}

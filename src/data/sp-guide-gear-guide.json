@@ -1,0 +1,201 @@
+{
+  "title": "Silver Palace Gear Guide",
+  "updated": "2026-10-02",
+  "intro": {
+    "blocks": [
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "4",
+            "label": "Types of gear: Motives, Implements, Epiphanies and Catalysts"
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "motives",
+      "title": "Motives",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "3 to 5★",
+              "label": "The rarity range of a Motive"
+            },
+            {
+              "value": "1",
+              "label": "Motive card each character can equip at a time"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Alongside the Standard and Limited banners you spend your pull currency on, there are also Standard and Limited Motive banners. Motives are essentially Silver Palace's weapons, and each character can equip one Motive card at a time."
+        },
+        {
+          "type": "text",
+          "text": "They are separated by Character Identity:"
+        },
+        {
+          "type": "chips",
+          "items": [
+            {
+              "name": "Hero",
+              "image": "identities-hero.webp"
+            },
+            {
+              "name": "Witness",
+              "image": "identities-witness.webp"
+            },
+            {
+              "name": "Saviour",
+              "image": "identities-saviour.webp"
+            },
+            {
+              "name": "Guardian",
+              "image": "identities-guardian.webp"
+            },
+            {
+              "name": "Outlaw",
+              "image": "identities-outlaw.webp"
+            }
+          ]
+        },
+        {
+          "type": "note",
+          "title": "Match the Identity",
+          "text": "A Motive only yields its effect when equipped to a character of the same Identity type."
+        },
+        {
+          "type": "image",
+          "image": "gear-guide-motive.webp",
+          "alt": "A maxed Motive card and its Motive Skill in Silver Palace"
+        }
+      ]
+    },
+    {
+      "id": "implements",
+      "title": "Implements",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "4 pieces",
+              "label": "Of one set activate its Set Effect"
+            },
+            {
+              "value": "Fixed",
+              "label": "Stats: they only vary by the Tier of the piece"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Implements are your typical four piece gear. When you have four of the same set equipped, it activates the Set Effect. Farm these from the Implement and Epiphany resource stages."
+        },
+        {
+          "type": "text",
+          "text": "They have fixed stats and only vary by the Tier of the actual piece. You needn't level them up. You simply equip them."
+        },
+        {
+          "type": "image",
+          "image": "gear-guide-implement.webp",
+          "alt": "An Implement piece and its four-piece Set Effect (To Serve and Protect) in Silver Palace"
+        }
+      ]
+    },
+    {
+      "id": "epiphanies",
+      "title": "Epiphanies",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "1",
+              "label": "Epiphany each character can equip at a time"
+            },
+            {
+              "value": "Fixed",
+              "label": "Level, set by the Tier of Book"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Epiphanies can drop from the same stages where you farm Implements, but different stages drop different Epiphanies. Each character can equip one Epiphany at a time, and these needn't be leveled either. Their level is fixed and corresponds to the Tier of Book they are."
+        },
+        {
+          "type": "heading",
+          "text": "Inks and Addendums"
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Addendums",
+              "name": "Inks",
+              "text": "Upgrading a book involves feeding it dupes as well as spending \"Inks\" to write Addendums (additional bonus stats) onto it. The currency used to purchase the inks can only be acquired through Salvaging Implements.",
+              "image": "materials-t_itemlarge_general_13000003.webp"
+            }
+          ]
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Any character",
+              "name": "The cheaper inks",
+              "text": "Can roll stats exclusive to Any character, including ones the current book isn't equipped to.",
+              "image": null
+            },
+            {
+              "label": "That character",
+              "name": "The more expensive Ink",
+              "text": "Can guarantee the stat is for that particular character, but it cannot roll stats such as +15 Crit Rate, +45 Amplitude Multiplier, etc. Those can only roll additional levels to the skills of that character (e.g. Rex Ultimate Level +3).",
+              "image": null
+            }
+          ]
+        },
+        {
+          "type": "image",
+          "image": "gear-guide-epiphany.webp",
+          "alt": "An Epiphany book (Farewell, Chivalrous Age) and its Epiphany Effect in Silver Palace"
+        }
+      ]
+    },
+    {
+      "id": "catalysts",
+      "title": "Catalysts",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "3",
+              "label": "Catalysts each character can equip at a time"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "These are equipped to your Reactor from the Teams screen. Each character can equip three at a time, and each has a cost to equip. You cannot exceed the Total Power, which will rise with your Crisis (World) Level."
+        },
+        {
+          "type": "text",
+          "text": "Catalysts are acquired by exploring the map, solving puzzles, doing quests, and defeating Powerful Adversaries."
+        },
+        {
+          "type": "image",
+          "image": "gear-guide-catalyst.webp",
+          "alt": "The Reactor Catalyst equip screen in Silver Palace"
+        }
+      ]
+    }
+  ]
+}

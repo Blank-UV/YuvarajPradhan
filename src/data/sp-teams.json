@@ -1,0 +1,704 @@
+[
+  {
+    "id": "trial-by-fire",
+    "name": "Trial by Fire",
+    "tag": "Triple Ignis",
+    "tag_note": "Ignis resonance",
+    "tags": [
+      "Wave",
+      "Resonance",
+      "Ignis",
+      "Crowd damage"
+    ],
+    "summary": "Three Ignis units for the full resonance stack, with Argos in the fourth seat buffing the whole team's ATK. Fire pressure from every angle, and no dedicated healer.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "Cinderella",
+        "slug": "cinderella",
+        "role": "Carry",
+        "attribute": "Ignis",
+        "combat_style": "Striker DPS",
+        "summary": "Builds Vengeful Flame and Overheat, then her Ultimate activates Quenched for 12s. Her passive gives +35% Crit Rate while Quenched and her attacks are greatly enhanced. This is her damage window.",
+        "has_build": true,
+        "key_stats": [
+          "Crit Rate",
+          "Crit DMG"
+        ],
+        "motives": [
+          "The Burning Stone Mystery"
+        ],
+        "implements": [
+          "Embers and Flame"
+        ],
+        "epiphanies": [
+          "Cinderella",
+          "The Sword in Silvernia"
+        ],
+        "addendum": "Custom Cinderella Basic ATK +3",
+        "catalysts": [
+          "Vulkanash",
+          "Hexogen",
+          "Antimony"
+        ]
+      },
+      {
+        "seat": 2,
+        "name": "Alf",
+        "slug": "alf",
+        "role": "Ignis DPS",
+        "attribute": "Ignis",
+        "combat_style": "Break Suppressor",
+        "summary": "Ignis shotgun and flamethrower DPS who spends Reserve Ammo on her shots, and her Ultimate lays down a wall of AoE flames.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Curiosity Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      },
+      {
+        "seat": 3,
+        "name": "Red Rose",
+        "slug": "red-rose",
+        "role": "Support",
+        "attribute": "Ignis",
+        "combat_style": "Combat Support",
+        "summary": "The third Ignis body that completes the resonance stack, and a team buffer: her Bright Rhythm enhanced attack raises the whole team's CRIT DMG, and her passive makes Rose Bloom explosions boost the team's Ignis DMG.",
+        "has_build": true,
+        "key_stats": [
+          "Crit Rate",
+          "Crit DMG"
+        ],
+        "motives": [
+          "The Bloodbath Mystery"
+        ],
+        "implements": [
+          "The Pre-Argent Light"
+        ],
+        "epiphanies": [
+          "The Priest and the Bread Thief",
+          "The Red Shoes"
+        ],
+        "addendum": "Crit DMG +43.75%",
+        "catalysts": [
+          "Tin",
+          "Ferroxene",
+          "Cryoflux"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Argos",
+        "slug": "argos",
+        "role": "Support",
+        "attribute": "Glacies",
+        "combat_style": "Combat Support",
+        "summary": "The buffer in the fourth seat: after his Ultimate the whole team gains up to +1150 ATK for 40s, and his Piercing Gaze charged attack adds +10% team damage on top of the triple-Ignis resonance.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      }
+    ]
+  },
+  {
+    "id": "full-spectrum",
+    "name": "Full Spectrum",
+    "tag": "Four Attributes",
+    "tag_note": "Attribute coverage",
+    "tags": [
+      "Boss",
+      "Flexible",
+      "Reaction",
+      "All content"
+    ],
+    "summary": "One unit of each of four attributes. No single resonance to lean on, so it trades that for coverage and reaction potential, with Cynthia controlling the fight.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "The Detective",
+        "slug": "detective",
+        "role": "Carry",
+        "attribute": "Gravitas",
+        "combat_style": "Striker DPS",
+        "summary": "Builds Ammunition into Raven Slayer and a piercing Charged Shot, and his Ultimate drops a Gravity Field that applies Time Dilation to enemies caught inside.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      },
+      {
+        "seat": 2,
+        "name": "Cynthia II",
+        "slug": "cynthia-ii",
+        "role": "Support",
+        "attribute": "Alba",
+        "combat_style": "Combat Support",
+        "summary": "Applies Sweetness Overload so enemies take +10% more damage, and her Ultimate boomerang pulls them together while it stays on the field dealing Alba DMG.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      },
+      {
+        "seat": 3,
+        "name": "Lorin",
+        "slug": "lorin",
+        "role": "Disruptor",
+        "attribute": "Fulmen",
+        "combat_style": "Break Suppressor",
+        "summary": "Fulmen Break Suppressor who charges Street Smarts into a heavy Strategic Retreat uppercut and his Non-Lethal Current Ultimate, interrupting enemies and soaking hits while rounding out the four-attribute spread.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Formalism Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "The Cursed Hound",
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Firtho",
+        "slug": "firtho",
+        "role": "Sustain",
+        "attribute": "Radiatio",
+        "combat_style": "Survival & Healing",
+        "summary": "The healer: her Second Heart Skill heals the whole team over time while stacking up to +12% team ATK, and her passive cuts the team's DMG taken by 20% while that buff is up.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Heart Rate Mystery"
+        ],
+        "implements": [
+          "Hippocratic Oath"
+        ],
+        "epiphanies": [
+          "The Last Leaf",
+          "Diamond Necklace"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Cryoflux",
+          "Tin",
+          "Acetic Acid"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "burning-verdict",
+    "name": "Burning Verdict",
+    "tag": "Double Ignis Burst",
+    "tag_note": "Ignis + buff",
+    "tags": [
+      "Boss",
+      "Burst",
+      "Team ATK",
+      "Ignis"
+    ],
+    "summary": "Two Ignis damage dealers running double resonance, a Gravitas carry to open with, and Argos turning his Ultimate into a huge team-wide attack boost.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "The Detective",
+        "slug": "detective",
+        "role": "Carry",
+        "attribute": "Gravitas",
+        "combat_style": "Striker DPS",
+        "summary": "Opens with Gravity Overdrive and a Gravity Field that pins enemies in Time Dilation while the Ignis pair ramps up.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      },
+      {
+        "seat": 2,
+        "name": "Cinderella",
+        "slug": "cinderella",
+        "role": "Ignis DPS",
+        "attribute": "Ignis",
+        "combat_style": "Striker DPS",
+        "summary": "Her Quenched window is the payoff: +35% Crit Rate from her passive and greatly enhanced attacks for 12s.",
+        "has_build": true,
+        "key_stats": [
+          "Crit Rate",
+          "Crit DMG"
+        ],
+        "motives": [
+          "The Burning Stone Mystery"
+        ],
+        "implements": [
+          "Embers and Flame"
+        ],
+        "epiphanies": [
+          "Cinderella",
+          "The Sword in Silvernia"
+        ],
+        "addendum": "Custom Cinderella Basic ATK +3",
+        "catalysts": [
+          "Vulkanash",
+          "Hexogen",
+          "Antimony"
+        ]
+      },
+      {
+        "seat": 3,
+        "name": "Alf",
+        "slug": "alf",
+        "role": "Ignis DPS",
+        "attribute": "Ignis",
+        "combat_style": "Break Suppressor",
+        "summary": "Second Ignis body for the resonance, adding shotgun and flamethrower pressure that spends Reserve Ammo.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Curiosity Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Argos",
+        "slug": "argos",
+        "role": "Buffer",
+        "attribute": "Glacies",
+        "combat_style": "Combat Support",
+        "summary": "The buffer: after his Ultimate the whole team gains up to +1150 ATK for 40s, and his Piercing Gaze charged attack adds +10% team damage.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      }
+    ]
+  },
+  {
+    "id": "slow-burn",
+    "name": "Slow Burn",
+    "tag": "Double Ignis, Survivable",
+    "tag_note": "Ignis + sustain",
+    "tags": [
+      "Boss",
+      "Ignis",
+      "Sustain",
+      "Forgiving"
+    ],
+    "summary": "The safer version of a double-Ignis team: two damage dealers plus the Detective, with a dedicated sustain seat instead of a pure buffer for content that hits back harder.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "Cinderella",
+        "slug": "cinderella",
+        "role": "Carry",
+        "attribute": "Ignis",
+        "combat_style": "Striker DPS",
+        "summary": "Cycles Overheat into Quenched for +35% Crit Rate and her strongest attacks, her main damage window.",
+        "has_build": true,
+        "key_stats": [
+          "Crit Rate",
+          "Crit DMG"
+        ],
+        "motives": [
+          "The Burning Stone Mystery"
+        ],
+        "implements": [
+          "Embers and Flame"
+        ],
+        "epiphanies": [
+          "Cinderella",
+          "The Sword in Silvernia"
+        ],
+        "addendum": "Custom Cinderella Basic ATK +3",
+        "catalysts": [
+          "Vulkanash",
+          "Hexogen",
+          "Antimony"
+        ]
+      },
+      {
+        "seat": 2,
+        "name": "The Detective",
+        "slug": "detective",
+        "role": "Sub-DPS",
+        "attribute": "Gravitas",
+        "combat_style": "Striker DPS",
+        "summary": "Adds a second damage source with Raven Slayer and a Gravity Field that applies Time Dilation between Cinderella's Quenched cycles.",
+        "has_build": false,
+        "key_stats": [],
+        "motives": [],
+        "implements": [],
+        "epiphanies": [],
+        "catalysts": []
+      },
+      {
+        "seat": 3,
+        "name": "Firtho",
+        "slug": "firtho",
+        "role": "Sustain",
+        "attribute": "Radiatio",
+        "combat_style": "Survival & Healing",
+        "summary": "Keeps the run alive through harder content: Second Heart heals the team over time, stacks team ATK, and her passive reduces the team's DMG taken by 20% while the buff holds.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Heart Rate Mystery"
+        ],
+        "implements": [
+          "Hippocratic Oath"
+        ],
+        "epiphanies": [
+          "The Last Leaf",
+          "Diamond Necklace"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Cryoflux",
+          "Tin",
+          "Acetic Acid"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Alf",
+        "slug": "alf",
+        "role": "Ignis DPS",
+        "attribute": "Ignis",
+        "combat_style": "Break Suppressor",
+        "summary": "Second Ignis body for double resonance, spending Reserve Ammo on shotgun and flamethrower attacks.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Curiosity Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "long-arm-of-the-law",
+    "name": "Long Arm of the Law",
+    "tag": "Triple Fulmen",
+    "tag_note": "Fulmen resonance",
+    "tags": [
+      "Boss",
+      "Resonance",
+      "Fulmen",
+      "Amplitude"
+    ],
+    "summary": "Three Fulmen bodies for the full resonance stack, Rex on point, Grimm shredding Fulmen RES and Lorin breaking the enemy, with Gucia pumping the team's Amplitude.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "Rex",
+        "slug": "rex",
+        "role": "Carry",
+        "attribute": "Fulmen",
+        "combat_style": "Resonance DPS",
+        "summary": "Fulmen carry who cycles Rage into Dual Truncheons and Volt Charge for Nunchucks Law, and his passive makes Fulmen Resonance Effects deal two additional instances, the engine of the stack.",
+        "has_build": true,
+        "key_stats": [
+          "Amplitude Coefficient",
+          "Amplitude Multiplier"
+        ],
+        "motives": [
+          "The Ordinance Mystery"
+        ],
+        "implements": [
+          "To Serve and Protect"
+        ],
+        "epiphanies": [
+          "Bloodline Feud",
+          "The Fall of the House of Rot"
+        ],
+        "addendum": "Custom Rex Skill Level +3",
+        "catalysts": [
+          "Sulfate",
+          "Alkali",
+          "Dry Ice"
+        ]
+      },
+      {
+        "seat": 2,
+        "name": "Grimm",
+        "slug": "grimm",
+        "role": "Fulmen Support",
+        "attribute": "Fulmen",
+        "combat_style": "Combat Support",
+        "summary": "The third Fulmen body: his camera Skill applies Full Exposé to strip up to 15% of an enemy's Fulmen RES, and his passive hands the whole team a Fulmen DMG bonus.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Flashbulb Mystery"
+        ],
+        "implements": [
+          "City Grime Alliance"
+        ],
+        "epiphanies": [
+          "The Metamorphosis"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Cryoflux",
+          "Stone"
+        ]
+      },
+      {
+        "seat": 3,
+        "name": "Lorin",
+        "slug": "lorin",
+        "role": "Break",
+        "attribute": "Fulmen",
+        "combat_style": "Break Suppressor",
+        "summary": "Fulmen Break Suppressor: charges Street Smarts into a heavy Strategic Retreat uppercut and his Non-Lethal Current Ultimate, interrupting enemies and soaking hits while completing the resonance trio.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Formalism Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "The Cursed Hound",
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Gucia",
+        "slug": "gucia",
+        "role": "Support",
+        "attribute": "Alba",
+        "combat_style": "Combat Support",
+        "summary": "Alba amplitude support: her Ultimate raises the whole team's Amplitude Coefficient by 10% for 40s, and her passive feeds allies more Amplitude when they Tactical Assault in.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Ivory Tower Mystery"
+        ],
+        "implements": [
+          "Retainer's Code"
+        ],
+        "epiphanies": [
+          "The Tragedy of Man",
+          "Resurrected Monstrosity",
+          "The Last Leaf"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Acetic Acid",
+          "Tin",
+          "Cryoflux"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "frozen-assets",
+    "name": "Frozen Assets",
+    "tag": "Bentham Bruiser",
+    "tag_note": "Glacies carry + control",
+    "tags": [
+      "Boss",
+      "Glacies",
+      "Control",
+      "Amplitude"
+    ],
+    "summary": "Bentham carries while a control-and-amplitude core keeps the fight pinned: Gucia lifts the team's Amplitude, Lorin breaks the enemy, and Grimm strips resistance and interrupts.",
+    "members": [
+      {
+        "seat": 1,
+        "name": "Bentham",
+        "slug": "bentham",
+        "role": "Carry",
+        "attribute": "Glacies",
+        "combat_style": "Resonance DPS",
+        "summary": "Builds Funds and Liquid Assets into her Contractual Circle combo, and her passive makes her Glacies Resonance Effects deal two additional instances.",
+        "has_build": true,
+        "key_stats": [
+          "Amplitude Coefficient",
+          "Amplitude Multiplier"
+        ],
+        "motives": [
+          "The Office Mystery"
+        ],
+        "implements": [
+          "To Serve and Protect"
+        ],
+        "epiphanies": [
+          "Killing That Which You Love"
+        ],
+        "addendum": "Custom Bentham Ultimate Level +3",
+        "catalysts": [
+          "Asphaltnium",
+          "Cryoflux",
+          "Dry Ice"
+        ]
+      },
+      {
+        "seat": 2,
+        "name": "Gucia",
+        "slug": "gucia",
+        "role": "Support",
+        "attribute": "Alba",
+        "combat_style": "Combat Support",
+        "summary": "Alba amplitude support whose buff helps any attribute: her Ultimate raises the whole team's Amplitude Coefficient by 10% for 40s, and her passive feeds allies more Amplitude when they Tactical Assault in.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Ivory Tower Mystery"
+        ],
+        "implements": [
+          "Retainer's Code"
+        ],
+        "epiphanies": [
+          "The Tragedy of Man",
+          "Resurrected Monstrosity",
+          "The Last Leaf"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Acetic Acid",
+          "Tin",
+          "Cryoflux"
+        ]
+      },
+      {
+        "seat": 3,
+        "name": "Lorin",
+        "slug": "lorin",
+        "role": "Break",
+        "attribute": "Fulmen",
+        "combat_style": "Break Suppressor",
+        "summary": "Fulmen Break Suppressor: charges Street Smarts into a heavy uppercut and his Non-Lethal Current Ultimate, interrupting enemies and soaking hits so Bentham can build freely.",
+        "has_build": true,
+        "key_stats": [
+          "Break Exploit",
+          "Stun Buildup Bonus"
+        ],
+        "motives": [
+          "The Formalism Mystery"
+        ],
+        "implements": [
+          "Cogs of the City"
+        ],
+        "epiphanies": [
+          "The Cursed Hound",
+          "White Beast of the Deep"
+        ],
+        "addendum": "Break Exploit 70",
+        "catalysts": [
+          "Alkali"
+        ]
+      },
+      {
+        "seat": 4,
+        "name": "Grimm",
+        "slug": "grimm",
+        "role": "Disruptor",
+        "attribute": "Fulmen",
+        "combat_style": "Combat Support",
+        "summary": "Fulmen control support: his camera Skill applies Full Exposé to shred Fulmen RES and interrupt, adding a second disruption threat alongside Lorin.",
+        "has_build": true,
+        "key_stats": [
+          "HP",
+          "Ultimate Charge Efficiency"
+        ],
+        "motives": [
+          "The Flashbulb Mystery"
+        ],
+        "implements": [
+          "City Grime Alliance"
+        ],
+        "epiphanies": [
+          "The Metamorphosis"
+        ],
+        "addendum": "Ultimate Charge Efficiency Addendum",
+        "catalysts": [
+          "Cryoflux",
+          "Stone"
+        ]
+      }
+    ]
+  }
+]

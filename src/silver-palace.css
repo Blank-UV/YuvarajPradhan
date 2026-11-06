@@ -1,4 +1,4 @@
-/* Silver Palace archive. Reuses the layout classes of wuwa.css (wuwa-section, wuwa-toolbar, ...) and
+﻿/* Silver Palace archive. Reuses the layout classes of wuwa.css (wuwa-section, wuwa-toolbar, ...) and
    re-themes them with a crimson palette; everything specific to this game is prefixed sp-. */
 .wuwa-site.sp-site {
   --accent: #e5383b;
@@ -871,4 +871,703 @@
 .sp-tabs button.on,
 .sp-main-tabs button.on {
   color: #fff;
+}
+
+/* Guides: gacha guide scraped from Hideout Guides */
+.sp-guide {
+  max-width: 1100px;
+  --g-accent: #4db3ff;
+  --g-panel: linear-gradient(160deg, #10284a 0%, #0b1a33 100%);
+  --g-panel-2: #12305a;
+  --g-line: #2b5a94;
+}
+.sp-guide .wuwa-panel {
+  gap: 14px;
+  font: inherit;
+  color: var(--w-text);
+}
+.sp-guide-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sp-guide-text,
+.sp-guide-steps p,
+.sp-guide-note p {
+  margin: 0;
+  color: var(--w-muted);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.sp-guide-equation {
+  margin: 0;
+  padding: 14px 18px;
+  border-left: 3px solid var(--g-accent);
+  background: var(--g-panel-2);
+  color: var(--w-text);
+  font:
+    700 clamp(16px, 2vw, 20px) 'Space Grotesk',
+    sans-serif;
+}
+.sp-guide-stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 10px;
+}
+.sp-guide-stats li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  background: var(--g-panel);
+  border: 1px solid var(--g-line);
+  border-top: 2px solid var(--g-accent);
+}
+.sp-guide-stats b {
+  color: var(--w-num);
+  font:
+    700 clamp(28px, 3.4vw, 40px) / 1 'Space Grotesk',
+    sans-serif;
+}
+.sp-guide-stats span {
+  color: var(--w-muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.sp-guide-jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 4px;
+}
+.sp-guide-jump a {
+  padding: 8px 14px;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel);
+  color: var(--w-muted);
+  font:
+    600 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.sp-guide-jump a:hover,
+.sp-guide-jump a:focus-visible {
+  color: var(--accent);
+  border-color: var(--g-accent);
+}
+.sp-guide-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+  scroll-margin-top: 24px;
+}
+.sp-guide-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: var(--w-text);
+  font:
+    700 16px/1.2 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.sp-guide-section h2::before {
+  content: '';
+  width: 11px;
+  height: 11px;
+  background: var(--accent);
+}
+.sp-guide-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--g-line);
+}
+.sp-guide-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--g-panel);
+  font-size: 14px;
+}
+.sp-guide-table th,
+.sp-guide-table td {
+  padding: 11px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--g-line);
+}
+.sp-guide-table th {
+  background: var(--g-panel-2);
+  color: var(--accent);
+  font:
+    700 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sp-guide-table td {
+  color: var(--w-text);
+}
+.sp-guide-table td:last-child {
+  color: var(--w-num);
+  font-weight: 600;
+}
+.sp-guide-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+.sp-guide-note {
+  display: flex;
+  gap: 14px;
+  padding: 16px 18px;
+  background: var(--g-panel-2);
+  border: 1px solid var(--g-line);
+  border-left: 3px solid var(--g-accent);
+}
+.sp-guide-note i {
+  flex: 0 0 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--g-accent);
+  color: var(--accent);
+  font:
+    italic 700 13px 'Space Grotesk',
+    serif;
+}
+.sp-guide-note b,
+.sp-guide-steps b,
+.sp-guide-cards b {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--w-text);
+  font:
+    700 15px 'Space Grotesk',
+    sans-serif;
+}
+.sp-guide-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+  counter-reset: sp-step;
+}
+.sp-guide-steps li {
+  position: relative;
+  padding: 16px 18px 16px 62px;
+  background: var(--g-panel);
+  border: 1px solid var(--g-line);
+  counter-increment: sp-step;
+}
+.sp-guide-steps li::before {
+  content: counter(sp-step);
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  background: var(--accent);
+  color: #fff;
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+}
+.sp-guide-cards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 10px;
+}
+.sp-guide-cards li {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 16px 18px;
+  background: var(--g-panel);
+  border: 1px solid var(--g-line);
+}
+.sp-guide-cards img {
+  flex: 0 0 48px;
+  object-fit: contain;
+}
+.sp-guide-cards em {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--accent);
+  font:
+    600 11px 'DM Mono',
+    monospace;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sp-guide-cards small {
+  color: var(--w-muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+.sp-guide-video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--g-line);
+  background: #000;
+}
+.sp-guide-video iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.sp-guide-source {
+  margin: 40px 0 20px;
+  color: var(--w-muted);
+  font:
+    500 12px 'DM Mono',
+    monospace;
+}
+.sp-guide-source a {
+  color: var(--accent);
+}
+
+.sp-site.theme-light .sp-guide {
+  --g-accent: #1a6fc4;
+  --g-panel: linear-gradient(160deg, #e3f0ff 0%, #cfe3fa 100%);
+  --g-panel-2: #c4dbf5;
+  --g-line: #8fb6e0;
+}
+.sp-guide-section h2::before,
+.sp-guide-steps li::before {
+  background: var(--g-accent);
+}
+.sp-guide-table th,
+.sp-guide-cards em,
+.sp-guide-note i {
+  color: var(--g-accent);
+}
+.sp-guide .wuwa-btn {
+  margin-top: 40px;
+}
+
+.sp-guide-subheading {
+  margin: 8px 0 0;
+  color: var(--g-accent);
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sp-guide-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.sp-guide-chips li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px 8px 8px;
+  background: var(--g-panel);
+  border: 1px solid var(--g-line);
+}
+.sp-guide-chips img {
+  object-fit: contain;
+}
+.sp-guide-chips b {
+  color: var(--w-text);
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+}
+.sp-guide-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--g-line);
+}
+
+.sp-guide-section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--g-line);
+}
+.sp-guide .sp-guide-check {
+  margin-top: 0;
+  min-height: 34px;
+  padding: 0 16px;
+  font-size: 12px;
+}
+
+.sp-guide-chips span {
+  display: flex;
+  flex-direction: column;
+}
+.sp-guide-chips small {
+  color: var(--g-accent);
+  font:
+    600 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.04em;
+}
+
+.sp-guide-chip-blank {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--g-accent);
+  border-radius: 50%;
+  background: var(--g-panel-2);
+  color: var(--g-accent);
+  font:
+    700 18px 'Space Grotesk',
+    sans-serif;
+  font-style: normal;
+}
+
+/* Guides: team compositions */
+.sp-guide.sp-teams {
+  max-width: 1400px;
+}
+.sp-team-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 24px;
+}
+.sp-team-filter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel);
+  color: var(--w-muted);
+  font:
+    600 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.sp-team-filter button small {
+  color: var(--g-accent);
+}
+.sp-team-filter button.on,
+.sp-team-filter button:hover,
+.sp-team-filter button:focus-visible {
+  border-color: var(--g-accent);
+  color: var(--w-text);
+}
+.sp-team-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.sp-team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: sticky;
+  top: 24px;
+}
+.sp-team-list button {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 12px;
+  align-items: center;
+  padding: 12px 14px;
+  text-align: left;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel);
+  color: var(--w-text);
+  cursor: pointer;
+}
+.sp-team-list button.on,
+.sp-team-list button:hover,
+.sp-team-list button:focus-visible {
+  border-color: var(--g-accent);
+}
+.sp-team-list button.on {
+  box-shadow: inset 3px 0 0 var(--g-accent);
+}
+.sp-team-list b {
+  grid-column: 1 / -1;
+  font:
+    700 14px 'Space Grotesk',
+    sans-serif;
+}
+.sp-team-num {
+  color: var(--g-accent);
+  font:
+    700 13px 'DM Mono',
+    monospace;
+}
+.sp-team-faces {
+  display: flex;
+  gap: 4px;
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+.sp-team-faces span {
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel-2);
+}
+.sp-team-faces img,
+.sp-team-portrait img,
+.sp-team-seat-art img,
+.sp-team-gear-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.sp-team-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+.sp-team-detail .sp-guide-section-head h2::before {
+  display: none;
+}
+.sp-team-steppers {
+  display: flex;
+  gap: 6px;
+  margin-left: auto;
+}
+.sp-team-steppers button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel);
+  color: var(--w-text);
+  font-size: 18px;
+  cursor: pointer;
+}
+.sp-team-steppers button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.sp-team-seats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+}
+.sp-team-seats button {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 8px 12px 8px 8px;
+  text-align: left;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel);
+  color: var(--w-text);
+  cursor: pointer;
+}
+.sp-team-seats button.on,
+.sp-team-seats button:hover,
+.sp-team-seats button:focus-visible {
+  border-color: var(--g-accent);
+}
+.sp-team-seats button.on {
+  background: var(--g-panel-2);
+}
+.sp-team-seat-art {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  background: var(--g-panel-2);
+}
+.sp-team-seat-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.sp-team-seat-text small,
+.sp-team-member-head small {
+  color: var(--g-accent);
+  font:
+    600 11px 'DM Mono',
+    monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.sp-team-seat-text b,
+.sp-team-member-head b {
+  font:
+    700 15px 'Space Grotesk',
+    sans-serif;
+}
+.sp-team-member,
+.sp-team-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  background: var(--g-panel);
+  border: 1px solid var(--g-line);
+}
+.sp-team-member-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sp-team-member-head > span:last-child {
+  display: flex;
+  flex-direction: column;
+}
+.sp-team-portrait {
+  width: 72px;
+  height: 72px;
+  overflow: hidden;
+  border: 1px solid var(--g-accent);
+  background: var(--g-panel-2);
+}
+.sp-team-chips,
+.sp-team-tags,
+.sp-team-gear {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sp-team-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel-2);
+  color: var(--w-text);
+  font:
+    600 12px 'DM Mono',
+    monospace;
+}
+.sp-team-tags li {
+  padding: 4px 10px;
+  border: 1px solid var(--g-line);
+  color: var(--w-muted);
+  font:
+    600 12px 'DM Mono',
+    monospace;
+}
+.sp-team-block h4 {
+  margin: 0 0 8px;
+  color: var(--g-accent);
+  font:
+    700 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sp-team-gear-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--g-line);
+  background: var(--g-panel-2);
+  color: var(--w-text);
+  font:
+    600 13px 'Space Grotesk',
+    sans-serif;
+  text-decoration: none;
+}
+a.sp-team-gear-item:hover,
+a.sp-team-gear-item:focus-visible {
+  border-color: var(--g-accent);
+  color: var(--g-accent);
+}
+.sp-team-gear-art {
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  background: var(--g-panel);
+}
+.sp-team-addendum {
+  margin: 8px 0 0;
+  color: var(--w-muted);
+  font-size: 13px;
+}
+.sp-team-addendum b {
+  color: var(--w-num);
+}
+.sp-guide .sp-team-link {
+  align-self: flex-start;
+  margin-top: 0;
+}
+.sp-team-tagline {
+  margin: 0;
+  color: var(--w-text);
+  font:
+    700 16px 'Space Grotesk',
+    sans-serif;
+}
+.sp-team-tagline span {
+  color: var(--w-muted);
+  font-weight: 500;
+}
+.sp-team-comp {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+  margin: 0;
+}
+.sp-team-comp dt {
+  margin-bottom: 8px;
+  color: var(--g-accent);
+  font:
+    700 12px 'DM Mono',
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sp-team-comp dd {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.sp-team-comp dd span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.sp-team-comp dd b {
+  color: var(--w-num);
+}
+@media (max-width: 900px) {
+  .sp-team-layout {
+    grid-template-columns: 1fr;
+  }
+  .sp-team-list {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
 }

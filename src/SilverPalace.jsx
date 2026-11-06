@@ -24,7 +24,11 @@ import { CatalystPage, CatalystsPage, emptyCatalystFilters } from './SilverPalac
 
 import { ImplementPage, ImplementsPage, emptyImplementFilters } from './SilverPalaceImplements.jsx'
 
+import SilverPalaceGuide, { GUIDE_TABS } from './SilverPalaceGuide.jsx'
+import SilverPalaceTeams from './SilverPalaceTeams.jsx'
+
 const BASE = '/silver-palace'
+const GUIDES = `${BASE}/guides`
 const ARCHIVE_TABS = [
   { id: 'characters', label: 'Characters', href: `${ARCHIVE}/characters` },
   { id: 'motives', label: 'Motives', href: `${ARCHIVE}/motives` },
@@ -66,7 +70,35 @@ function parseRoute(pathname) {
     if (rest[1] === 'implements' && rest.length === 2) return { page: 'implements' }
     if (rest[1] === 'implements' && rest.length === 3) return { page: 'implement', slug: rest[2] }
   }
+  if (rest[0] === 'guides') {
+    if (rest.length === 1) return { page: 'redirect', to: `${GUIDES}/${GUIDE_TABS[0].id}` }
+    if (rest.length === 2 && GUIDE_TABS.some((tab) => tab.id === rest[1]))
+      return { page: 'guide', id: rest[1] }
+  }
   return { page: 'missing' }
+}
+
+function GuideBar({ active, navigate }) {
+  return (
+    <header className="wuwa-archive-bar">
+      <p className="wuwa-archive-title">
+        <i aria-hidden="true" /> Guides
+      </p>
+      <nav className="wuwa-archive-tabs" aria-label="Guides sections">
+        {GUIDE_TABS.map((tab) => (
+          <RouteLink
+            key={tab.id}
+            to={`${GUIDES}/${tab.id}`}
+            navigate={navigate}
+            className={active === tab.id ? 'on' : ''}
+            aria-current={active === tab.id ? 'page' : undefined}
+          >
+            {tab.label}
+          </RouteLink>
+        ))}
+      </nav>
+    </header>
+  )
 }
 
 function ArchiveBar({ active, navigate }) {
@@ -547,6 +579,9 @@ function HomePage({ navigate }) {
           <RouteLink className="wuwa-btn primary" to={`${ARCHIVE}/characters`} navigate={navigate}>
             Browse characters {'\u2192'}
           </RouteLink>
+          <RouteLink className="wuwa-btn primary" to={GUIDES} navigate={navigate}>
+            Guides {'\u2192'}
+          </RouteLink>
         </div>
         <ul className="wuwa-home-tags" aria-label="Highlights">
           <li>The Detective</li>
@@ -589,8 +624,8 @@ export default function SilverPalace() {
       implements: 'Implements',
       implement: route.slug?.replace(/-/g, ' '),
     }[route.page]
-    document.title = `${site.identity.channelName} \u2014 Silver Palace${section ? ` \u00B7 ${section}` : ''}`
-  }, [route.page, route.slug])
+    document.title = `${site.identity.channelName} \u2014 Silver Palace${route.page === 'guide' ? ` \u00B7 ${route.id} guide` : section ? ` \u00B7 ${section}` : ''}`
+  }, [route.page, route.slug, route.id])
 
   const archiveTab = {
     list: 'characters',
@@ -632,7 +667,7 @@ export default function SilverPalace() {
         bottomIcon={'\u2190'}
         colorMode={colorMode}
         onToggleColorMode={toggleColorMode}
-        activeId={inArchive ? 'archives' : ''}
+        activeId={inArchive ? 'archives' : route.page === 'guide' ? 'guides' : ''}
         onNavigate={(href, event) => {
           if (!href || !plainClick(event)) return
           event.preventDefault()
@@ -641,6 +676,11 @@ export default function SilverPalace() {
       />
       <main id="main" className={`wuwa-main${route.page === 'home' ? ' is-home' : ''}`}>
         {inArchive && <ArchiveBar active={archiveTab} navigate={navigate} />}
+        {route.page === 'guide' && <GuideBar active={route.id} navigate={navigate} />}
+        {route.page === 'guide' && route.id === 'team' && <SilverPalaceTeams navigate={navigate} />}
+        {route.page === 'guide' && route.id !== 'team' && (
+          <SilverPalaceGuide key={route.id} id={route.id} navigate={navigate} />
+        )}
         {route.page === 'home' && <HomePage navigate={navigate} />}
         {route.page === 'list' && (
           <CharactersPage navigate={navigate} filters={filters} setFilters={setFilters} />

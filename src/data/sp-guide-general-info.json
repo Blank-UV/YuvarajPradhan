@@ -1,0 +1,370 @@
+{
+  "title": "Silver Palace General Info",
+  "updated": "2026-10-02",
+  "intro": {
+    "blocks": [
+      {
+        "type": "text",
+        "text": "A character collection action game set in the city of Silvernia. You play the Detective, the story runs case by case, and fights are real time: you attack in rhythm, parry and dodge, break an enemy’s poise to Execute them, and swap characters to spend Reactor Energy on Tactical Assaults."
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "value": "3 systems",
+            "label": "Decide your account: the parry, Resonance, and matching the four gear types to each character"
+          }
+        ]
+      }
+    ]
+  },
+  "sections": [
+    {
+      "id": "what-silver-palace-is",
+      "title": "What Silver Palace Is",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "4",
+              "label": "Characters on your team, swapped between in real time"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Silver Palace is set in Silvernia, a city of detectives, aristocratic houses and a great many secrets. You play as the Detective, and the story advances case by case rather than as one continuous campaign."
+        },
+        {
+          "type": "note",
+          "title": "The framing is not only flavour",
+          "text": "The investigation structure is also how the game paces out its systems and unlocks."
+        },
+        {
+          "type": "text",
+          "text": "What separates it from most of the genre is the combat. Fights are real time action, not menus and turn order. You chain attacks, block and dodge inside tight timing windows, and swap between the four characters on your team to keep pressure up."
+        },
+        {
+          "type": "text",
+          "text": "If you have played a character action game, the tempo will feel familiar within minutes; the depth comes from the systems layered on top."
+        }
+      ]
+    },
+    {
+      "id": "how-combat-works",
+      "title": "How Combat Works",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "3",
+              "label": "Reactor Energy you can hold at most"
+            },
+            {
+              "value": "1 bar",
+              "label": "Of Reactor Gauge makes one Reactor Energy"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "The moment to moment is built from a handful of actions, and all of them appear in the tutorial. Getting comfortable with them early is the highest value thing a new account can do, because every later system runs through this loop."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Attack",
+              "name": "Basic & Charged Attacks",
+              "text": "Tap to chain a Basic string; hold to land a heavier Charged Attack that can feed into set points of the string.",
+              "image": null
+            },
+            {
+              "label": "Defend",
+              "name": "Parry",
+              "text": "A timed block on its own button that throws the incoming attack back at the attacker. This is the real skill ceiling.",
+              "image": null
+            },
+            {
+              "label": "Defend",
+              "name": "Perfect Dodge",
+              "text": "A dodge timed right as an attack lands. It costs Stamina but opens a counter window.",
+              "image": null
+            },
+            {
+              "label": "Finish",
+              "name": "Stun, Break & Execute",
+              "text": "Your hits build Stun and crack enemy poise. Once broken, a stunned enemy can be Executed for a heavy finisher that reaches at range.",
+              "image": null
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "The Reactor system"
+        },
+        {
+          "type": "text",
+          "text": "Layered on top is the Reactor system, which is what makes swapping matter."
+        },
+        {
+          "type": "steps",
+          "items": [
+            {
+              "title": "Attack to fill the gauge",
+              "text": "Attacking fills your Reactor Gauge, and each full bar becomes one Reactor Energy (you can hold up to three)."
+            },
+            {
+              "title": "Swap while holding Energy",
+              "text": "That swap becomes a Tactical Assault: a damaging entrance that also applies an effect tied to the incoming character."
+            },
+            {
+              "title": "Make Silverdrip",
+              "text": "Executions, Parries and some abilities produce Silverdrip, which fills the gauge faster."
+            },
+            {
+              "title": "Spend the Ultimate",
+              "text": "Every character also has an Ultimate that charges over the fight and pays off a rotation."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reactor-attributes-and-resonance",
+      "title": "Reactor Attributes and Resonance",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "7",
+              "label": "Reactor Attributes, each named in Latin"
+            },
+            {
+              "value": "6 of 7",
+              "label": "Already have playable characters"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Every character belongs to a Reactor Attribute. Ferrugo is confirmed but has no character released yet."
+        },
+        {
+          "type": "chips",
+          "items": [
+            {
+              "name": "Ignis",
+              "image": "attributes-ignis.webp"
+            },
+            {
+              "name": "Glacies",
+              "image": "attributes-glacies.webp"
+            },
+            {
+              "name": "Gravitas",
+              "image": "attributes-gravitas.webp"
+            },
+            {
+              "name": "Fulmen",
+              "image": "attributes-fulmen.webp"
+            },
+            {
+              "name": "Radiatio",
+              "image": "attributes-radiatio.webp"
+            },
+            {
+              "name": "Alba",
+              "image": "attributes-alba.webp"
+            },
+            {
+              "name": "Ferrugo",
+              "note": "No character yet",
+              "image": "attributes-ferrugo.webp"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Resonance is the reason teams are built around a shared Attribute rather than raw power. As you land hits, a Resonance meter charges for the attacker’s Attribute, and the more characters of that Attribute you run, the faster it fills. Fill it and you set off that Attribute’s Resonance Effect."
+        },
+        {
+          "type": "note",
+          "title": "Resonance Effects",
+          "text": "Ignis bursts the target, Glacies applies damage over time, and so on."
+        },
+        {
+          "type": "note",
+          "title": "Two stats govern how hard those effects hit",
+          "text": "Amplitude Coefficient is their Crit Rate, and Amplitude Multiplier is their Crit DMG."
+        }
+      ]
+    },
+    {
+      "id": "the-stats-that-matter",
+      "title": "The Stats That Matter",
+      "blocks": [
+        {
+          "type": "text",
+          "text": "Silver Palace uses its own vocabulary for damage. These are the terms you will see on Motives, Epiphanies and character kits, in plain language."
+        },
+        {
+          "type": "cards",
+          "items": [
+            {
+              "label": "Damage",
+              "name": "DMG Bonus",
+              "text": "Extra damage on top of your base. Universal DMG% lifts everything, an attribute line such as Ignis DMG% lifts one element, and an action line such as Skill DMG% lifts one source.",
+              "image": null
+            },
+            {
+              "label": "Resonance",
+              "name": "Amplitude Coefficient",
+              "text": "Crit Rate for Resonance Effects: the chance their damage is multiplied.",
+              "image": null
+            },
+            {
+              "label": "Resonance",
+              "name": "Amplitude Multiplier",
+              "text": "Crit DMG for Resonance Effects: the size of that multiplier.",
+              "image": null
+            },
+            {
+              "label": "Break",
+              "name": "Break Exploit",
+              "text": "Higher values give quicker Defence Reduction on the target and faster Resonance buildup.",
+              "image": null
+            },
+            {
+              "label": "Stun",
+              "name": "Stun Buildup Bonus",
+              "text": "Raises the Stun your hits apply, cracking enemy poise sooner so you can Execute.",
+              "image": null
+            },
+            {
+              "label": "Ultimate",
+              "name": "Ultimate Charge Efficiency",
+              "text": "Speeds up how fast your Ultimate fills.",
+              "image": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "characters-identities-and-styles",
+      "title": "Characters: Identities and Styles",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "5",
+              "label": "Combat Styles"
+            },
+            {
+              "value": "6",
+              "label": "Identities"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "A character is described by more than a rarity number. Each has a Reactor Attribute, a Combat Style, an Identity, a Faction, and a signature Motive. Those fields are not just decoration. Identity in particular governs which Motives a character can equip, so it feeds directly into how you gear them."
+        },
+        {
+          "type": "heading",
+          "text": "Combat Styles"
+        },
+        {
+          "type": "text",
+          "text": "How they actually play."
+        },
+        {
+          "type": "chips",
+          "items": [
+            {
+              "name": "Resonance DPS",
+              "image": "combat-styles-resonance-dps.webp"
+            },
+            {
+              "name": "Striker DPS",
+              "image": "combat-styles-striker-dps.webp"
+            },
+            {
+              "name": "Break Suppressor",
+              "image": "combat-styles-break-suppressor.webp"
+            },
+            {
+              "name": "Combat Support",
+              "image": "combat-styles-combat-support.webp"
+            },
+            {
+              "name": "Survival & Healing",
+              "image": "combat-styles-survival-healing.webp"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "text": "Identities"
+        },
+        {
+          "type": "text",
+          "text": "A Motive only works on a character of its matching Identity."
+        },
+        {
+          "type": "chips",
+          "items": [
+            {
+              "name": "Hero",
+              "image": "identities-hero.webp"
+            },
+            {
+              "name": "Witness",
+              "image": "identities-witness.webp"
+            },
+            {
+              "name": "Saviour",
+              "image": "identities-saviour.webp"
+            },
+            {
+              "name": "Guardian",
+              "image": "identities-guardian.webp"
+            },
+            {
+              "name": "Outlaw",
+              "image": "identities-outlaw.webp"
+            },
+            {
+              "name": "Victim",
+              "image": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "the-four-gear-types",
+      "title": "The Four Gear Types",
+      "blocks": [
+        {
+          "type": "stats",
+          "items": [
+            {
+              "value": "4 types",
+              "label": "Each acquired and equipped its own way"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "text": "Gear is not a single system. Getting it right matters more than chasing raw rarity, and the Gear Guide covers each in depth."
+        }
+      ]
+    }
+  ]
+}
